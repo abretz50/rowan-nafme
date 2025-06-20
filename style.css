@@ -5,6 +5,7 @@
   --gray: #f4f4f4;
   --text: #222;
 }
+
 body {
   font-family: Arial, sans-serif;
   background-color: var(--gray);
@@ -12,27 +13,60 @@ body {
   margin: 0;
   padding: 0;
 }
-header {
-  background-color: var(--blue);
-  color: var(--white);
-  padding: 1rem;
+
+/* Navbar Styles */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
 }
-nav ul {
+
+.nav-container {
   display: flex;
-  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav-logo {
+  height: 50px;
+  width: auto;
+}
+
+.nav-links {
+  display: flex;
   list-style: none;
+  gap: 1.25rem;
+  margin: 0;
   padding: 0;
 }
-nav a {
-  color: var(--white);
+
+.nav-links a {
+  color: white;
   text-decoration: none;
-  font-weight: bold;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  font-weight: 600;
+  transition: background 0.3s;
 }
+
+.nav-links a:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Content Wrapper to clear space under fixed navbar */
 main {
-  padding: 2rem;
+  padding: 140px 2rem 2rem 2rem;
   background: var(--white);
   min-height: 60vh;
 }
+
 footer {
   background-color: var(--blue);
   color: var(--white);
