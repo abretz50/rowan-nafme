@@ -1,31 +1,39 @@
-
-console.log("Rowan NAfME site loaded");
-
 document.addEventListener("DOMContentLoaded", () => {
-  const navLinks = document.querySelectorAll(".nav-links a");
-  const currentPath = window.location.pathname;
-  const hash = window.location.hash;
+  const searchInput = document.getElementById("searchInput");
+  const tags = document.querySelectorAll(".tag");
+  const eventsContainer = document.getElementById("eventsContainer");
 
-  // Clear active state initially
-  navLinks.forEach(link => link.classList.remove("active"));
+  const events = [
+    { name: "Fall Concert", type: "Performances" },
+    { name: "Community Cleanup", type: "Volunteer" },
+    { name: "Monthly Meeting", type: "General Meeting" },
+    { name: "Resume Workshop", type: "Professional Development" }
+  ];
 
-  // Set active state based on pathname for regular pages
-  navLinks.forEach(link => {
-    const linkHref = link.getAttribute("href");
-    if (currentPath.endsWith(linkHref) && !linkHref.includes("#")) {
-      link.classList.add("active");
-    }
-  });
-
-  // Scroll-based highlight for #our-chapter
-  const chapterLink = document.querySelector('.nav-links a[href$="#our-chapter"]');
-  const chapterSection = document.getElementById("our-chapter");
-
-  if (chapterLink && chapterSection) {
-    window.addEventListener("scroll", () => {
-      const rect = chapterSection.getBoundingClientRect();
-      const inView = rect.top <= window.innerHeight * 0.5 && rect.bottom >= 0;
-      chapterLink.classList.toggle("active", inView);
+  function renderEvents(filterText = "", filterTag = "") {
+    eventsContainer.innerHTML = "";
+    const filtered = events.filter(e =>
+      (!filterText || e.name.toLowerCase().includes(filterText.toLowerCase())) &&
+      (!filterTag || e.type === filterTag)
+    );
+    filtered.forEach(e => {
+      const div = document.createElement("div");
+      div.textContent = `${e.name} (${e.type})`;
+      div.className = "event-entry";
+      eventsContainer.appendChild(div);
     });
   }
+
+  searchInput.addEventListener("input", () => {
+    renderEvents(searchInput.value);
+  });
+
+  tags.forEach(tag => {
+    tag.addEventListener("click", () => {
+      const type = tag.textContent;
+      renderEvents(searchInput.value, type);
+    });
+  });
+
+  renderEvents();
 });

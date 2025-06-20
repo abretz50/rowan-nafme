@@ -1,49 +1,48 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Events | Rowan NAfME</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
   <script defer src="script.js"></script>
 </head>
 <body>
-  <header class="navbar" id="navbar">
-    <div class="nav-container">
-      <a href="index.html" class="logo-wrapper">
-        <img src="logo.png" alt="Rowan NAfME Logo" class="nav-logo" />
-        <span class="logo-text"><span>NAfME</span><span>Rowan</span></span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="index.html#our-chapter">Our Chapter</a></li>
-        <li><a href="events.html" class="active">Events</a></li>
-        <li><a href="convention.html">Convention</a></li>
-        <li><a href="eboard.html">E-Board</a></li>
-        <li><a href="resources.html">Resources</a></li>
-      </ul>
+  <header class="navbar">
+    <div class="logo-title">
+      <img src="nafmepreview.png" alt="NAfME Logo" class="logo"/>
+      <div class="title-text">
+        <div class="nafme">NAfME</div>
+        <div class="rowan">Rowan</div>
+      </div>
     </div>
+    <nav class="nav-buttons">
+      <a href="index.html">Our Chapter</a>
+      <a href="events.html" class="active">Events</a>
+      <a href="convention.html">Convention</a>
+      <a href="eboard.html">E-Board</a>
+      <a href="resources.html">Resources</a>
+    </nav>
   </header>
 
-  <main style="max-width: 1000px; margin: auto; padding: 2rem;">
-    <h2>Upcoming Events</h2>
-
-    <input type="text" id="searchInput" placeholder="Search events..." />
-
-    <div class="tags" style="margin-top: 1rem;">
-      <button class="tag" data-type="performance">Performances</button>
-      <button class="tag" data-type="volunteer">Volunteer</button>
-      <button class="tag" data-type="general">General Meeting</button>
-      <button class="tag" data-type="pd">Professional Development</button>
+  <main class="main-content events-page">
+    <div class="events-search-container">
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search events..." />
+        <span class="search-icon">&#128269;</span>
+      </div>
+      <div class="filter-tags">
+        <button class="tag tag-performance">Performances</button>
+        <button class="tag tag-volunteer">Volunteer</button>
+        <button class="tag tag-meeting">General Meeting</button>
+        <button class="tag tag-development">Professional Development</button>
+      </div>
     </div>
-
-    <section class="events-container" id="eventsContainer">
-      <!-- JS populates event cards here -->
-    </section>
+    <div id="eventsContainer" class="events-container"></div>
   </main>
 
   <footer>
-    <p>&copy; Rowan NAfME Chapter</p>
+    <p>© Rowan NAfME Chapter</p>
   </footer>
 </body>
 </html>
