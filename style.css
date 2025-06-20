@@ -41,6 +41,9 @@ body {
 }
 
 .nav-links {
+  flex-wrap: wrap;
+  justify-content: center;
+
   display: flex;
   list-style: none;
   gap: 1.25rem;
