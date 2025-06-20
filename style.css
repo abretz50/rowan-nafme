@@ -22,19 +22,21 @@ body {
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(10px);
   z-index: 1000;
+  display: flex;
+  justify-content: center;
 }
 
 .nav-container {
+  width: 90%;
+  max-width: 960px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
 .nav-logo {
-  height: 50px;
+  height: 75px;
   width: auto;
 }
 
