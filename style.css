@@ -7,7 +7,7 @@
   --white: #ffffff;
   --gray: #f4f4f4;
   --text: #ffffff;
-  --highlight: #fcd875;
+  --highlight: rgba(255, 199, 44, 0.3);
 }
 
 body {
@@ -97,8 +97,8 @@ body {
 }
 
 .nav-links a.active {
-  background: var(--highlight);
-  color: black;
+  background: var(--highlight); border: 1px solid #ffc72c;
+  color: #ffc72c;
   font-weight: 600;
 }
 
