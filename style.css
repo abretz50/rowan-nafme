@@ -1,9 +1,10 @@
+
 :root {
   --blue: #0033a0;
   --gold: #ffc72c;
   --white: #ffffff;
   --gray: #f4f4f4;
-  --text: #222;
+  --text: #ffffff;
 }
 
 body {
@@ -42,14 +43,13 @@ body {
 }
 
 .nav-links {
-  flex-wrap: wrap;
-  justify-content: center;
-
   display: flex;
   list-style: none;
   gap: 1.25rem;
   margin: 0;
   padding: 0;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .nav-links a {
@@ -66,16 +66,21 @@ body {
   background: rgba(255, 255, 255, 0.25);
 }
 
-/* Content below fixed navbar */
+/* Content Wrapper to clear space under fixed navbar */
 main {
   padding: 160px 2rem 2rem 2rem;
-  background: var(--white);
-  min-height: 60vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 1rem;
+  max-width: 1000px;
+  margin: 160px auto 2rem auto;
 }
 
 footer {
-  background-color: var(--blue);
+  background-color: rgba(0, 0, 0, 0.7);
   color: var(--white);
   text-align: center;
   padding: 1rem;
+  border-radius: 1rem;
+  max-width: 1000px;
+  margin: 2rem auto;
 }
