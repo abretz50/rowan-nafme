@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,7 @@
   <script defer src="script.js"></script>
 </head>
 <body>
-  <header class="navbar">
+  <header class="navbar" id="navbar">
     <div class="nav-container">
       <a href="index.html" class="logo-wrapper">
         <img src="logo.png" alt="Rowan NAfME Logo" class="nav-logo" />
@@ -24,19 +25,20 @@
     </div>
   </header>
 
-  <main>
-    <section class="search-section">
-      <input type="text" id="searchInput" placeholder="Search events..." />
-      <div class="tags">
-        <button class="tag" data-type="performance">Performances</button>
-        <button class="tag" data-type="volunteer">Volunteer</button>
-        <button class="tag" data-type="general">General Meeting</button>
-        <button class="tag" data-type="pd">Professional Development</button>
-      </div>
-    </section>
+  <main style="max-width: 1000px; margin: auto; padding: 2rem;">
+    <h2>Upcoming Events</h2>
+
+    <input type="text" id="searchInput" placeholder="Search events..." />
+
+    <div class="tags" style="margin-top: 1rem;">
+      <button class="tag" data-type="performance">Performances</button>
+      <button class="tag" data-type="volunteer">Volunteer</button>
+      <button class="tag" data-type="general">General Meeting</button>
+      <button class="tag" data-type="pd">Professional Development</button>
+    </div>
 
     <section class="events-container" id="eventsContainer">
-      <!-- Events will be dynamically injected here -->
+      <!-- JS populates event cards here -->
     </section>
   </main>
 
