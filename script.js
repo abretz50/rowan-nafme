@@ -1,31 +1,54 @@
 
-console.log("Rowan NAfME site loaded");
+document.addEventListener('DOMContentLoaded', () => {
+  const tags = document.querySelectorAll('.tag');
+  const input = document.getElementById('searchInput');
+  const container = document.getElementById('eventsContainer');
 
-document.addEventListener("DOMContentLoaded", () => {
-  const navLinks = document.querySelectorAll(".nav-links a");
-  const currentPath = window.location.pathname;
-  const hash = window.location.hash;
-
-  // Clear active state initially
-  navLinks.forEach(link => link.classList.remove("active"));
-
-  // Set active state based on pathname for regular pages
-  navLinks.forEach(link => {
-    const linkHref = link.getAttribute("href");
-    if (currentPath.endsWith(linkHref) && !linkHref.includes("#")) {
-      link.classList.add("active");
+  const events = [
+    {
+      title: "Fall Recital",
+      type: "performance",
+      time: "October 15, 2025 - 7 PM",
+      location: "Pfleeger Concert Hall",
+      preview: "Come hear NAfME students perform.",
+    },
+    {
+      title: "Service at School",
+      type: "volunteer",
+      time: "November 2, 2025 - 10 AM",
+      location: "Local Middle School",
+      preview: "Join us in giving back to our community through music.",
     }
-  });
+  ];
 
-  // Scroll-based highlight for #our-chapter
-  const chapterLink = document.querySelector('.nav-links a[href$="#our-chapter"]');
-  const chapterSection = document.getElementById("our-chapter");
-
-  if (chapterLink && chapterSection) {
-    window.addEventListener("scroll", () => {
-      const rect = chapterSection.getBoundingClientRect();
-      const inView = rect.top <= window.innerHeight * 0.5 && rect.bottom >= 0;
-      chapterLink.classList.toggle("active", inView);
+  function render(eventsToRender) {
+    container.innerHTML = "";
+    eventsToRender.forEach(e => {
+      const div = document.createElement("div");
+      div.className = "event-card";
+      div.innerHTML = \`
+        <h3>\${e.title}</h3>
+        <p><strong>When:</strong> \${e.time}</p>
+        <p><strong>Where:</strong> \${e.location}</p>
+        <p>\${e.preview}</p>
+      \`;
+      container.appendChild(div);
     });
   }
+
+  render(events);
+
+  input.addEventListener("input", () => {
+    const term = input.value.toLowerCase();
+    const filtered = events.filter(e => e.title.toLowerCase().includes(term));
+    render(filtered);
+  });
+
+  tags.forEach(tag => {
+    tag.addEventListener("click", () => {
+      const type = tag.getAttribute("data-type");
+      const filtered = events.filter(e => e.type === type);
+      render(filtered);
+    });
+  });
 });
