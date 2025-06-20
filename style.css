@@ -68,11 +68,11 @@ body {
 
 /* Content Wrapper to clear space under fixed navbar */
 main {
-  padding: 160px 2rem 2rem 2rem;
+  padding: 2rem;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 1rem;
   max-width: 1000px;
-  margin: 160px auto 2rem auto;
+  margin: 240px auto 2rem auto;
 }
 
 footer {
