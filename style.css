@@ -84,3 +84,16 @@ footer {
   max-width: 1000px;
   margin: 2rem auto;
 }
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+}
+.logo-text {
+  color: white;
+  font-weight: bold;
+  font-size: 2rem;
+  letter-spacing: 1px;
+}
