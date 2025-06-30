@@ -1,4 +1,3 @@
-
 console.log("Rowan NAfME site loaded");
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -28,4 +27,26 @@ document.addEventListener("DOMContentLoaded", () => {
       chapterLink.classList.toggle("active", inView);
     });
   }
+
+  // 🔍 Search + Filter logic for Events page
+  const searchInput = document.getElementById("searchInput");
+  const filterSelect = document.getElementById("filterSelect");
+  const eventCards = document.querySelectorAll(".event-card");
+
+  function filterEvents() {
+    const query = searchInput?.value.toLowerCase() || "";
+    const selectedType = filterSelect?.value || "";
+
+    eventCards.forEach(card => {
+      const textMatch = card.textContent.toLowerCase().includes(query);
+      const typeMatch = !selectedType || card.dataset.type === selectedType;
+      card.style.display = textMatch && typeMatch ? "block" : "none";
+    });
+  }
+
+  if (searchInput && filterSelect && eventCards.length > 0) {
+    searchInput.addEventListener("input", filterEvents);
+    filterSelect.addEventListener("change", filterEvents);
+  }
 });
+
