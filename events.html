@@ -7,25 +7,31 @@
   <link rel="stylesheet" href="style.css" />
   <script defer src="script.js"></script>
   <style>
-    /* Add this for dropdown styling */
     .search-filter-container {
       display: flex;
+      justify-content: center;
       align-items: center;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-
-    .dropdown-filter {
-      padding: 0.5rem;
-      border-radius: 5px;
-      border: 1px solid #ccc;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
     }
 
     .search-input {
-      padding: 0.5rem;
-      border-radius: 5px;
+      width: 250px;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
       border: 1px solid #ccc;
-      flex-grow: 1;
+      outline: none;
+    }
+
+    .dropdown-filter {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background-color: white;
+      color: black;
     }
   </style>
 </head>
@@ -49,7 +55,6 @@
   <main style="max-width: 1000px; margin: auto; padding: 2rem;">
     <h2>Upcoming Events</h2>
 
-    <!-- Search and Filter Container -->
     <div class="search-filter-container">
       <input type="text" id="searchInput" class="search-input" placeholder="Search events..." />
       <select id="filterSelect" class="dropdown-filter">
@@ -61,18 +66,8 @@
       </select>
     </div>
 
-    <!-- Old tags can be removed or kept for extra UI -->
-    <!--
-    <div class="tags" style="margin-top: 1rem;">
-      <button class="tag" data-type="performance">Performances</button>
-      <button class="tag" data-type="volunteer">Volunteer</button>
-      <button class="tag" data-type="general">General Meeting</button>
-      <button class="tag" data-type="pd">Professional Development</button>
-    </div>
-    -->
-
     <section class="events-container" id="eventsContainer">
-      <!-- JS populates event cards here -->
+      <!-- Event cards will be populated here via JS -->
     </section>
   </main>
 
