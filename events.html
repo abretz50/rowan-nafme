@@ -33,6 +33,22 @@
       background-color: white;
       color: black;
     }
+
+    .search-button {
+      padding: 0.5rem 1.25rem;
+      font-size: 1rem;
+      background-color: var(--highlight);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: black;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .search-button:hover {
+      background-color: #ffdb70;
+    }
   </style>
 </head>
 <body>
@@ -64,15 +80,41 @@
         <option value="general">General Meeting</option>
         <option value="pd">Professional Development</option>
       </select>
+      <button id="searchButton" class="search-button">Search</button>
     </div>
 
     <section class="events-container" id="eventsContainer">
-      <!-- Event cards will be populated here via JS -->
+      <!-- JS will populate event cards here -->
     </section>
   </main>
 
   <footer>
     <p>&copy; Rowan NAfME Chapter</p>
   </footer>
+
+  <script>
+    // This ensures the button triggers the same filtering as typing/selecting
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.getElementById("searchInput");
+      const filterSelect = document.getElementById("filterSelect");
+      const searchButton = document.getElementById("searchButton");
+      const eventCards = document.querySelectorAll(".event-card");
+
+      function filterEvents() {
+        const query = searchInput?.value.toLowerCase() || "";
+        const selectedType = filterSelect?.value || "";
+
+        eventCards.forEach(card => {
+          const textMatch = card.textContent.toLowerCase().includes(query);
+          const typeMatch = !selectedType || card.dataset.type === selectedType;
+          card.style.display = textMatch && typeMatch ? "block" : "none";
+        });
+      }
+
+      searchInput?.addEventListener("input", filterEvents);
+      filterSelect?.addEventListener("change", filterEvents);
+      searchButton?.addEventListener("click", filterEvents);
+    });
+  </script>
 </body>
 </html>
