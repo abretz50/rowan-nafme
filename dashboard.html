@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard | Rowan NAfME</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: linear-gradient(to right, #0033a0, #4b6cb7);
+      color: white;
+      font-family: 'Inter', sans-serif;
+      padding: 2rem;
+    }
+    h1 {
+      text-align: center;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .card {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 1.5rem;
+      border-radius: 1rem;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      background: rgba(0, 0, 0, 0.85);
+    }
+    .card a {
+      color: #ffc72c;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Executive Board Dashboard</h1>
+  <div class="grid">
+    <div class="card"><a href="edit-events.html">🗓 Add/Edit Events</a></div>
+    <div class="card"><a href="analytics.html">📊 View Website Analytics</a></div>
+    <div class="card"><a href="manage-points.html">🏅 Manage Member Points</a></div>
+    <div class="card"><a href="edit-site.html">📝 Edit Website Content</a></div>
+  </div>
+</body>
+</html>
