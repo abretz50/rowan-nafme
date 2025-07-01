@@ -1,21 +1,124 @@
-.auth-links {
-  position: absolute;
-  top: 15px;
-  right: 30px;
-  font-family: 'Inter', sans-serif;
+
+:root {
+  --blue: #0033a0;
+  --gold: #ffc72c;
+  --white: #ffffff;
+  --gray: #f4f4f4;
+  --text: #ffffff;
+  --highlight: #ffc72c;
+  --dark-bg: rgba(0, 0, 0, 0.8);
+  --nav-radius: 2rem;
 }
 
-.auth-links a {
-  color: white;
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(to bottom right, #1d2671, #c33764);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--dark-bg);
+  backdrop-filter: blur(12px);
+  border-radius: var(--nav-radius);
+  margin: 1rem auto;
+  padding: 0.75rem 1.5rem;
+  max-width: fit-content;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-logo {
+  height: 40px;
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   text-decoration: none;
-  margin-left: 20px;
-  font-weight: 600;
-  background-color: rgba(0,0,0,0.6);
-  padding: 6px 12px;
-  border-radius: 8px;
+  color: var(--white);
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  color: var(--white);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
   transition: background 0.3s ease;
 }
 
-.auth-links a:hover {
-  background-color: rgba(255, 255, 255, 0.3);
+.nav-links li a:hover,
+.nav-links li a.active {
+  background: var(--highlight);
+  color: #000;
+}
+
+#auth-buttons {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+#auth-buttons a {
+  padding: 0.4rem 0.8rem;
+  border-radius: 1rem;
+  background-color: #444;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+#auth-buttons a:hover {
+  background-color: var(--highlight);
+  color: black;
+}
+
+main {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: var(--dark-bg);
+  margin-top: 2rem;
+  border-radius: 1rem;
 }
