@@ -1,12 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rowan NAfME</title>
+  <title>Home | Rowan NAfME</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
 </head>
 <body>
   <header class="navbar">
@@ -16,7 +14,7 @@
         <span class="logo-text"><span>NAfME</span><span>Rowan</span></span>
       </a>
       <ul class="nav-links">
-        <li><a href="index.html#our-chapter">Our Chapter</a></li>
+        <li><a href="#our-chapter">Our Chapter</a></li>
         <li><a href="events.html">Events</a></li>
         <li><a href="convention.html">Convention</a></li>
         <li><a href="eboard.html">E-Board</a></li>
@@ -25,170 +23,18 @@
     </div>
   </header>
 
-  <main>
-
-    <section>
-      <!-- Removed image music-education-header.jpg --> <!-- Removed image music-education-header.jpg --> <img style="display:none;" src="music-education-header.jpg" alt="Music education outreach" style="width: 100%; max-width: 960px; border-radius: 12px; margin: 2rem auto; display: block;" alt="Music education outreach" style="width: 100%; border-radius: 12px; margin-bottom: 2rem;">
-    </section>
-
-    <section>
-      <h2>Welcome to Rowan NAfME</h2>
-      <p>This is the official chapter website for the Rowan University NAfME Collegiate chapter, part of the National Association for Music Education.</p>
-    </section>
-
-    <section>
-      <h2>What is NAfME?</h2>
-      <p>The National Association for Music Education (NAfME) is one of the world’s largest arts education organizations. It supports music educators and advocates for quality music instruction for all students.</p>
-      <!-- Removed image cms_recital1.jpg --> <!-- Removed image cms_recital1.jpg --> <img style="display:none;" src="cms_recital1.jpg" alt="Orchestra performance" style="width: 100%; max-width: 800px; border-radius: 12px; margin: 1.5rem auto; display: block;" alt="Orchestra recital" style="width: 90%; max-width: 800px; border-radius: 12px; margin-top: 1rem;">
-    </section>
-
-    <section>
-      <a id="our-chapter"></a>
-      <h2>About Our Chapter</h2>
-      <p>Rowan NAfME is a student-led collegiate chapter that fosters the growth of pre-service music educators through events, conferences, and advocacy.</p>
-    </section>
-
-    
-<section>
-  <h2>State & National Organizations</h2>
-  <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; align-items: center;">
-    <a href="https://nafme.org" target="_blank">
-      <img src="nafme-logo.png" alt="NAfME Logo" style="height: 100px; border-radius: 8px;">
-    </a>
-    <a href="https://njmea.org" target="_blank">
-      <img src="njmea-logo.png" alt="NJMEA Logo" style="height: 100px; border-radius: 8px;">
-    </a>
+  <div class="auth-links">
+    <a href="eboard-login.html">Log In</a>
+    <a href="signup.html">Sign up</a>
   </div>
-</section>
 
+  <main>
+    <h2>Welcome to Rowan NAfME</h2>
+    <p>Introductory content here.</p>
+  </main>
 
-    <section>
-      <h2>What We Offer</h2>
-      <ul style="text-align: left; display: inline-block; margin-top: 1rem;">
-        <li>Professional development sessions</li>
-        <li>Guest speakers and panels</li>
-        <li>Networking with state and national educators</li>
-        <li>Conference attendance and presentations</li>
-        <li>Social events and community outreach</li>
-      </ul>
-      <!-- Removed image 53150818318_bb5514ea49_k-1170x550.jpg --> <!-- Removed image 53150818318_bb5514ea49_k-1170x550.jpg --> <img style="display:none;" src="53150818318_bb5514ea49_k-1170x550.jpg" alt="Rowan drumline" style="width: 100%; max-width: 960px; border-radius: 12px; margin: 1.5rem auto; display: block;" alt="Rowan Drumline" style="width: 100%; border-radius: 12px; margin-top: 1rem;">
-    </section>
-
-
-<section>
-  <h2>Our Vision & Goals for 2024–2025</h2>
-  <ul style="text-align: left; display: inline-block; margin-top: 1rem;">
-    <li>Foster a supportive community for future music educators.</li>
-    <li>Expand outreach and service opportunities through music.</li>
-    <li>Enhance professional development through workshops and panels.</li>
-    <li>Increase student engagement and visibility within NJMEA and NAfME.</li>
-    <li>Encourage cross-disciplinary collaboration within the arts and education fields.</li>
-  </ul>
-</section>
-
-</main>
   <footer>
     <p>&copy; Rowan NAfME Chapter</p>
   </footer>
-
-<script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
-<script>
-  let auth0 = null;
-
-  async function setupLogin() {
-    auth0 = await createAuth0Client({
-      domain: "{{AUTH0_DOMAIN}}",
-      client_id: "{{AUTH0_CLIENT_ID}}",
-      authorizationParams: {
-        audience: "{{AUTH0_AUDIENCE}}",
-        redirect_uri: window.location.href
-      }
-    });
-
-    const isAuthenticated = await auth0.isAuthenticated();
-    const loginBtn = document.createElement("button");
-    loginBtn.className = "login-btn";
-    loginBtn.style.cssText = "margin-left: auto; background: #ffc72c; color: black; padding: 0.4rem 1rem; border-radius: 0.5rem; font-weight: bold; cursor: pointer; border: none;";
-
-    if (isAuthenticated) {
-      const user = await auth0.getUser();
-      loginBtn.innerText = "Log Out";
-      loginBtn.onclick = () => auth0.logout({ returnTo: window.location.origin });
-    } else {
-      loginBtn.innerText = "Log In";
-      loginBtn.onclick = () => auth0.loginWithRedirect({
-        authorizationParams: { screen_hint: "signup" }
-      });
-    }
-
-    const navContainer = document.querySelector(".nav-container");
-    if (navContainer) navContainer.appendChild(loginBtn);
-  }
-
-  window.onload = setupLogin;
-</script>
-
-
-<!-- Clean top-right Login/Signup -->
-<style>
-  #login-links {
-    position: fixed;
-    top: 0.75rem;
-    right: 1rem;
-    z-index: 10000;
-    font-family: 'Inter', sans-serif;
-  }
-
-  #login-links a {
-    color: white;
-    margin-left: 1rem;
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 500;
-    transition: color 0.2s ease-in-out;
-  }
-
-  #login-links a:hover {
-    color: #ffc72c;
-  }
-</style>
-<div id="login-links">
-  <a href="#" id="login-link">Log In</a>
-  <a href="#" id="signup-link">Sign up</a>
-</div>
-
-<script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
-<script>
-  let auth0 = null;
-
-  async function setupLoginLinks() {
-    auth0 = await createAuth0Client({
-      domain: "{{AUTH0_DOMAIN}}",
-      client_id: "{{AUTH0_CLIENT_ID}}",
-      authorizationParams: {
-        audience: "{{AUTH0_AUDIENCE}}",
-        redirect_uri: window.location.href
-      }
-    });
-
-    const isAuthenticated = await auth0.isAuthenticated();
-    const loginLink = document.getElementById("login-link");
-    const signupLink = document.getElementById("signup-link");
-
-    if (isAuthenticated) {
-      const user = await auth0.getUser();
-      loginLink.textContent = "Log Out";
-      loginLink.href = "#";
-      loginLink.onclick = () => auth0.logout({ returnTo: window.location.origin });
-      signupLink.style.display = "none";
-    } else {
-      loginLink.onclick = () => auth0.loginWithRedirect();
-      signupLink.onclick = () => auth0.loginWithRedirect({ authorizationParams: { screen_hint: "signup" } });
-    }
-  }
-
-  window.onload = setupLoginLinks;
-</script>
-
 </body>
 </html>
