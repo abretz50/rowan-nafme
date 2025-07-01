@@ -154,5 +154,60 @@
   window.onload = setupLogin;
 </script>
 
+
+<!-- Auth0 Login Bubble -->
+<script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
+<style>
+  #login-bubble {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 9999;
+  }
+  .login-btn {
+    background: #ffc72c;
+    color: black;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+</style>
+<div id="login-bubble"></div>
+<script>
+  let auth0 = null;
+  async function setupLoginBubble() {
+    auth0 = await createAuth0Client({
+      domain: "{{AUTH0_DOMAIN}}",
+      client_id: "{{AUTH0_CLIENT_ID}}",
+      authorizationParams: {
+        audience: "{{AUTH0_AUDIENCE}}",
+        redirect_uri: window.location.href
+      }
+    });
+
+    const isAuthenticated = await auth0.isAuthenticated();
+    const btn = document.createElement("button");
+    btn.className = "login-btn";
+
+    if (isAuthenticated) {
+      btn.textContent = "Log Out";
+      btn.onclick = () => auth0.logout({ returnTo: window.location.origin });
+    } else {
+      btn.textContent = "Log In";
+      btn.onclick = () => auth0.loginWithRedirect({
+        authorizationParams: { screen_hint: "signup" }
+      });
+    }
+
+    document.getElementById("login-bubble").appendChild(btn);
+  }
+
+  window.onload = setupLoginBubble;
+</script>
+
 </body>
 </html>
