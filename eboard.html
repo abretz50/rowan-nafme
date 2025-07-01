@@ -10,7 +10,7 @@
       font-family: 'Inter', sans-serif;
       margin: 0;
       padding: 0;
-      background: linear-gradient(to right, #0033a0, #4b6cb7);
+      background: linear-gradient(135deg, #3b3f99, #00bcd4);
       color: white;
     }
     header {
@@ -34,7 +34,17 @@
       cursor: pointer;
     }
     main {
+      padding: 3rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .content-box {
+      background-color: rgba(0, 0, 0, 0.4);
       padding: 2rem;
+      border-radius: 1rem;
+      max-width: 800px;
+      width: 100%;
       text-align: center;
     }
     #eboard-btn {
@@ -51,9 +61,6 @@
       text-align: center;
       padding: 1rem;
       background-color: rgba(0, 0, 0, 0.8);
-      position: absolute;
-      width: 100%;
-      bottom: 0;
     }
   </style>
 </head>
@@ -64,8 +71,11 @@
   </header>
 
   <main>
-    <p>Content for the Executive Board Resources page will go here.</p>
-    <a href="dashboard.html" id="eboard-btn">🔒 Go to E-Board Dashboard</a>
+    <div class="content-box">
+      <h2>Executive Board Resources</h2>
+      <p>Content for the Executive Board Resources page will go here.</p>
+      <a href="dashboard.html" id="eboard-btn">🔒 Go to E-Board Dashboard</a>
+    </div>
   </main>
 
   <footer>
