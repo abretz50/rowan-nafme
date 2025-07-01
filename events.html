@@ -155,31 +155,39 @@
 </script>
 
 
-<!-- Auth0 Login Bubble -->
-<script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
+<!-- Clean top-right Login/Signup -->
 <style>
-  #login-bubble {
+  #login-links {
     position: fixed;
-    top: 1rem;
+    top: 0.75rem;
     right: 1rem;
-    z-index: 9999;
-  }
-  .login-btn {
-    background: #ffc72c;
-    color: black;
-    padding: 0.5rem 1rem;
-    font-weight: bold;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
+    z-index: 10000;
     font-family: 'Inter', sans-serif;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+
+  #login-links a {
+    color: white;
+    margin-left: 1rem;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s ease-in-out;
+  }
+
+  #login-links a:hover {
+    color: #ffc72c;
   }
 </style>
-<div id="login-bubble"></div>
+<div id="login-links">
+  <a href="#" id="login-link">Log In</a>
+  <a href="#" id="signup-link">Sign up</a>
+</div>
+
+<script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
 <script>
   let auth0 = null;
-  async function setupLoginBubble() {
+
+  async function setupLoginLinks() {
     auth0 = await createAuth0Client({
       domain: "{{AUTH0_DOMAIN}}",
       client_id: "{{AUTH0_CLIENT_ID}}",
@@ -190,23 +198,22 @@
     });
 
     const isAuthenticated = await auth0.isAuthenticated();
-    const btn = document.createElement("button");
-    btn.className = "login-btn";
+    const loginLink = document.getElementById("login-link");
+    const signupLink = document.getElementById("signup-link");
 
     if (isAuthenticated) {
-      btn.textContent = "Log Out";
-      btn.onclick = () => auth0.logout({ returnTo: window.location.origin });
+      const user = await auth0.getUser();
+      loginLink.textContent = "Log Out";
+      loginLink.href = "#";
+      loginLink.onclick = () => auth0.logout({ returnTo: window.location.origin });
+      signupLink.style.display = "none";
     } else {
-      btn.textContent = "Log In";
-      btn.onclick = () => auth0.loginWithRedirect({
-        authorizationParams: { screen_hint: "signup" }
-      });
+      loginLink.onclick = () => auth0.loginWithRedirect();
+      signupLink.onclick = () => auth0.loginWithRedirect({ authorizationParams: { screen_hint: "signup" } });
     }
-
-    document.getElementById("login-bubble").appendChild(btn);
   }
 
-  window.onload = setupLoginBubble;
+  window.onload = setupLoginLinks;
 </script>
 
 </body>
