@@ -2,50 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>E-Board Resources | Rowan NAfME</title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
+  <title>Executive Board Resources | Rowan NAfME</title>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
 </head>
 <body>
-
-<header class="navbar">
-  <div class="nav-container">
-    <a href="index.html" class="logo-wrapper">
-      <img src="logo.png" alt="Rowan NAfME Logo" class="nav-logo" />
-      <span class="logo-text"><span>NAfME</span><span>Rowan</span></span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="index.html#our-chapter">Our Chapter</a></li>
-      <li><a href="events.html">Events</a></li>
-      <li><a href="convention.html">Convention</a></li>
-      <li><a href="eboard.html" class="active">E-Board</a></li>
-      <li><a href="resources.html">Resources</a></li>
-    </ul>
-  </div>
-</header>
-
-<main>
   <h2>Executive Board Resources</h2>
   <p>Content for the Executive Board Resources page will go here.</p>
 
-  <div style="text-align: center; margin-top: 2rem;">
-    <a href="eboard-login.html" style="
-        background-color: #0033a0;
-        color: white;
-        padding: 0.75rem 1.5rem;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: bold;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        transition: background-color 0.3s;">
-      🔒 E-Board Login
-    </a>
-  </div>
-</main>
+  <a href="eboard-login.html" id="eboard-btn" style="display: none; padding: 10px; background: #0033a0; color: white; border-radius: 5px; text-decoration: none;">🔒 E-Board Login</a>
 
-<footer>
-  <p>&copy; Rowan NAfME Chapter</p>
-</footer>
+  <script>
+    window.addEventListener("DOMContentLoaded", async () => {
+      const auth0 = await createAuth0Client({
+        domain: "{{AUTH0_DOMAIN}}",
+        client_id: "{{AUTH0_CLIENT_ID}}",
+        authorizationParams: { audience: "{{AUTH0_AUDIENCE}}" }
+      });
+
+      const isAuthenticated = await auth0.isAuthenticated();
+      if (!isAuthenticated) return;
+
+      const user = await auth0.getUser();
+      const role = user['user_metadata']?.role || user.role;
+      if (role === "eboard") {
+        document.getElementById("eboard-btn").style.display = "inline-block";
+      }
+    });
+  </script>
 </body>
 </html>

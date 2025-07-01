@@ -3,48 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <title>Dashboard | Rowan NAfME</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      background: linear-gradient(to right, #0033a0, #4b6cb7);
-      color: white;
-      font-family: 'Inter', sans-serif;
-      padding: 2rem;
-    }
-    h1 {
-      text-align: center;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    .card {
-      background: rgba(0, 0, 0, 0.7);
-      padding: 1.5rem;
-      border-radius: 1rem;
-      text-align: center;
-      transition: transform 0.2s;
-    }
-    .card:hover {
-      transform: scale(1.05);
-      background: rgba(0, 0, 0, 0.85);
-    }
-    .card a {
-      color: #ffc72c;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  </style>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
 </head>
-<body>
-  <h1>Executive Board Dashboard</h1>
-  <div class="grid">
-    <div class="card"><a href="edit-events.html">🗓 Add/Edit Events</a></div>
-    <div class="card"><a href="analytics.html">📊 View Website Analytics</a></div>
-    <div class="card"><a href="manage-points.html">🏅 Manage Member Points</a></div>
-    <div class="card"><a href="edit-site.html">📝 Edit Website Content</a></div>
-  </div>
+<body style="font-family: sans-serif; text-align: center; padding-top: 10vh;">
+  <h1>Welcome to the E-Board Dashboard</h1>
+  <p id="status">Checking authorization...</p>
+
+  <script>
+    let auth0 = null;
+
+    async function setup() {
+      auth0 = await createAuth0Client({
+        domain: "{{AUTH0_DOMAIN}}",
+        client_id: "{{AUTH0_CLIENT_ID}}",
+        authorizationParams: {
+          audience: "{{AUTH0_AUDIENCE}}"
+        }
+      });
+
+      const isAuthenticated = await auth0.isAuthenticated();
+      if (!isAuthenticated) {
+        window.location.href = "/eboard-login.html";
+        return;
+      }
+
+      const user = await auth0.getUser();
+      const role = user['https://your-app.com/role'] || user.role || (user['user_metadata'] && user['user_metadata'].role);
+
+      if (role !== "eboard") {
+        document.getElementById("status").textContent = "Access denied. This page is for E-Board members only.";
+        return;
+      }
+
+      document.getElementById("status").textContent = `Welcome, ${user.name || user.email}!`;
+    }
+
+    window.onload = setup;
+  </script>
 </body>
 </html>

@@ -1,54 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>E-Board Login | Rowan NAfME</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      background: linear-gradient(to right, #0033a0, #4b6cb7);
-      font-family: 'Inter', sans-serif;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .login-container {
-      background: rgba(0, 0, 0, 0.8);
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 0 20px rgba(0,0,0,0.4);
-      width: 300px;
-    }
-    input {
-      width: 100%;
-      padding: 0.5rem;
-      margin-top: 1rem;
-      border-radius: 0.5rem;
-      border: none;
-    }
-    button {
-      width: 100%;
-      margin-top: 1.5rem;
-      padding: 0.75rem;
-      border: none;
-      border-radius: 0.5rem;
-      background-color: #ffc72c;
-      color: black;
-      font-weight: bold;
-      cursor: pointer;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <title>Login | Rowan NAfME</title>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
 </head>
-<body>
-  <div class="login-container">
-    <h2>E-Board Login</h2>
-    <form action="dashboard.html" method="POST">
-      <input type="text" name="username" placeholder="Username" required />
-      <input type="password" name="password" placeholder="Password" required />
-      <button type="submit">Log In</button>
-    </form>
-  </div>
+<body style="font-family: sans-serif; text-align: center; padding-top: 10vh;">
+  <h2>Login to Rowan NAfME</h2>
+  <button id="login">Login with Auth0</button>
+
+  <script>
+    let auth0 = null;
+
+    async function configureClient() {
+      auth0 = await createAuth0Client({
+        domain: "{{AUTH0_DOMAIN}}",
+        client_id: "{{AUTH0_CLIENT_ID}}",
+        authorizationParams: {
+          redirect_uri: window.location.origin + "/dashboard.html",
+          audience: "{{AUTH0_AUDIENCE}}"
+        }
+      });
+    }
+
+    async function login() {
+      await auth0.loginWithRedirect();
+    }
+
+    window.onload = async () => {
+      await configureClient();
+      document.getElementById("login").addEventListener("click", login);
+    };
+  </script>
 </body>
 </html>
