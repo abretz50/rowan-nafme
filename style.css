@@ -185,3 +185,14 @@ main, .container, .content, section {
   margin-top: 0 !important;
   padding-top: 0 !important;
 }
+
+/* FIX: Proper spacing under navbar and inside content boxes */
+body {
+  padding-top: 70px !important; /* equal to navbar height */
+}
+
+.container, main, .content, section {
+  margin-top: 0 !important;
+  padding-top: 1.5rem !important; /* adds space between box top and text */
+  box-sizing: border-box;
+}
