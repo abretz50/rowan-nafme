@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Board | </title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
+</head>
+<body>
+<div class="container">
+
+<header class="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="logo-wrapper">
+      <img src="logo.png" alt=" Logo" class="nav-logo" />
+      <span class="nav-logo-text">Rowan NAfME</span><span style="color: yellow;"> </span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#our-chapter">Our Chapter</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="convention.html">Convention</a></li>
+      <li><a href="eboard.html" class="active">E-Board</a></li>
+      <li><a href="resources.html">Resources</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <h2>Executive Board Resources</h2>
+  <p>Content for the Executive Board Resources page will go here.</p>
+  <div style="margin-top: 2rem; text-align: center;">
+    <a href="dashboard.html" id="eboard-btn" style="display: none; padding: 0.75rem 1.5rem; background-color: #0033a0; color: white; border-radius: 0.5rem; text-decoration: none;">🔒 Go to E-Board Dashboard</a>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; Chapter</p>
+</footer>
+
+<script>
+  let auth0 = null;
+
+  async function configureClient() {
+    auth0 = await createAuth0Client({
+      domain: "{{AUTH0_DOMAIN}}",
+      client_id: "{{AUTH0_CLIENT_ID}}",
+      authorizationParams: {
+        audience: "{{AUTH0_AUDIENCE}}",
+        redirect_uri: window.location.origin + "/eboard.html"
+      }
+    });
+
+    const isAuthenticated = await auth0.isAuthenticated();
+    if (isAuthenticated) {
+      const user = await auth0.getUser();
+      const role = user['user_metadata']?.role || user.role;
+      if (role === "eboard") {
+        document.getElementById("eboard-btn").style.display = "inline-block";
+      }
+    }
+  }
+
+  window.onload = configureClient;
+</script>
+
+</div>
+</body>
+</html>
