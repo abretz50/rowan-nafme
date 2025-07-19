@@ -39,6 +39,7 @@
       font-family: inherit;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      margin-bottom: 10px;
     }
     .login-btn-custom:hover {
       background-color: #e6c200;
@@ -51,6 +52,18 @@
       border-radius: 50px;
       font-weight: bold;
       font-family: inherit;
+      margin-bottom: 10px;
+    }
+    .home-link {
+      display: inline-block;
+      margin-top: 10px;
+      color: #000;
+      text-decoration: underline;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .home-link:hover {
+      color: #444;
     }
   </style>
 </head>
@@ -62,6 +75,7 @@
     </p>
     <button id="login-btn" class="login-btn-custom" onclick="login()">Login / Register</button>
     <button id="logout-btn" class="logout-btn-custom" style="display:none;" onclick="logout()">Logout</button>
+    <div><a href="index.html" class="home-link">← Return to Home</a></div>
   </div>
   <script src="auth0.js"></script>
 </body>
