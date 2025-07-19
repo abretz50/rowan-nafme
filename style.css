@@ -176,3 +176,12 @@ main, .container, .content, section {
   margin-top: 2rem !important;
   padding-top: 1rem !important;
 }
+
+body {
+  padding-top: 80px !important; /* Adjust based on actual navbar height */
+}
+
+main, .container, .content, section {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
