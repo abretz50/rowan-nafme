@@ -221,23 +221,24 @@ body {
 
 
 
+
 .floating-login {
   position: fixed;
   top: 15px;
   right: 20px;
   background-color: #FFD700;
   color: black;
-  border: 2px solid #000; /* Matches nav bar outline */
+  border: 2px solid #000;
   padding: 10px 16px;
-  border-radius: 50px; /* Makes it round */
+  border-radius: 50px;
   font-weight: bold;
+  font-family: inherit; /* Inherit the same font as surrounding elements/nav bar */
   cursor: pointer;
   z-index: 999;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 .floating-login:hover {
   background-color: #e6c200;
-  transform: translateY(-2px); /* Slight movement on hover */
+  transform: translateY(-2px);
 }
-
 
