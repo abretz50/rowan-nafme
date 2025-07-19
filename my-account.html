@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Account - Rowan NAfME</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .account-container {
+      max-width: 500px;
+      margin: 100px auto;
+      padding: 20px;
+      text-align: center;
+      border: 2px solid #000;
+      border-radius: 10px;
+      background: #fff;
+      font-family: inherit;
+    }
+    .account-container h1, .account-container p {
+      color: black;
+      background: none;
+      font-weight: normal;
+      margin-bottom: 15px;
+    }
+    .info-box {
+      text-align: left;
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #000;
+      border-radius: 5px;
+      background: #f9f9f9;
+    }
+    .logout-btn-account {
+      background-color: #ccc;
+      color: black;
+      border: 2px solid #000;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-weight: bold;
+      font-family: inherit;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+    .logout-btn-account:hover {
+      background-color: #bbb;
+    }
+  </style>
+</head>
+<body>
+  <div class="account-container">
+    <h1>My Account</h1>
+    <p id="account-name">Loading your account information...</p>
+    <div class="info-box">
+      <strong>Upcoming Events:</strong>
+      <ul id="upcoming-events">
+        <li>Loading events...</li>
+      </ul>
+      <strong>Points Earned:</strong>
+      <p id="points-earned">Loading points...</p>
+    </div>
+    <button class="logout-btn-account" onclick="logout()">Logout</button>
+  </div>
+  <script src="auth0.js"></script>
+  <script>
+    async function loadAccountInfo() {
+      await configureClient();
+      const isAuthenticated = await auth0Client.isAuthenticated();
+      if (!isAuthenticated) {
+        window.location.href = "/login.html";
+        return;
+      }
+      const user = await auth0Client.getUser();
+      document.getElementById("account-name").textContent = "Welcome, " + (user.name || user.email) + "!";
+      // Placeholder points & events
+      document.getElementById("points-earned").textContent = "120 Points";
+      document.getElementById("upcoming-events").innerHTML = "<li>Spring Performance - April 10</li><li>Member Meeting - April 20</li>";
+    }
+    window.onload = loadAccountInfo;
+  </script>
+</body>
+</html>
