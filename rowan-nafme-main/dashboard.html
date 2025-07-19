@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard | </title>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
+</head>
+<body style="font-family: sans-serif; text-align: center; padding-top: 10vh;">
+  <h1>Welcome to the E-Board Dashboard</h1>
+  <p id="status">Checking authorization...</p>
+
+  <script>
+    let auth0 = null;
+
+    async function setup() {
+      auth0 = await createAuth0Client({
+        domain: "{{AUTH0_DOMAIN}}",
+        client_id: "{{AUTH0_CLIENT_ID}}",
+        authorizationParams: {
+          audience: "{{AUTH0_AUDIENCE}}"
+        }
+      });
+
+      const isAuthenticated = await auth0.isAuthenticated();
+      if (!isAuthenticated) {
+        window.location.href = "/eboard-login.html";
+        return;
+      }
+
+      const user = await auth0.getUser();
+      const role = user['https://your-app.com/role'] || user.role || (user['user_metadata'] && user['user_metadata'].role);
+
+      if (role !== "eboard") {
+        document.getElementById("status").textContent = "Access denied. This page is for E-Board members only.";
+        return;
+      }
+
+      document.getElementById("status").textContent = `Welcome, ${user.name || user.email}!`;
+    }
+
+    window.onload = setup;
+  </script>
+</div>
+</div>
+</div>
+</body>
+</html>
