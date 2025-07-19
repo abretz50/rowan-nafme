@@ -12,6 +12,22 @@
     });
   }
 
+  async function updateLoginButton() {
+    const isAuthenticated = await auth0Client.isAuthenticated();
+    document.getElementById("login-btn").style.display = isAuthenticated ? "none" : "inline-block";
+    document.getElementById("logout-btn").style.display = isAuthenticated ? "inline-block" : "none";
+
+    if (isAuthenticated) {
+      const user = await auth0Client.getUser();
+      console.log("Logged in as:", user.email);
+
+      // If E-Board member, redirect to dashboard automatically
+      if (user['https://rowan-nafme.org/roles']?.includes("Eboard")) {
+        window.location.href = "/eboard-dashboard.html";
+      }
+    }
+  }
+
   async function login() {
     await auth0Client.loginWithRedirect();
   }
@@ -35,9 +51,12 @@
 
   window.onload = async () => {
     await configureClient();
+
     if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
       await auth0Client.handleRedirectCallback();
       window.history.replaceState({}, document.title, "/");
     }
+
+    updateLoginButton();
   };
 </script>
