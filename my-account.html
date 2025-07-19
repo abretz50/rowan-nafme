@@ -61,8 +61,8 @@
     </div>
     <button class="logout-btn-account" onclick="logout()">Logout</button>
   </div>
-  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
-<script src="auth0.js"></script>
+  
+
   <script>
     async function loadAccountInfo() {
       await configureClient();
@@ -79,5 +79,7 @@
     }
     window.onload = loadAccountInfo;
   </script>
+<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+<script src="auth0.js"></script>
 </body>
 </html>
