@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Rowan NAfME</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .login-container {
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 20px;
+      text-align: center;
+      border: 2px solid #000;
+      border-radius: 10px;
+      background: #fff;
+    }
+    .login-container h1 {
+      margin-bottom: 20px;
+    }
+    .login-btn-custom {
+      background-color: #FFD700;
+      color: black;
+      border: 2px solid #000;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background-color 0.3s ease;
+    }
+    .login-btn-custom:hover {
+      background-color: #e6c200;
+    }
+    .logout-btn-custom {
+      background-color: #ccc;
+      color: black;
+      border: 2px solid #000;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: inherit;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>Member Login</h1>
+    <p>Please log in or register to access member features.</p>
+    <button id="login-btn" class="login-btn-custom" onclick="login()">Login / Register</button>
+    <button id="logout-btn" class="logout-btn-custom" style="display:none;" onclick="logout()">Logout</button>
+  </div>
+  <script src="auth0.js"></script>
+</body>
+</html>
