@@ -196,3 +196,14 @@ body {
   padding-top: 1.5rem !important; /* adds space between box top and text */
   box-sizing: border-box;
 }
+
+/* Adjusted Spacing Fix: Half the distance from navbar to box and box top to text */
+body {
+  padding-top: 35px !important; /* was 70px, now half */
+}
+
+.container, main, .content, section {
+  margin-top: 0 !important;
+  padding-top: 0.75rem !important; /* was 1.5rem, now half */
+  box-sizing: border-box;
+}
