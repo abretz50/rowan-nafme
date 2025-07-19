@@ -24,6 +24,11 @@
       font-weight: normal;
       margin-bottom: 15px;
     }
+    .login-description {
+      font-size: 0.9rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
     .login-btn-custom {
       background-color: #FFD700;
       color: black;
@@ -52,7 +57,9 @@
 <body>
   <div class="login-container">
     <h1>Member Login</h1>
-    <p>Please log in or register to access member features.</p>
+    <p class="login-description">
+      Create an account or log in to track your points, sign up for events, and receive email updates for upcoming events, meetings, and performances!
+    </p>
     <button id="login-btn" class="login-btn-custom" onclick="login()">Login / Register</button>
     <button id="logout-btn" class="logout-btn-custom" style="display:none;" onclick="logout()">Logout</button>
   </div>
