@@ -136,3 +136,15 @@ footer {
     margin: 0 auto;
     padding: 20px;
 }
+
+
+/* Container box with similar navbar color */
+.container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #0a1a2f; /* Dark navy-like navbar color */
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    color: white;
+}
