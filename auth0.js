@@ -7,7 +7,7 @@
     auth0Client = await createAuth0Client({
       domain: "dev-fav7jedash5z3wvg.us.auth0.com",
       client_id: "0vab4Dot0RjPm9AXkbVRuLL5dnwrDYIG",
-      authorizationParams: { redirect_uri: window.location.origin },
+      authorizationParams: { redirect_uri: "https://rowannafme.org/login.html" },
       cacheLocation: "localstorage"
     });
   }
@@ -23,7 +23,7 @@
         if (isAuthenticated) {
           window.location.href = "/my-account.html";
         } else {
-          window.location.href = "/login.html";
+          login(); // force login immediately if not authenticated
         }
       };
       loginBtn.style.display = "inline-block";
@@ -39,7 +39,7 @@
   }
 
   async function logout() {
-    await auth0Client.logout({ logoutParams: { returnTo: window.location.origin } });
+    await auth0Client.logout({ logoutParams: { returnTo: "https://rowannafme.org/" } });
   }
 
   async function isEboardMember() {
@@ -59,7 +59,7 @@
     await configureClient();
     if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
       await auth0Client.handleRedirectCallback();
-      window.history.replaceState({}, document.title, "/");
+      window.history.replaceState({}, document.title, "/my-account.html");
     }
     updateLoginButton();
   };
