@@ -128,3 +128,11 @@ footer {
   width: fit-content;
   margin: 2rem auto;
 }
+
+
+/* Added container for better text alignment */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
