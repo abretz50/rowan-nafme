@@ -148,3 +148,19 @@ footer {
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
     color: white;
 }
+
+
+/* Ensure spacing between navbar and main container */
+body {
+    margin-top: 90px; /* space below navbar */
+}
+
+.container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #0a1a2f;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    color: white;
+}
