@@ -1,135 +1,202 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Events | </title>
-<link href="style.css" rel="stylesheet"/>
-<script defer="" src="script.js"></script>
-<style>
-    .search-filter-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.75rem;
-      margin-top: 1.5rem;
-      flex-wrap: wrap;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NAfME Events</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
     }
-
-    .search-input {
-      width: 250px;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      outline: none;
+    .navbar, .search-bar {
+      padding: 1rem;
+      background-color: #800000;
+      color: white;
     }
-
-    .dropdown-filter {
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      background-color: white;
-      color: black;
-    }
-
-    .search-button {
-      padding: 0.5rem 1.25rem;
-      font-size: 1rem;
-      background-color: var(--highlight);
+    .search-bar input {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 5px;
       border: none;
-      border-radius: 8px;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 1rem;
+      gap: 1rem;
+    }
+    .event-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .event-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .event-card-content {
+      padding: 1rem;
+    }
+    .event-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #800000;
       cursor: pointer;
-      color: black;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
     }
-
-    .search-button:hover {
-      background-color: #ffdb70;
+    .event-description {
+      margin: 0.5rem 0;
     }
+    .event-details {
+      font-size: 0.9rem;
+      color: #444;
+    }
+    .tag {
+      display: inline-block;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.75rem;
+      font-weight: bold;
+      border-radius: 5px;
+      color: white;
+      margin-top: 0.5rem;
+    }
+    .performance { background-color: #4CAF50; }
+    .social { background-color: #2196F3; }
+    .educational { background-color: #FF9800; }
   </style>
 </head>
 <body>
-<div class="container">
-<header class="navbar" id="navbar">
-<div class="nav-container">
-<a class="logo-wrapper" href="index.html">
-<img alt=" Logo" class="nav-logo" src="logo.png"/>
-<span class="nav-logo-text">Rowan NAfME</span><span style="color: yellow;"> </span>
-</a>
-<ul class="nav-links">
-<li><a href="index.html#our-chapter">Our Chapter</a></li>
-<li><a class="active" href="events.html">Events</a></li>
-<li><a href="convention.html">Convention</a></li>
-<li><a href="eboard.html">E-Board</a></li>
-<li><a href="resources.html">Resources</a></li>
-</ul>
-</div>
-</header>
-<main style="max-width: 1000px; margin: auto; padding: 2rem;">
-<h2>Upcoming Events</h2>
-<div class="search-filter-container">
-<input class="search-input" id="searchInput" placeholder="Search events..." type="text"/>
-<select class="dropdown-filter" id="filterSelect">
-<option value="">All</option>
-<option value="performance">Performances</option>
-<option value="volunteer">Volunteer</option>
-<option value="general">General Meeting</option>
-<option value="pd">Professional Development</option>
-</select>
-<button class="search-button" id="searchButton">Search</button>
-</div>
-<section class="events-container" id="eventsContainer">
-<!-- JS will populate event cards here -->
-</section>
-</main>
-<footer>
-<p>© Chapter</p>
-</footer>
-<script>
-    // This ensures the button triggers the same filtering as typing/selecting
-    document.addEventListener("DOMContentLoaded", () => {
-      const searchInput = document.getElementById("searchInput");
-      const filterSelect = document.getElementById("filterSelect");
-      const searchButton = document.getElementById("searchButton");
-      const eventCards = document.querySelectorAll(".event-card");
+  <div class="navbar">Rowan NAfME Events</div>
+  <div class="search-bar">
+    <input type="text" placeholder="Search events..." onkeyup="filterEvents(this.value)" />
+  </div>
+  <div class="container" id="events-container">
+    <!-- Events will be injected here -->
+  </div>
 
-      function filterEvents() {
-        const query = searchInput?.value.toLowerCase() || "";
-        const selectedType = filterSelect?.value || "";
-
-        eventCards.forEach(card => {
-          const textMatch = card.textContent.toLowerCase().includes(query);
-          const typeMatch = !selectedType || card.dataset.type === selectedType;
-          card.style.display = textMatch && typeMatch ? "block" : "none";
-        });
+  <script>
+    const events = [
+      {
+        title: "Fall Kickoff Meeting",
+        image: "images/events/kickoff.jpg",
+        description: "Meet the E-Board and kick off the semester.",
+        time: "Sept 10, 7:00 PM",
+        location: "Wilson 107",
+        tag: "social",
+        tagLabel: "Social Event",
+        fullDetails: "Meet the E-Board, learn about upcoming events, and enjoy snacks with friends!"
+      },
+      {
+        title: "Open Mic Night",
+        image: "images/events/openmic.jpg",
+        description: "Perform or support at our fall open mic!",
+        time: "Sept 24, 6:30 PM",
+        location: "Wilson 107",
+        tag: "performance",
+        tagLabel: "Performance",
+        fullDetails: "Whether you're singing, playing, or just cheering, it's always a night to remember!"
+      },
+      {
+        title: "ACDA/NAfME Choir Collab",
+        image: "images/events/choir.jpg",
+        description: "Joint choral workshop with ACDA.",
+        time: "Oct 5, 5:00 PM",
+        location: "Wilson 107",
+        tag: "educational",
+        tagLabel: "Educational"
+      },
+      {
+        title: "Career Panel Night",
+        image: "images/events/panel.jpg",
+        description: "Hear from alumni in the field of music education.",
+        time: "Oct 12, 7:00 PM",
+        location: "Wilson 107",
+        tag: "educational",
+        tagLabel: "Educational"
+      },
+      {
+        title: "High School Festival Volunteering",
+        image: "images/events/festival.jpg",
+        description: "Support local schools and gain service hours.",
+        time: "Oct 20, 8:00 AM",
+        location: "Wilson 107",
+        tag: "educational",
+        tagLabel: "Educational"
+      },
+      {
+        title: "Check-In with the E-Board",
+        image: "images/events/checkin.jpg",
+        description: "Share feedback and ideas for the semester.",
+        time: "Nov 2, 6:00 PM",
+        location: "Wilson 107",
+        tag: "social",
+        tagLabel: "Social Event"
+      },
+      {
+        title: "Instrument Repair Workshop",
+        image: "images/events/workshop.jpg",
+        description: "Hands-on training for basic repairs.",
+        time: "Nov 12, 5:00 PM",
+        location: "Wilson 107",
+        tag: "educational",
+        tagLabel: "Educational"
+      },
+      {
+        title: "NAfME Holiday Party",
+        image: "images/events/party.jpg",
+        description: "Celebrate the end of semester with friends.",
+        time: "Dec 5, 7:00 PM",
+        location: "Wilson 107",
+        tag: "social",
+        tagLabel: "Social Event"
+      },
+      {
+        title: "Holiday Caroling",
+        image: "images/events/caroling.jpg",
+        description: "Spread joy with music around campus.",
+        time: "Dec 12, 6:00 PM",
+        location: "Wilson 107",
+        tag: "performance",
+        tagLabel: "Performance"
       }
+    ];
 
-      searchInput?.addEventListener("input", filterEvents);
-      filterSelect?.addEventListener("change", filterEvents);
-      searchButton?.addEventListener("click", filterEvents);
+    const container = document.getElementById("events-container");
+
+    function filterEvents(query) {
+      const cards = document.querySelectorAll(".event-card");
+      cards.forEach(card => {
+        const match = card.textContent.toLowerCase().includes(query.toLowerCase());
+        card.style.display = match ? "block" : "none";
+      });
+    }
+
+    events.sort((a, b) => new Date(a.time) - new Date(b.time));
+
+    events.forEach(event => {
+      const card = document.createElement("div");
+      card.className = "event-card";
+      card.innerHTML = `
+        <img src="${event.image}" alt="${event.title}" />
+        <div class="event-card-content">
+          <div class="event-title" onclick="alert('${event.fullDetails || event.description}')">${event.title}</div>
+          <div class="event-description">${event.description}</div>
+          <div class="event-details">${event.time} | ${event.location}</div>
+          <span class="tag ${event.tag}">${event.tagLabel}</span>
+        </div>
+      `;
+      container.appendChild(card);
     });
   </script>
-</div>
-<button class="floating-login" id="login-btn" onclick="window.location.href='/login.html'">My Account</button>
-<button class="floating-login" id="logout-btn" onclick="logout()" style="display:none;">Logout</button>
-<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
-<script src="auth0.js"></script>
-<section id="events-list"><h2>Fall 2025 Events</h2><div class="event-item"><h4>Monday, September 8</h4><p>NAfME Fall Semester Kickoff Meeting</p></div><div class="event-item"><h4>Friday, September 19</h4><p>Open Mic Night (Collab with Rowan Arts Society)</p></div><div class="event-item"><h4>Sunday, September 28</h4><p>NAfME Choir Community Performance</p></div><div class="event-item"><h4>Wednesday, October 8</h4><p>Professional Development Panel: Careers in Music Education</p></div><div class="event-item"><h4>Friday, October 24</h4><p>Fall Festival Fundraiser</p></div><div class="event-item"><h4>Monday, November 3</h4><p>Mid-Semester Check-in Social</p></div><div class="event-item"><h4>Saturday, November 15</h4><p>Regional NAfME Workshop at Rowan</p></div><div class="event-item"><h4>Monday, December 1</h4><p>Holiday Caroling Rehearsal &amp; Party</p></div><div class="event-item"><h4>Sunday, December 7</h4><p>NAfME Holiday Caroling Performance</p></div></section><div id="events-list"><div class="event"><h3>First General Meeting</h3><p>September 4, 2025</p></div><div class="event"><h3>NAfME Eastern Division Advocacy Summit</h3><p>September 22–23, 2025</p></div><div class="event"><h3>Rowan NAfME Advocacy Week</h3><p>October 6–11, 2025</p></div><div class="event"><h3>Second General Meeting</h3><p>October 8, 2025</p></div><div class="event"><h3>Fall Membership Drive Ends</h3><p>October 18, 2025</p></div><div class="event"><h3>NAfME Collegiate Fall Drive Deadline</h3><p>October 19, 2025</p></div><div class="event"><h3>Third General Meeting</h3><p>November 5, 2025</p></div><div class="event"><h3>Open Mic Night Fundraiser</h3><p>November 21, 2025</p></div><div class="event"><h3>NAfME Hill Day &amp; Collegiate Advocacy Summit</h3><p>January 22–24, 2026</p></div></div>
-<section class="event-section">
-  <h2>Fall 2025 Events</h2>
-  <div class="event-item"><strong>Monday, September 8</strong><br>NAfME Fall Semester Kickoff Meeting</div>
-  <div class="event-item"><strong>Friday, September 19</strong><br>Open Mic Night (Collab with Rowan Arts Society)</div>
-  <div class="event-item"><strong>Sunday, September 28</strong><br>NAfME Choir Community Performance</div>
-  <div class="event-item"><strong>Wednesday, October 8</strong><br>Professional Development Panel: Careers in Music Education</div>
-  <div class="event-item"><strong>Friday, October 24</strong><br>Fall Festival Booth</div>
-  <div class="event-item"><strong>Saturday, November 8</strong><br>NAfME Karaoke Night</div>
-  <div class="event-item"><strong>Monday, November 17</strong><br>Thanksgiving Cards for the Elderly</div>
-  <div class="event-item"><strong>Friday, December 5</strong><br>NAfME End-of-Semester Celebration</div>
-</section>
-
 </body>
 </html>
