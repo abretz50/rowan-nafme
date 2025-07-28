@@ -1,46 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>E-Board | </title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
-  <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
-</head>
-<body>
-<div class="container">
-
-<header class="navbar">
-  <div class="nav-container">
-    <a href="index.html" class="logo-wrapper">
-      <img src="logo.png" alt=" Logo" class="nav-logo" />
-      <span class="nav-logo-text">Rowan NAfME</span><span style="color: yellow;"> </span></span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="index.html#our-chapter">Our Chapter</a></li>
-      <li><a href="events.html">Events</a></li>
-      <li><a href="convention.html">Convention</a></li>
-      <li><a href="eboard.html" class="active">E-Board</a></li>
-      <li><a href="resources.html">Resources</a></li>
-    </ul>
-  </div>
-</header>
-
-<main>
-  <h2>Executive Board Resources</h2>
-  <p>Content for the Executive Board Resources page will go here.</p>
-  <div style="margin-top: 2rem; text-align: center;">
-    <a href="dashboard.html" id="eboard-btn" style="display: none; padding: 0.75rem 1.5rem; background-color: #0033a0; color: white; border-radius: 0.5rem; text-decoration: none;">🔒 Go to E-Board Dashboard</a>
-  </div>
-</main>
-
-<footer>
-  <p>&copy; Chapter</p>
-</footer>
-
-<script>
-  let auth0 = null;
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   E-Board |
+  </title>
+  <link href="style.css" rel="stylesheet"/>
+  <script defer="" src="script.js">
+  </script>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js">
+  </script>
+ </head>
+ <body>
+  <div class="container">
+   <header class="navbar">
+    <div class="nav-container">
+     <a class="logo-wrapper" href="index.html">
+      <img alt=" Logo" class="nav-logo" src="logo.png"/>
+      <span class="nav-logo-text">
+       Rowan NAfME
+      </span>
+      <span style="color: yellow;">
+      </span>
+     </a>
+     <ul class="nav-links">
+      <li>
+       <a href="index.html#our-chapter">
+        Our Chapter
+       </a>
+      </li>
+      <li>
+       <a href="events.html">
+        Events
+       </a>
+      </li>
+      <li>
+       <a href="convention.html">
+        Convention
+       </a>
+      </li>
+      <li>
+       <a class="active" href="eboard.html">
+        E-Board
+       </a>
+      </li>
+      <li>
+       <a href="resources.html">
+        Resources
+       </a>
+      </li>
+     </ul>
+    </div>
+   </header>
+   <main>
+    <h2>
+     Meet the Executive Board
+    </h2>
+    <div class="board-grid">
+     <div class="board-card">
+      <div class="circle">
+       V
+      </div>
+      <h3>
+       ADVISOR
+      </h3>
+      <p>
+       Vanessa Bond
+      </p>
+     </div>
+     <div class="board-card">
+      <div class="circle">
+       M
+      </div>
+      <h3>
+       PRESIDENT
+      </h3>
+      <p>
+       Min Hwang
+      </p>
+     </div>
+     <div class="board-card">
+      <div class="circle">
+       M
+      </div>
+      <h3>
+       SECRETARY
+      </h3>
+      <p>
+       Makayli Matias
+      </p>
+     </div>
+     <div class="board-card">
+      <div class="circle">
+       A
+      </div>
+      <h3>
+       SENATOR
+      </h3>
+      <p>
+       Adam Bretz
+      </p>
+     </div>
+     <div class="board-card">
+      <div class="circle">
+       J
+      </div>
+      <h3>
+       TREASURER
+      </h3>
+      <p>
+       Jessenia Zavala
+      </p>
+     </div>
+     <div class="board-card">
+      <div class="circle">
+       C
+      </div>
+      <h3>
+       VICE PRESIDENT
+      </h3>
+      <p>
+       Cameron Hyson
+      </p>
+     </div>
+     <div class="board-card">
+      <div class="circle">
+       E
+      </div>
+      <h3>
+       SOCIAL MEDIA COORDINATOR
+      </h3>
+      <p>
+       Emilee Townsley
+      </p>
+     </div>
+     <div class="board-card">
+      <div class="circle">
+       S
+      </div>
+      <h3>
+       EVENT CONSULTANT
+      </h3>
+      <p>
+       Samantha Spencer
+      </p>
+     </div>
+    </div>
+   </main>
+   <footer>
+    <p>
+     © Chapter
+    </p>
+   </footer>
+   <script>
+    let auth0 = null;
 
   async function configureClient() {
     auth0 = await createAuth0Client({
@@ -63,16 +177,17 @@
   }
 
   window.onload = configureClient;
-</script>
-
-</div>
-
-<button id="login-btn" class="floating-login" onclick="window.location.href='/login.html'">My Account</button>
-<button id="logout-btn" class="floating-login" style="display:none;" onclick="logout()">Logout</button>
-
-
-
-<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
-<script src="auth0.js"></script>
-</body>
+   </script>
+  </div>
+  <button class="floating-login" id="login-btn" onclick="window.location.href='/login.html'">
+   My Account
+  </button>
+  <button class="floating-login" id="logout-btn" onclick="logout()" style="display:none;">
+   Logout
+  </button>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js">
+  </script>
+  <script src="auth0.js">
+  </script>
+ </body>
 </html>

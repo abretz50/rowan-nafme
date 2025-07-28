@@ -1,50 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Resources | </title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
-</head>
-<body>
-<div class="container">
-  
-
-<header class="navbar">
-  <div class="nav-container">
-    <a href="index.html" class="logo-wrapper">
-      <img src="logo.png" alt=" Logo" class="nav-logo" />
-      <span class="nav-logo-text">Rowan NAfME</span><span style="color: yellow;"> </span></span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="index.html" href="index.html#our-chapter">Our Chapter</a></li>
-      <li><a href="events.html">Events</a></li>
-      <li><a href="convention.html">Convention</a></li>
-      <li><a href="eboard.html">E-Board</a></li>
-      <li><a href="resources.html" class="active">Resources</a></li>
-    </ul>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Resources |
+  </title>
+  <link href="style.css" rel="stylesheet"/>
+  <script defer="" src="script.js">
+  </script>
+ </head>
+ <body>
+  <div class="container">
+   <header class="navbar">
+    <div class="nav-container">
+     <a class="logo-wrapper" href="index.html">
+      <img alt=" Logo" class="nav-logo" src="logo.png"/>
+      <span class="nav-logo-text">
+       Rowan NAfME
+      </span>
+      <span style="color: yellow;">
+      </span>
+     </a>
+     <ul class="nav-links">
+      <li>
+       <a href="index.html#our-chapter">
+        Our Chapter
+       </a>
+      </li>
+      <li>
+       <a href="events.html">
+        Events
+       </a>
+      </li>
+      <li>
+       <a href="convention.html">
+        Convention
+       </a>
+      </li>
+      <li>
+       <a href="eboard.html">
+        E-Board
+       </a>
+      </li>
+      <li>
+       <a class="active" href="resources.html">
+        Resources
+       </a>
+      </li>
+     </ul>
+    </div>
+   </header>
+   <main>
+    <h2>
+     Resources for Music Educators
+    </h2>
+    <div class="accordion">
+     <button class="accordion-btn">
+      Helpful YouTube Channels
+     </button>
+     <div class="accordion-panel">
+      <ul>
+       <li>
+        <a href="https://www.youtube.com/@MusicEdTech" target="_blank">
+         Music Ed Tech
+        </a>
+       </li>
+       <li>
+        <a href="https://www.youtube.com/@MidnightMusic" target="_blank">
+         Midnight Music
+        </a>
+       </li>
+       <li>
+        <a href="https://www.youtube.com/@NationalAssociationforMusicEd" target="_blank">
+         NAfME Official
+        </a>
+       </li>
+      </ul>
+     </div>
+     <button class="accordion-btn">
+      Lesson Plan Resources
+     </button>
+     <div class="accordion-panel">
+      <ul>
+       <li>
+        <a href="https://www.teacherspayteachers.com/Browse/Search:music%20education%20free" target="_blank">
+         Teachers Pay Teachers - Free Music Ed
+        </a>
+       </li>
+       <li>
+        <a href="https://www.classicsforkids.com/" target="_blank">
+         Classics for Kids
+        </a>
+       </li>
+      </ul>
+     </div>
+     <button class="accordion-btn">
+      Music Tech Tools
+     </button>
+     <div class="accordion-panel">
+      <ul>
+       <li>
+        <a href="https://flat.io" target="_blank">
+         Flat.io – Collaborative Notation
+        </a>
+       </li>
+       <li>
+        <a href="https://www.musicca.com/" target="_blank">
+         Musicca – Free Theory Games
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+    <script>
+     document.querySelectorAll(".accordion-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      btn.classList.toggle("active");
+      const panel = btn.nextElementSibling;
+      panel.style.display = panel.style.display === "block" ? "none" : "block";
+    });
+  });
+    </script>
+    <style>
+     .accordion-btn {
+  background-color: #0033a0;
+  color: white;
+  cursor: pointer;
+  padding: 1rem;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+  margin-top: 0.5rem;
+}
+.accordion-btn:hover {
+  background-color: #002070;
+}
+.accordion-panel {
+  display: none;
+  padding: 1rem;
+  background-color: #f0f0f0;
+}
+.accordion-panel a {
+  color: #0033a0;
+  text-decoration: underline;
+}
+    </style>
+   </main>
+   <footer>
+    <p>
+     © Chapter
+    </p>
+   </footer>
   </div>
-</header>
-
-
-
-  <main>
-    <h2>Chapter Resources</h2>
-    <p>Content for the Chapter Resources page will go here.</p>
-  </main>
-
-  <footer>
-    <p>&copy; Chapter</p>
-  </footer>
-</div>
-
-<button id="login-btn" class="floating-login" onclick="window.location.href='/login.html'">My Account</button>
-<button id="logout-btn" class="floating-login" style="display:none;" onclick="logout()">Logout</button>
-
-
-
-<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
-<script src="auth0.js"></script>
-</body>
+  <button class="floating-login" id="login-btn" onclick="window.location.href='/login.html'">
+   My Account
+  </button>
+  <button class="floating-login" id="logout-btn" onclick="logout()" style="display:none;">
+   Logout
+  </button>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js">
+  </script>
+  <script src="auth0.js">
+  </script>
+ </body>
 </html>
