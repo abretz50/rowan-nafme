@@ -1,133 +1,135 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Events | Rowan NAfME</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    .events-container {
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Events | </title>
+<link href="style.css" rel="stylesheet"/>
+<script defer="" src="script.js"></script>
+<style>
+    .search-filter-container {
       display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
       justify-content: center;
-      padding: 2rem;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
     }
-    .event-card {
-      width: 300px;
-      background-color: #0f172a;
-      border-radius: 1rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      overflow: hidden;
-      transition: transform 0.3s;
+
+    .search-input {
+      width: 250px;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      outline: none;
     }
-    .event-card:hover {
-      transform: translateY(-5px);
+
+    .dropdown-filter {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background-color: white;
+      color: black;
     }
-    .event-image {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-    .event-body {
-      padding: 1rem;
-      color: #ffffff;
-    }
-    .event-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-      color: #facc15;
+
+    .search-button {
+      padding: 0.5rem 1.25rem;
+      font-size: 1rem;
+      background-color: var(--highlight);
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
-      text-decoration: underline;
+      color: black;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
     }
-    .event-desc {
-      font-size: 0.9rem;
-      margin-bottom: 0.5rem;
-    }
-    .event-meta {
-      font-size: 0.85rem;
-      color: #cbd5e1;
-    }
-    .tag {
-      display: inline-block;
-      background-color: #3b82f6;
-      padding: 0.25rem 0.5rem;
-      border-radius: 0.5rem;
-      font-size: 0.75rem;
-      margin-top: 0.5rem;
-    }
-    .popup {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #1e293b;
-      color: white;
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 0 30px rgba(0,0,0,0.5);
-      z-index: 1000;
-      width: 80%;
-      max-width: 500px;
-    }
-    .popup h2 {
-      margin-top: 0;
-      color: #facc15;
-    }
-    .popup-close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      cursor: pointer;
-      font-weight: bold;
-      color: #f87171;
-    }
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      display: none;
-      z-index: 999;
+
+    .search-button:hover {
+      background-color: #ffdb70;
     }
   </style>
 </head>
 <body>
-  <div class="events-container">
-    <div class="event-card">
-      <img src="images/event1.jpg" alt="Kickoff Meeting" class="event-image" />
-      <div class="event-body">
-        <div class="event-title" onclick="openPopup('kickoff')">Fall Semester Kickoff Meeting</div>
-        <div class="event-desc">Join us for our first meeting of the semester!</div>
-        <div class="event-meta">Monday, September 8<br>2:00 PM – Wilson 107</div>
-        <span class="tag" style="background-color:#34d399;">Meeting</span>
-      </div>
-    </div>
-  </div>
+<div class="container">
+<header class="navbar" id="navbar">
+<div class="nav-container">
+<a class="logo-wrapper" href="index.html">
+<img alt=" Logo" class="nav-logo" src="logo.png"/>
+<span class="nav-logo-text">Rowan NAfME</span><span style="color: yellow;"> </span>
+</a>
+<ul class="nav-links">
+<li><a href="index.html#our-chapter">Our Chapter</a></li>
+<li><a class="active" href="events.html">Events</a></li>
+<li><a href="convention.html">Convention</a></li>
+<li><a href="eboard.html">E-Board</a></li>
+<li><a href="resources.html">Resources</a></li>
+</ul>
+</div>
+</header>
+<main style="max-width: 1000px; margin: auto; padding: 2rem;">
+<h2>Upcoming Events</h2>
+<div class="search-filter-container">
+<input class="search-input" id="searchInput" placeholder="Search events..." type="text"/>
+<select class="dropdown-filter" id="filterSelect">
+<option value="">All</option>
+<option value="performance">Performances</option>
+<option value="volunteer">Volunteer</option>
+<option value="general">General Meeting</option>
+<option value="pd">Professional Development</option>
+</select>
+<button class="search-button" id="searchButton">Search</button>
+</div>
+<section class="events-container" id="eventsContainer">
+<!-- JS will populate event cards here -->
+</section>
+</main>
+<footer>
+<p>© Chapter</p>
+</footer>
+<script>
+    // This ensures the button triggers the same filtering as typing/selecting
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.getElementById("searchInput");
+      const filterSelect = document.getElementById("filterSelect");
+      const searchButton = document.getElementById("searchButton");
+      const eventCards = document.querySelectorAll(".event-card");
 
-  <div class="overlay" id="overlay" onclick="closePopup()"></div>
-  <div class="popup" id="popup-kickoff">
-    <span class="popup-close" onclick="closePopup()">×</span>
-    <h2>Fall Semester Kickoff Meeting</h2>
-    <p><strong>Date:</strong> Monday, September 8</p>
-    <p><strong>Time:</strong> 2:00 PM</p>
-    <p><strong>Location:</strong> Wilson 107</p>
-    <p>Welcome back! This event is for all NAfME members to gather, get updates on the semester, and share ideas. Food and refreshments provided!</p>
-  </div>
+      function filterEvents() {
+        const query = searchInput?.value.toLowerCase() || "";
+        const selectedType = filterSelect?.value || "";
 
-  <script>
-    function openPopup(id) {
-      document.getElementById('popup-' + id).style.display = 'block';
-      document.getElementById('overlay').style.display = 'block';
-    }
-    function closePopup() {
-      document.querySelectorAll('.popup').forEach(p => p.style.display = 'none');
-      document.getElementById('overlay').style.display = 'none';
-    }
+        eventCards.forEach(card => {
+          const textMatch = card.textContent.toLowerCase().includes(query);
+          const typeMatch = !selectedType || card.dataset.type === selectedType;
+          card.style.display = textMatch && typeMatch ? "block" : "none";
+        });
+      }
+
+      searchInput?.addEventListener("input", filterEvents);
+      filterSelect?.addEventListener("change", filterEvents);
+      searchButton?.addEventListener("click", filterEvents);
+    });
   </script>
+</div>
+<button class="floating-login" id="login-btn" onclick="window.location.href='/login.html'">My Account</button>
+<button class="floating-login" id="logout-btn" onclick="logout()" style="display:none;">Logout</button>
+<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+<script src="auth0.js"></script>
+<section id="events-list"><h2>Fall 2025 Events</h2><div class="event-item"><h4>Monday, September 8</h4><p>NAfME Fall Semester Kickoff Meeting</p></div><div class="event-item"><h4>Friday, September 19</h4><p>Open Mic Night (Collab with Rowan Arts Society)</p></div><div class="event-item"><h4>Sunday, September 28</h4><p>NAfME Choir Community Performance</p></div><div class="event-item"><h4>Wednesday, October 8</h4><p>Professional Development Panel: Careers in Music Education</p></div><div class="event-item"><h4>Friday, October 24</h4><p>Fall Festival Fundraiser</p></div><div class="event-item"><h4>Monday, November 3</h4><p>Mid-Semester Check-in Social</p></div><div class="event-item"><h4>Saturday, November 15</h4><p>Regional NAfME Workshop at Rowan</p></div><div class="event-item"><h4>Monday, December 1</h4><p>Holiday Caroling Rehearsal &amp; Party</p></div><div class="event-item"><h4>Sunday, December 7</h4><p>NAfME Holiday Caroling Performance</p></div></section><div id="events-list"><div class="event"><h3>First General Meeting</h3><p>September 4, 2025</p></div><div class="event"><h3>NAfME Eastern Division Advocacy Summit</h3><p>September 22–23, 2025</p></div><div class="event"><h3>Rowan NAfME Advocacy Week</h3><p>October 6–11, 2025</p></div><div class="event"><h3>Second General Meeting</h3><p>October 8, 2025</p></div><div class="event"><h3>Fall Membership Drive Ends</h3><p>October 18, 2025</p></div><div class="event"><h3>NAfME Collegiate Fall Drive Deadline</h3><p>October 19, 2025</p></div><div class="event"><h3>Third General Meeting</h3><p>November 5, 2025</p></div><div class="event"><h3>Open Mic Night Fundraiser</h3><p>November 21, 2025</p></div><div class="event"><h3>NAfME Hill Day &amp; Collegiate Advocacy Summit</h3><p>January 22–24, 2026</p></div></div>
+<section class="event-section">
+  <h2>Fall 2025 Events</h2>
+  <div class="event-item"><strong>Monday, September 8</strong><br>NAfME Fall Semester Kickoff Meeting</div>
+  <div class="event-item"><strong>Friday, September 19</strong><br>Open Mic Night (Collab with Rowan Arts Society)</div>
+  <div class="event-item"><strong>Sunday, September 28</strong><br>NAfME Choir Community Performance</div>
+  <div class="event-item"><strong>Wednesday, October 8</strong><br>Professional Development Panel: Careers in Music Education</div>
+  <div class="event-item"><strong>Friday, October 24</strong><br>Fall Festival Booth</div>
+  <div class="event-item"><strong>Saturday, November 8</strong><br>NAfME Karaoke Night</div>
+  <div class="event-item"><strong>Monday, November 17</strong><br>Thanksgiving Cards for the Elderly</div>
+  <div class="event-item"><strong>Friday, December 5</strong><br>NAfME End-of-Semester Celebration</div>
+</section>
+
 </body>
 </html>
