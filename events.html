@@ -1,130 +1,50 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Events | </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Events | Rowan NAfME</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
-  <style>
-    .search-filter-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.75rem;
-      margin-top: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .search-input {
-      width: 250px;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      outline: none;
-    }
-
-    .dropdown-filter {
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      background-color: white;
-      color: black;
-    }
-
-    .search-button {
-      padding: 0.5rem 1.25rem;
-      font-size: 1rem;
-      background-color: var(--highlight);
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      color: black;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
-    }
-
-    .search-button:hover {
-      background-color: #ffdb70;
-    }
-  </style>
 </head>
 <body>
-<div class="container">
-  <header class="navbar" id="navbar">
-    <div class="nav-container">
-      <a href="index.html" class="logo-wrapper">
-        <img src="logo.png" alt=" Logo" class="nav-logo" />
-        <span class="nav-logo-text">Rowan NAfME</span><span style="color: yellow;"> </span></span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="index.html#our-chapter">Our Chapter</a></li>
-        <li><a href="events.html" class="active">Events</a></li>
-        <li><a href="convention.html">Convention</a></li>
-        <li><a href="eboard.html">E-Board</a></li>
-        <li><a href="resources.html">Resources</a></li>
-      </ul>
+  <header>
+    <div class="navbar">
+      <div class="nav-logo">Rowan NAfME</div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="events.html" class="active">Events</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
-  <main style="max-width: 1000px; margin: auto; padding: 2rem;">
-    <h2>Upcoming Events</h2>
-
-    <div class="search-filter-container">
-      <input type="text" id="searchInput" class="search-input" placeholder="Search events..." />
-      <select id="filterSelect" class="dropdown-filter">
-        <option value="">All</option>
-        <option value="performance">Performances</option>
-        <option value="volunteer">Volunteer</option>
-        <option value="general">General Meeting</option>
-        <option value="pd">Professional Development</option>
-      </select>
-      <button id="searchButton" class="search-button">Search</button>
-    </div>
-
-    <section class="events-container" id="eventsContainer">
-      <!-- JS will populate event cards here -->
+  <main>
+    <section class="content-box">
+      <h1>Fall 2025 NAfME Events Calendar</h1>
+      <ul>
+        <li><strong>September 5</strong> – General Body Meeting #1 (5pm, Room 105)</li>
+        <li><strong>September 11</strong> – Professional Development: “Resumes that Shine” (6pm)</li>
+        <li><strong>September 19</strong> – NAfME Game Night & Mixer (7pm)</li>
+        <li><strong>September 26</strong> – PD Session: “From College to the Classroom” with Alumni Panel</li>
+        <li><strong>October 3</strong> – Workshop: Building Rehearsal Plans (5pm)</li>
+        <li><strong>October 10</strong> – General Body Meeting #2 (5pm)</li>
+        <li><strong>October 17</strong> – Mock Interviews & Portfolio Review Night</li>
+        <li><strong>October 25</strong> – Trunk or Treat Volunteering (Location TBA)</li>
+        <li><strong>November 1–3</strong> – NJMEA Fall Workshop (Registration Required)</li>
+        <li><strong>November 7</strong> – Workshop: “Effective Conducting for the Classroom”</li>
+        <li><strong>November 14</strong> – General Body Meeting #3</li>
+        <li><strong>November 21</strong> – NAfME Friendsgiving Social</li>
+        <li><strong>December 5</strong> – End-of-Semester Recap & Winter Social</li>
+      </ul>
     </section>
   </main>
 
   <footer>
-    <p>&copy; Chapter</p>
+    <p>&copy; 2025 Rowan NAfME Chapter. All rights reserved.</p>
   </footer>
-
-  <script>
-    // This ensures the button triggers the same filtering as typing/selecting
-    document.addEventListener("DOMContentLoaded", () => {
-      const searchInput = document.getElementById("searchInput");
-      const filterSelect = document.getElementById("filterSelect");
-      const searchButton = document.getElementById("searchButton");
-      const eventCards = document.querySelectorAll(".event-card");
-
-      function filterEvents() {
-        const query = searchInput?.value.toLowerCase() || "";
-        const selectedType = filterSelect?.value || "";
-
-        eventCards.forEach(card => {
-          const textMatch = card.textContent.toLowerCase().includes(query);
-          const typeMatch = !selectedType || card.dataset.type === selectedType;
-          card.style.display = textMatch && typeMatch ? "block" : "none";
-        });
-      }
-
-      searchInput?.addEventListener("input", filterEvents);
-      filterSelect?.addEventListener("change", filterEvents);
-      searchButton?.addEventListener("click", filterEvents);
-    });
-  </script>
-</div>
-
-<button id="login-btn" class="floating-login" onclick="window.location.href='/login.html'">My Account</button>
-<button id="logout-btn" class="floating-login" style="display:none;" onclick="logout()">Logout</button>
-
-
-
-<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
-<script src="auth0.js"></script>
 </body>
 </html>
