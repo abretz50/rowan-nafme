@@ -83,7 +83,62 @@
 <button class="search-button" id="searchButton">Search</button>
 </div>
 <section class="events-container" id="eventsContainer">
-<!-- JS will populate event cards here -->
+<div class="events-container">
+  <!-- Event 1 -->
+  <div class="event-card">
+    <img src="images/event1.jpg" alt="Kickoff Meeting" class="event-image" />
+    <div class="event-body">
+      <div class="event-title" onclick="openPopup('kickoff')">Fall Semester Kickoff Meeting</div>
+      <div class="event-desc">Join us for our first meeting of the semester!</div>
+      <div class="event-meta">Monday, September 8<br>2:00 PM – Wilson 107</div>
+      <span class="tag" style="background-color:#34d399;">Meeting</span>
+    </div>
+  </div>
+
+  <!-- Event 2 -->
+  <div class="event-card">
+    <img src="images/event2.jpg" alt="Open Mic Night" class="event-image" />
+    <div class="event-body">
+      <div class="event-title" onclick="openPopup('openmic')">Open Mic Night</div>
+      <div class="event-desc">An evening of music and poetry with Rowan Arts Society.</div>
+      <div class="event-meta">Friday, September 19<br>7:00 PM – Bunce Hall</div>
+      <span class="tag" style="background-color:#f472b6;">Performance</span>
+    </div>
+  </div>
+
+  <!-- Event 3 -->
+  <div class="event-card">
+    <img src="images/event3.jpg" alt="Choir Performance" class="event-image" />
+    <div class="event-body">
+      <div class="event-title" onclick="openPopup('choir')">NAfME Choir Community Performance</div>
+      <div class="event-desc">Come sing or support our outreach performance.</div>
+      <div class="event-meta">Sunday, September 28<br>4:00 PM – Glassboro Commons</div>
+      <span class="tag" style="background-color:#60a5fa;">Volunteer</span>
+    </div>
+  </div>
+
+  <!-- Event 4 -->
+  <div class="event-card">
+    <img src="images/event4.jpg" alt="PD Panel" class="event-image" />
+    <div class="event-body">
+      <div class="event-title" onclick="openPopup('panel')">Careers in Music Education Panel</div>
+      <div class="event-desc">Learn from professionals about your future options.</div>
+      <div class="event-meta">Wednesday, October 8<br>5:00 PM – Wilson 107</div>
+      <span class="tag" style="background-color:#fbbf24;">PD</span>
+    </div>
+  </div>
+
+  <!-- Event 5 -->
+  <div class="event-card">
+    <img src="images/event5.jpg" alt="Fall Festival" class="event-image" />
+    <div class="event-body">
+      <div class="event-title" onclick="openPopup('festival')">Fall Festival Booth</div>
+      <div class="event-desc">Stop by our table for fun, games, and fundraising!</div>
+      <div class="event-meta">Friday, October 24<br>12:00 PM – Hollybush Green</div>
+      <span class="tag" style="background-color:#f87171;">Fundraiser</span>
+    </div>
+  </div>
+</div>
 </section>
 </main>
 <footer>
@@ -131,5 +186,63 @@
   <div class="event-item"><strong>Friday, December 5</strong><br>NAfME End-of-Semester Celebration</div>
 </section>
 
+
+<div class="overlay" id="overlay" onclick="closePopup()"></div>
+
+<div class="popup" id="popup-kickoff">
+  <span class="popup-close" onclick="closePopup()">×</span>
+  <h2>Fall Semester Kickoff Meeting</h2>
+  <p><strong>Date:</strong> Monday, September 8</p>
+  <p><strong>Time:</strong> 2:00 PM</p>
+  <p><strong>Location:</strong> Wilson 107</p>
+  <p>Welcome back! Get updates, reconnect, and enjoy refreshments.</p>
+</div>
+
+<div class="popup" id="popup-openmic">
+  <span class="popup-close" onclick="closePopup()">×</span>
+  <h2>Open Mic Night</h2>
+  <p><strong>Date:</strong> Friday, September 19</p>
+  <p><strong>Time:</strong> 7:00 PM</p>
+  <p><strong>Location:</strong> Bunce Hall</p>
+  <p>Join us for a collaborative night of music, poetry, and performance.</p>
+</div>
+
+<div class="popup" id="popup-choir">
+  <span class="popup-close" onclick="closePopup()">×</span>
+  <h2>NAfME Choir Community Performance</h2>
+  <p><strong>Date:</strong> Sunday, September 28</p>
+  <p><strong>Time:</strong> 4:00 PM</p>
+  <p><strong>Location:</strong> Glassboro Commons</p>
+  <p>Our choir brings music to the community. All are welcome!</p>
+</div>
+
+<div class="popup" id="popup-panel">
+  <span class="popup-close" onclick="closePopup()">×</span>
+  <h2>Careers in Music Education Panel</h2>
+  <p><strong>Date:</strong> Wednesday, October 8</p>
+  <p><strong>Time:</strong> 5:00 PM</p>
+  <p><strong>Location:</strong> Wilson 107</p>
+  <p>Get professional insights into music education careers.</p>
+</div>
+
+<div class="popup" id="popup-festival">
+  <span class="popup-close" onclick="closePopup()">×</span>
+  <h2>Fall Festival Booth</h2>
+  <p><strong>Date:</strong> Friday, October 24</p>
+  <p><strong>Time:</strong> 12:00 PM</p>
+  <p><strong>Location:</strong> Hollybush Green</p>
+  <p>Games, fun, and a chance to support Rowan NAfME's fundraising goals.</p>
+</div>
+
+<script>
+  function openPopup(id) {
+    document.getElementById('popup-' + id).style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
+  }
+  function closePopup() {
+    document.querySelectorAll('.popup').forEach(p => p.style.display = 'none');
+    document.getElementById('overlay').style.display = 'none';
+  }
+</script>
 </body>
 </html>
