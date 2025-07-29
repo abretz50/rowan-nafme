@@ -29,7 +29,7 @@
     .dropdown-filter {
       padding: 0.5rem 1rem;
       font-size: 1rem;
-      border-radius: 8px;
+      border-radius: 4px;
       border: 1px solid #ccc;
       background-color: white;
       color: black;
@@ -50,7 +50,24 @@
     .search-button:hover {
       background-color: #ffdb70;
     }
-  </style>
+  
+.see-more-btn {
+  background-color: #facc15;
+  color: #1e293b;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.4rem 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  display: inline-block;
+  transition: background-color 0.2s ease;
+}
+.see-more-btn:hover {
+  background-color: #fde047;
+}
+
+</style>
 </head>
 <body>
 <div class="container">
@@ -90,7 +107,7 @@
     <div class="event-body">
       <div class="event-title" onclick="openPopup('kickoff')">Fall Semester Kickoff Meeting</div>
       <div class="event-desc">Join us for our first meeting of the semester!</div>
-      <div class="event-meta"><br>2:00 PM – Wilson 107</div>
+      <div class="event-meta"><br><a href="https://calendar.google.com/calendar/u/0/r/eventedit" target="_blank">2:00 PM – Wilson 107</a></div><button class="see-more-btn" onclick="openPopup('kickoff')">See More</button>
       <span class="tag" style="background-color:#34d399;">Meeting</span>
     </div>
   </div>
@@ -101,7 +118,7 @@
     <div class="event-body">
       <div class="event-title" onclick="openPopup('openmic')">Open Mic Night</div>
       <div class="event-desc">An evening of music and poetry with Rowan Arts Society.</div>
-      <div class="event-meta"><br>7:00 PM – Bunce Hall</div>
+      <div class="event-meta"><br><a href="https://calendar.google.com/calendar/u/0/r/eventedit" target="_blank">7:00 PM – Bunce Hall</a></div><button class="see-more-btn" onclick="openPopup('openmic')">See More</button>
       <span class="tag" style="background-color:#f472b6;">Performance</span>
     </div>
   </div>
@@ -112,7 +129,7 @@
     <div class="event-body">
       <div class="event-title" onclick="openPopup('choir')">NAfME Choir Community Performance</div>
       <div class="event-desc">Come sing or support our outreach performance.</div>
-      <div class="event-meta"><br>4:00 PM – Glassboro Commons</div>
+      <div class="event-meta"><br><a href="https://calendar.google.com/calendar/u/0/r/eventedit" target="_blank">4:00 PM – Glassboro Commons</a></div><button class="see-more-btn" onclick="openPopup('choir')">See More</button>
       <span class="tag" style="background-color:#60a5fa;">Volunteer</span>
     </div>
   </div>
@@ -123,7 +140,7 @@
     <div class="event-body">
       <div class="event-title" onclick="openPopup('panel')">Careers in Music Education Panel</div>
       <div class="event-desc">Learn from professionals about your future options.</div>
-      <div class="event-meta"><br>5:00 PM – Wilson 107</div>
+      <div class="event-meta"><br><a href="https://calendar.google.com/calendar/u/0/r/eventedit" target="_blank">5:00 PM – Wilson 107</a></div><button class="see-more-btn" onclick="openPopup('panel')">See More</button>
       <span class="tag" style="background-color:#fbbf24;">PD</span>
     </div>
   </div>
@@ -134,7 +151,7 @@
     <div class="event-body">
       <div class="event-title" onclick="openPopup('festival')">Fall Festival Booth</div>
       <div class="event-desc">Stop by our table for fun, games, and fundraising!</div>
-      <div class="event-meta"><br>12:00 PM – Hollybush Green</div>
+      <div class="event-meta"><br><a href="https://calendar.google.com/calendar/u/0/r/eventedit" target="_blank">12:00 PM – Hollybush Green</a></div><button class="see-more-btn" onclick="openPopup('festival')">See More</button>
       <span class="tag" style="background-color:#f87171;">Fundraiser</span>
     </div>
   </div>
