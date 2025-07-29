@@ -1,11 +1,180 @@
+<!DOCTYPE html>
 
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Events | </title>
+<link href="style.css" rel="stylesheet"/>
+<script defer="" src="script.js"></script>
 <style>
-.event-card {
-  width: 300px;
-  background-color: #0f172a;
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  transition: transform 0.3s;
-}
-</style>
+    .search-filter-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      width: 250px;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      outline: none;
+    }
+
+    .dropdown-filter {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background-color: white;
+      color: black;
+    }
+
+    .search-button {
+      padding: 0.5rem 1.25rem;
+      font-size: 1rem;
+      background-color: var(--highlight);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: black;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .search-button:hover {
+      background-color: #ffdb70;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+<header class="navbar" id="navbar">
+<div class="nav-container">
+<a class="logo-wrapper" href="index.html">
+<img alt=" Logo" class="nav-logo" src="logo.png"/>
+<span class="nav-logo-text">Rowan NAfME</span><span style="color: yellow;"> </span>
+</a>
+<ul class="nav-links">
+<li><a href="index.html#our-chapter">Our Chapter</a></li>
+<li><a class="active" href="events.html">Events</a></li>
+<li><a href="convention.html">Convention</a></li>
+<li><a href="eboard.html">E-Board</a></li>
+<li><a href="resources.html">Resources</a></li>
+</ul>
+</div>
+</header>
+<main style="max-width: 1000px; margin: auto; padding: 2rem;">
+<h2>Upcoming Events</h2>
+<div class="search-filter-container">
+<input class="search-input" id="searchInput" placeholder="Search events..." type="text"/>
+<select class="dropdown-filter" id="filterSelect">
+<option value="">All</option>
+<option value="performance">Performances</option>
+<option value="volunteer">Volunteer</option>
+<option value="general">General Meeting</option>
+<option value="pd">Professional Development</option>
+</select>
+<button class="search-button" id="searchButton">Search</button>
+</div>
+<section class="events-container" id="eventsContainer">
+<div class="events-container">
+  <!-- Event 1 -->
+  <div class="event-card">
+    <img src="images/event1.jpg" alt="Kickoff Meeting" class="event-image" />
+    <div class="event-body">
+      <div class="event-title" onclick="openPopup('kickoff')">Fall Semester Kickoff Meeting</div>
+      <div class="event-desc">Join us for our first meeting of the semester!</div>
+      <div class="event-meta"><br>2:00 PM – Wilson 107</div>
+      <span class="tag" style="background-color:#34d399;">Meeting</span>
+    </div>
+  </div>
+
+  <!-- Event 2 -->
+  <div class="event-card">
+    <img src="images/event2.jpg" alt="Open Mic Night" class="event-image" />
+    <div class="event-body">
+      <div class="event-title" onclick="openPopup('openmic')">Open Mic Night</div>
+      <div class="event-desc">An evening of music and poetry with Rowan Arts Society.</div>
+      <div class="event-meta"><br>7:00 PM – Bunce Hall</div>
+      <span class="tag" style="background-color:#f472b6;">Performance</span>
+    </div>
+  </div>
+
+  <!-- Event 3 -->
+  <div class="event-card">
+    <img src="images/event3.jpg" alt="Choir Performance" class="event-image" />
+    <div class="event-body">
+      <div class="event-title" onclick="openPopup('choir')">NAfME Choir Community Performance</div>
+      <div class="event-desc">Come sing or support our outreach performance.</div>
+      <div class="event-meta"><br>4:00 PM – Glassboro Commons</div>
+      <span class="tag" style="background-color:#60a5fa;">Volunteer</span>
+    </div>
+  </div>
+
+  <!-- Event 4 -->
+  <div class="event-card">
+    <img src="images/event4.jpg" alt="PD Panel" class="event-image" />
+    <div class="event-body">
+      <div class="event-title" onclick="openPopup('panel')">Careers in Music Education Panel</div>
+      <div class="event-desc">Learn from professionals about your future options.</div>
+      <div class="event-meta"><br>5:00 PM – Wilson 107</div>
+      <span class="tag" style="background-color:#fbbf24;">PD</span>
+    </div>
+  </div>
+
+  <!-- Event 5 -->
+  <div class="event-card">
+    <img src="images/event5.jpg" alt="Fall Festival" class="event-image" />
+    <div class="event-body">
+      <div class="event-title" onclick="openPopup('festival')">Fall Festival Booth</div>
+      <div class="event-desc">Stop by our table for fun, games, and fundraising!</div>
+      <div class="event-meta"><br>12:00 PM – Hollybush Green</div>
+      <span class="tag" style="background-color:#f87171;">Fundraiser</span>
+    </div>
+  </div>
+</div>
+</section>
+</main>
+<footer>
+<p>© Chapter</p>
+</footer>
+<script>
+    // This ensures the button triggers the same filtering as typing/selecting
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.getElementById("searchInput");
+      const filterSelect = document.getElementById("filterSelect");
+      const searchButton = document.getElementById("searchButton");
+      const eventCards = document.querySelectorAll(".event-card");
+
+      function filterEvents() {
+        const query = searchInput?.value.toLowerCase() || "";
+        const selectedType = filterSelect?.value || "";
+
+        eventCards.forEach(card => {
+          const textMatch = card.textContent.toLowerCase().includes(query);
+          const typeMatch = !selectedType || card.dataset.type === selectedType;
+          card.style.display = textMatch && typeMatch ? "block" : "none";
+        });
+      }
+
+      searchInput?.addEventListener("input", filterEvents);
+      filterSelect?.addEventListener("change", filterEvents);
+      searchButton?.addEventListener("click", filterEvents);
+    });
+  </script>
+</div>
+<button class="floating-login" id="login-btn" onclick="window.location.href='/login.html'">My Account</button>
+<button class="floating-login" id="logout-btn" onclick="logout()" style="display:none;">Logout</button>
+<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+<script src="auth0.js"></script>
+
+
+
+</body>
+</html>
