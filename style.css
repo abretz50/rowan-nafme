@@ -289,3 +289,9 @@ body {
 .tag-professional { background-color: #800080; }           /* Purple */
 .tag-volunteer { background-color: #007BFF; }              /* Blue */
 .tag-performance { background-color: #ff8000; }            /* Orange */
+
+
+/* Ensures space between event date and tags/buttons */
+.event-meta {
+  margin-bottom: 0.5rem;
+}
