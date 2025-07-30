@@ -270,3 +270,22 @@ body {
     margin: 0.3rem 0;
     font-size: 1rem;
 }
+
+
+/* Tag button styles */
+
+.tag-button {
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  color: white;
+  margin: 0.25rem;
+  text-transform: capitalize;
+}
+
+.tag-general { background-color: #ffc72c; color: black; }  /* Yellow */
+.tag-professional { background-color: #800080; }           /* Purple */
+.tag-volunteer { background-color: #007BFF; }              /* Blue */
+.tag-performance { background-color: #ff8000; }            /* Orange */
