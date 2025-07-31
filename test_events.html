@@ -1,77 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>Test Events</title>
-  <link href="style.css" rel="stylesheet"/>
-  <style>
-    .events-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      padding: 2rem;
-    }
-
-    .event-card {
-      background-color: #008eb3;
-      border-radius: 0.75rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      overflow: hidden;
-      padding-bottom: 1rem;
-      width: 100%;
-      max-width: 320px;
-      margin: auto;
-      color: white;
-      text-align: center;
-    }
-
-    .event-title {
-      font-size: 1.25rem;
-      font-weight: bold;
-      margin-top: 1rem;
-    }
-
-    .event-date,
-    .event-desc {
-      font-size: 1rem;
-      margin: 0.5rem 1rem;
-    }
-  </style>
 </head>
 <body>
-  <main style="max-width: 1000px; margin: auto; padding: 2rem;">
-    <h2>Test Events</h2>
-    <section class="events-container" id="eventsContainer">
-      <p>Loading events...</p>
-    </section>
-  </main>
+  <h1>Upcoming Events</h1>
+  <div id="events"></div>
 
   <script>
-    async function loadEvents() {
-      const container = document.getElementById('eventsContainer');
-      try {
-        const res = await fetch('/.netlify/functions/get-events');
-        const data = await res.json();
-        container.innerHTML = '';
-
-        data.forEach(event => {
-          const card = document.createElement('div');
-          card.className = 'event-card';
-          card.innerHTML = `
-            <div class="event-title">${event.title}</div>
-            <div class="event-date">${new Date(event.date).toDateString()}</div>
-            <div class="event-desc">${event.description || ''}</div>
-          `;
-          container.appendChild(card);
+    fetch('/.netlify/functions/get_events')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('events');
+        data.forEach(e => {
+          const div = document.createElement('div');
+          div.innerHTML = `<h3>${e.title}</h3><p>${e.date}</p><p>${e.description}</p>`;
+          container.appendChild(div);
         });
-      } catch (err) {
-        console.error('Failed to load events:', err);
-        container.innerHTML = '<p style="color:red">Failed to load events.</p>';
-      }
-    }
-
-    loadEvents();
+      })
+      .catch(err => {
+        document.getElementById('events').textContent = 'Error loading events.';
+        console.error(err);
+      });
   </script>
 </body>
 </html>
