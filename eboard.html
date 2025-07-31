@@ -24,6 +24,72 @@
   color: #333;
   margin-top: 0.5rem;
 }
+.eboard-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 10rem;
+  position: relative;
+  top: -8rem; 
+}
+.eboard-card {
+  background-color: #008eb3;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: transform 0.3s;
+  padding: 1rem;
+  width: 275px;
+  height: 400px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.eboard-image-container {
+  width: 175px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.eboard-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
+}
+
+.eboard-body {
+  padding: 0;
+  text-align: center;
+}
+
+.eboard-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.eboard-position {
+  font-size: 1rem;
+  color: #7a288a; 
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+
+.eboard-desc {
+  font-size: 0.9rem;
+  color: #333;
+}
+
   </style>
  </head>
  <body>
@@ -71,104 +137,69 @@
     <h2>
      Meet the Executive Board
     </h2>
-    <div class="board-grid">
-     <div class="board-card">
-      <img alt="Vanessa Bond photo" class="board-photo" src="images/placeholder.png"/>
-      <h3>
-       ADVISOR
-      </h3>
-      <p>
-       Vanessa Bond
-      </p>
-      <p class="board-desc">
-       Faculty advisor passionate about inclusive and modern music education.
-      </p>
-     </div>
-     <div class="board-card">
-      <img alt="Min Hwang photo" class="board-photo" src="images/placeholder.png"/>
-      <h3>
-       PRESIDENT
-      </h3>
-      <p>
-       Min Hwang
-      </p>
-      <p class="board-desc">
-       Leads the chapter with energy and vision. Passionate about music curriculum.
-      </p>
-     </div>
-     <div class="board-card">
-      <img alt="Makayli Matias photo" class="board-photo" src="images/placeholder.png"/>
-      <h3>
-       SECRETARY
-      </h3>
-      <p>
-       Makayli Matias
-      </p>
-      <p class="board-desc">
-       Organized and diligent secretary keeping everything on track.
-      </p>
-     </div>
-     <div class="board-card">
-      <img alt="Adam Bretz photo" class="board-photo" src="images/placeholder.png"/>
-      <h3>
-       SENATOR
-      </h3>
-      <p>
-       Adam Bretz
-      </p>
-      <p class="board-desc">
-       Advocates for student voice and representation at all levels.
-      </p>
-     </div>
-     <div class="board-card">
-      <img alt="Jessenia Zavala photo" class="board-photo" src="images/placeholder.png"/>
-      <h3>
-       TREASURER
-      </h3>
-      <p>
-       Jessenia Zavala
-      </p>
-      <p class="board-desc">
-       Treasurer with a sharp mind for budgeting and resource planning.
-      </p>
-     </div>
-     <div class="board-card">
-      <img alt="Cameron Hyson photo" class="board-photo" src="images/placeholder.png"/>
-      <h3>
-       VICE PRESIDENT
-      </h3>
-      <p>
-       Cameron Hyson
-      </p>
-      <p class="board-desc">
-       Committed to building a connected and creative executive team.
-      </p>
-     </div>
-     <div class="board-card">
-      <img alt="Emilee Townsley photo" class="board-photo" src="images/placeholder.png"/>
-      <h3>
-       SOCIAL MEDIA COORDINATOR
-      </h3>
-      <p>
-       Emilee Townsley
-      </p>
-      <p class="board-desc">
-       Runs our digital presence with flair and timely content.
-      </p>
-     </div>
-     <div class="board-card">
-      <img alt="Samantha Spencer photo" class="board-photo" src="images/placeholder.png"/>
-      <h3>
-       EVENT CONSULTANT
-      </h3>
-      <p>
-       Samantha Spencer
-      </p>
-      <p class="board-desc">
-       Brings innovative and fun programming ideas to life.
-      </p>
-     </div>
+<div class="eboard-container">
+  <div class="eboard-card">
+    <div class="eboard-image-container">
+      <img src="images/eboard/blank.png" alt="Min Hwang photo" class="eboard-image" />
     </div>
+    <div class="eboard-body">
+      <div class="eboard-title">Min Hwang</div>
+      <div class="eboard-position">President</div>
+      <div class="eboard-desc">Adam is an Electrical & Computer Engineering Major with a minor in music(Organ Performance). In his role he attends Student Government meetings and represents the club's interests to the school. Aside from Adam's primary role he also maintains the chapter's website.</div>
+    </div>
+  </div>
+  <div class="eboard-card">
+    <div class="eboard-image-container">
+      <img src="images/eboard/blank.png" alt="Cameron Hyson photo" class="eboard-image" />
+    </div>
+    <div class="eboard-body">
+      <div class="eboard-title">Cameron Hyson</div>
+      <div class="eboard-position">Vice President</div>
+      <div class="eboard-desc">Adam is an Electrical & Computer Engineering Major with a minor in music(Organ Performance). In his role he attends Student Government meetings and represents the club's interests to the school. Aside from Adam's primary role he also maintains the chapter's website.</div>
+    </div>
+  </div>
+  <div class="eboard-card">
+    <div class="eboard-image-container">
+      <img src="images/eboard/blank.png" alt="Jessenia Zavala photo" class="eboard-image" />
+    </div>
+    <div class="eboard-body">
+      <div class="eboard-title">Jessenia Zavala</div>
+      <div class="eboard-position">Treasurer</div>
+      <div class="eboard-desc">Adam is an Electrical & Computer Engineering Major with a minor in music(Organ Performance). In his role he attends Student Government meetings and represents the club's interests to the school. Aside from Adam's primary role he also maintains the chapter's website.</div>
+    </div>
+  </div>
+  <div class="eboard-card">
+    <div class="eboard-image-container">
+      <img src="images/eboard/blank.png" alt="Makayli Matias photo" class="eboard-image" />
+    </div>
+    <div class="eboard-body">
+      <div class="eboard-title">Makayli Matias</div>
+      <div class="eboard-position">Secretary</div>
+      <div class="eboard-desc">Adam is an Electrical & Computer Engineering Major with a minor in music(Organ Performance). In his role he attends Student Government meetings and represents the club's interests to the school. Aside from Adam's primary role he also maintains the chapter's website.</div>
+    </div>
+  </div>
+  <div class="eboard-card">
+    <div class="eboard-image-container">
+      <img src="images/eboard/blank.png" alt="Emilee Townsley photo" class="eboard-image" />
+    </div>
+    <div class="eboard-body">
+      <div class="eboard-title">Emilee Townsley</div>
+      <div class="eboard-position">Social Media Coordinator</div>
+      <div class="eboard-desc">Adam is an Electrical & Computer Engineering Major with a minor in music(Organ Performance). In his role he attends Student Government meetings and represents the club's interests to the school. Aside from Adam's primary role he also maintains the chapter's website.</div>
+    </div>
+  </div>
+  <div class="eboard-card">
+    <div class="eboard-image-container">
+      <img src="images/eboard/blank.png" alt="Adam Bretz photo" class="eboard-image" />
+    </div>
+    <div class="eboard-body">
+      <div class="eboard-title">Adam Bretz</div>
+      <div class="eboard-position">Senator</div>
+      <div class="eboard-desc">Adam is an Electrical & Computer Engineering Major with a minor in music(Organ Performance). In his role he attends Student Government meetings and represents the club's interests to the school. Aside from Adam's primary role he also maintains the chapter's website.</div>
+    </div>
+  </div>
+  </div>
+ </div>
    </main>
    <footer>
     <p>
