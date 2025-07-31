@@ -225,9 +225,12 @@
       Search
      </button>
     </div>
+
+
+
     <section class="events-container" id="eventsContainer">
      <div class="events-container">
-      <div class="event-card">
+      <div class="event-card" data-type="general">
        <img alt="NAfME BBQ Kickoff" class="event-image" src="images/events/bbq.jpg"/>
        <div class="event-body">
         <div class="event-title" onclick="openPopup('bbq')">
@@ -249,7 +252,7 @@
         </button>
        </div>
       </div>
-      <div class="event-card">
+      <div class="event-card" data-type="general">
        <img alt="Vinyl Painting" class="event-image" src="images/events/vinyl-paint.jpg"/>
        <div class="event-body">
         <div class="event-title" onclick="openPopup('vinyl')">
@@ -271,7 +274,7 @@
         </button>
        </div>
       </div>
-      <div class="event-card">
+      <div class="event-card" data-type="general">
        <img alt="General Meeting #1 – About NAfME" class="event-image" src="images/events/meeting1.jpg"/>
        <div class="event-body">
         <div class="event-title" onclick="openPopup('gm1')">
@@ -293,7 +296,7 @@
         </button>
        </div>
       </div>
-      <div class="event-card">
+      <div class="event-card" data-type="pd">
        <img alt="PD: Joe Sino" class="event-image" src="images/events/pd-joe.jpg"/>
        <div class="event-body">
         <div class="event-title" onclick="openPopup('pdjoe')">
@@ -307,15 +310,15 @@
           Friday, Sept 26 – 2:00 PM – TBD
          </a>
         </div>
-        <span class="tag tag-general">
-         General Meeting
+        <span class="tag tag-pd">
+         Professional Development
         </span>
         <button class="see-more-btn" onclick="openPopup('pdjoe')">
          See More
         </button>
        </div>
       </div>
-      <div class="event-card">
+      <div class="event-card" data-type="general">
        <img alt="General Meeting #2 – Senior Tips" class="event-image" src="images/events/meeting2.jpg"/>
        <div class="event-body">
         <div class="event-title" onclick="openPopup('gm2')">
@@ -337,7 +340,7 @@
         </button>
        </div>
       </div>
-      <div class="event-card">
+      <div class="event-card" data-type="general">
        <img alt="Pumpkin Painting" class="event-image" src="images/events/pumpkin.jpg"/>
        <div class="event-body">
         <div class="event-title" onclick="openPopup('pumpkin')">
@@ -359,7 +362,7 @@
         </button>
        </div>
       </div>
-      <div class="event-card">
+      <div class="event-card" data-type="general">
        <img alt="General Workshop – Latin Rhythms Through Dance" class="event-image" src="images/events/latin-dance.jpg"/>
        <div class="event-body">
         <div class="event-title" onclick="openPopup('dance')">
@@ -381,7 +384,7 @@
         </button>
        </div>
       </div>
-      <div class="event-card">
+      <div class="event-card" data-type="pd">
        <img alt="PD: TBD" class="event-image" src="images/events/pd-tbd.jpg"/>
        <div class="event-body">
         <div class="event-title" onclick="openPopup('pdtbd')">
@@ -403,7 +406,7 @@
         </button>
        </div>
       </div>
-      <div class="event-card">
+      <div class="event-card" data-type="pd">
        <img alt="PD: Mario DeSantis" class="event-image" src="images/events/pd-mario.jpg"/>
        <div class="event-body">
         <div class="event-title" onclick="openPopup('pdmario')">
@@ -425,7 +428,7 @@
         </button>
        </div>
       </div>
-      <div class="event-card">
+      <div class="event-card" data-type="general">
        <img alt="General Meeting – Education in Government" class="event-image" src="images/events/meeting3.jpg"/>
        <div class="event-body">
         <div class="event-title" onclick="openPopup('gm3')">
@@ -463,21 +466,19 @@
       const searchButton = document.getElementById("searchButton");
       const eventCards = document.querySelectorAll(".event-card");
 
-      function filterEvents() {
-        const query = searchInput?.value.toLowerCase() || "";
-        const selectedType = filterSelect?.value || "";
+ function filterEvents() {
+  const query = searchInput?.value.toLowerCase() || "";
+  const selectedType = filterSelect?.value || "";
 
-        eventCards.forEach(card => {
-          const textMatch = card.textContent.toLowerCase().includes(query);
-          const typeMatch = !selectedType || card.dataset.type === selectedType;
-          card.style.display = textMatch && typeMatch ? "block" : "none";
-        });
-      }
+  eventCards.forEach(card => {
+    const textMatch = card.textContent.toLowerCase().includes(query);
+    const tagMatch = !query || card.dataset.type?.toLowerCase().includes(query);
+    const typeMatch = !selectedType || card.dataset.type === selectedType;
 
-      searchInput?.addEventListener("input", filterEvents);
-      filterSelect?.addEventListener("change", filterEvents);
-      searchButton?.addEventListener("click", filterEvents);
-    });
+    // Show if it matches text OR tag query, and dropdown (if any)
+    card.style.display = (textMatch || tagMatch) && typeMatch ? "block" : "none";
+  });
+}
    </script>
   </div>
   <button class="floating-login" id="login-btn" onclick="window.location.href='/login.html'">
