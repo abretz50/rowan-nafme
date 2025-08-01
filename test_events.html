@@ -53,8 +53,9 @@
     .events-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
+      gap: 1.25rem;
       padding: 3rem;
+      margin-top: 2rem;
     }
 
     .event-card {
@@ -63,7 +64,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   transition: transform 0.3s;
-  padding: .25 rem;
+  padding: .25rem;
 
   width: 100%;
   max-width: 320px;
@@ -89,9 +90,13 @@ margin-bottom: 0;
 
 
 .event-body {
-  padding-top: 0.5rem; /* adjust spacing as needed */
-  text-align: center;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Consistent spacing between inner elements */
+  align-items: center;
 }
+
 
     .event-title {
       font-size: 1.25rem;
@@ -113,7 +118,7 @@ margin-bottom: 0;
   font-weight: bold;
   cursor: pointer;
   display: inline-block;
-  margin-top: 0.5rem;
+  margin-top: 0rem;
   transition: background-color 0.2s ease;
 }
 .see-more-btn:hover {
