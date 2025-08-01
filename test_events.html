@@ -7,6 +7,7 @@
   <link href="style.css" rel="stylesheet"/>
   <script defer src="script.js"></script>
   <style>
+    /* All styles here are from the original events.html you uploaded */
     .search-filter-container {
       display: flex;
       justify-content: center;
@@ -53,30 +54,20 @@
     .events-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1rem;
-      padding: 1rem;
-      margin-top: 2rem;
-margin: 2rem auto 0 auto;
+      gap: 2rem;
+      padding: 2rem;
     }
 
     .event-card {
-        background-color: #008eb3;
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  transition: transform 0.3s;
-  padding: .25rem;
-
-  width: 100%;
-  max-width: 320px;
-  margin: 0;
-  color: white;
-  text-align: center;
-  height: 350px;
-  display: flex;
-  flex-direction: column;
-	align-items: center;
-  justify-content: space-between;
+      background-color: #008eb3;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      transition: transform 0.3s;
+      padding-bottom: 1rem;
+      width: 100%;
+      max-width: 320px;
+      margin: auto;
     }
 
     .event-image {
@@ -85,46 +76,49 @@ margin: 2rem auto 0 auto;
       object-fit: cover;
       object-position: center;
       display: block;
-      border-radius: 0.75rem;
-margin-bottom: 0;
+      border-radius: 0.75rem 0.75rem 0 0;
+      margin-bottom: 0.75rem;
     }
 
-
-.event-body {
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem; /* Consistent spacing between inner elements */
-  align-items: center;
-}
-
+    .event-body {
+      padding: 0 1rem;
+      color: white;
+      text-align: center;
+    }
 
     .event-title {
       font-size: 1.25rem;
       font-weight: bold;
       margin-bottom: 0.5rem;
+      cursor: pointer;
     }
 
-    .event-desc, .event-meta {
-      font-size: .8rem;
+    .event-desc {
+      font-size: 1rem;
       margin-bottom: 0.5rem;
     }
 
-.see-more-btn {
-  background-color: #facc15;
-  color: #1e293b;
-  border: none;
-  border-radius: 9999px;
-  padding: 0.4rem 0.9rem;
-  font-weight: bold;
-  cursor: pointer;
-  display: inline-block;
-  margin-top: 0rem;
-  transition: background-color 0.2s ease;
-}
-.see-more-btn:hover {
-  background-color: #fde047;
-}
+    .event-meta a {
+      color: #1e293b;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .see-more-btn {
+      background-color: #facc15;
+      color: #1e293b;
+      border: none;
+      border-radius: 9999px;
+      padding: 0.4rem 0.9rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: inline-block;
+      transition: background-color 0.2s ease;
+    }
+
+    .see-more-btn:hover {
+      background-color: #fde047;
+    }
 
     .tag {
       display: inline-block;
@@ -149,7 +143,7 @@ margin-bottom: 0;
     <header class="navbar" id="navbar">
       <div class="nav-container">
         <a class="logo-wrapper" href="index.html">
-          <img alt="Logo" class="nav-logo" src="logo.png"/>
+          <img alt=" Logo" class="nav-logo" src="logo.png"/>
           <span class="nav-logo-text">Rowan NAfME</span>
         </a>
         <ul class="nav-links">
@@ -176,12 +170,8 @@ margin-bottom: 0;
         <button class="search-button" id="searchButton">Search</button>
       </div>
 
-      <section class="events-container" id="events-container"></section>
+      <section class="events-container" id="eventsContainer"></section>
     </main>
-
-    <button class="floating-login" id="login-btn" onclick="window.location.href='/login.html'">
-      My Account
-    </button>
 
     <footer>
       <p>© Chapter</p>
@@ -193,70 +183,61 @@ margin-bottom: 0;
       try {
         const response = await fetch('/.netlify/functions/get_events');
         const result = await response.json();
-
-        if (result && Array.isArray(result.data)) {
+        if (Array.isArray(result.data)) {
           displayEvents(result.data);
         } else {
-          throw new Error(`Unexpected data format: ${JSON.stringify(result)}`);
+          console.error("Unexpected response:", result);
         }
       } catch (error) {
         console.error('Error fetching events:', error);
       }
     }
 
-function displayEvents(events) {
-  const container = document.getElementById('events-container');
-  container.innerHTML = '';
+    function displayEvents(events) {
+      const container = document.getElementById("eventsContainer");
+      container.innerHTML = "";
 
-  events.forEach(event => {
-    const eventDate = new Date(event.date);
-    const formattedDate = eventDate.toLocaleDateString('en-US', {
-      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-    });
+      events.forEach(event => {
+        const eventDate = new Date(event.date);
+        const formattedDate = eventDate.toLocaleDateString("en-US", {
+          weekday: "long", year: "numeric", month: "long", day: "numeric"
+        });
 
-    const eventBox = document.createElement('div');
-    eventBox.classList.add('event-card');
-    eventBox.setAttribute('data-type', event.tag);
+        const card = document.createElement("div");
+        card.className = "event-card";
+        card.setAttribute("data-type", event.tag);
+        card.innerHTML = `
+          <img class="event-image" src="images/events/${event.image_name}" alt="${event.title}" />
+          <div class="event-body">
+            <div class="event-title" onclick="openPopup('${event.id}')">${event.title}</div>
+            <div class="event-desc">${event.description}</div>
+            <div class="event-meta">
+              <a href="https://calendar.google.com/calendar/u/0/r/eventedit" target="_blank">
+                ${formattedDate} – ${event.event_time} – ${event.location}
+              </a>
+            </div>
+            <span class="tag tag-${event.tag}">${tagLabel(event.tag)}</span>
+            <button class="see-more-btn" onclick="openPopup('${event.id}')">See More</button>
+          </div>
+        `;
 
-    eventBox.innerHTML = `
-      <img class="event-image" src="images/events/${event.image_name}" alt="${event.title}" />
-      <div class="event-body">
-        <div class="event-title">${event.title}</div>
-        <div class="event-desc">${event.description}</div>
-        <div class="event-meta">
-          <a href="https://calendar.google.com/calendar/u/0/r/eventedit" target="_blank">
-            ${formattedDate} – ${event.event_time} – ${event.location}
-          </a>
-        </div>
-        <span class="tag tag-${event.tag}">
-  ${tagLabel(event.tag)}
-</span>
+        container.appendChild(card);
+      });
+    }
 
-        <button class="see-more-btn" onclick="openPopup(${event.id})">See More</button>
-      </div>
-    `;
+    function tagLabel(tag) {
+      const map = {
+        general: "General Meeting",
+        pd: "Professional Development",
+        volunteer: "Volunteer",
+        performance: "Performance"
+      };
+      return map[tag] || tag;
+    }
 
-    container.appendChild(eventBox);
-  });
-}
-
-function tagLabel(tag) {
-  const map = {
-    general: "General Meeting",
-    pd: "Professional Development",
-    volunteer: "Volunteer",
-    performance: "Performance"
-  };
-  return map[tag] || tag;
-}
-
-
-// Placeholder function for popup
-function openPopup(eventId) {
-  // You would fetch additional details using the event ID if needed
-  alert("More details for event ID: " + eventId);
-}
-
+    function openPopup(id) {
+      alert("More details for event ID: " + id);
+    }
 
     fetchEvents();
   </script>
