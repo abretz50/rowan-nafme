@@ -112,12 +112,46 @@
 </head>
 <body>
   <div class="container">
-    <h1>Events</h1>
-    <div class="search-filter-container">
-      <input class="search-input" placeholder="Search events..." type="text"/>
-      <button class="search-button">Search</button>
-    </div>
-    <section class="events-container" id="events-container"></section>
+    <header class="navbar" id="navbar">
+      <div class="nav-container">
+        <a class="logo-wrapper" href="index.html">
+          <img alt="Logo" class="nav-logo" src="logo.png"/>
+          <span class="nav-logo-text">Rowan NAfME</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#our-chapter">Our Chapter</a></li>
+          <li><a class="active" href="events.html">Events</a></li>
+          <li><a href="convention.html">Convention</a></li>
+          <li><a href="eboard.html">E-Board</a></li>
+          <li><a href="resources.html">Resources</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <main style="max-width: 1000px; margin: auto; padding: 2rem;">
+      <h2>Upcoming Events</h2>
+      <div class="search-filter-container">
+        <input class="search-input" id="searchInput" placeholder="Search events..." type="text"/>
+        <select class="dropdown-filter" id="filterSelect">
+          <option value="">All</option>
+          <option value="performance">Performances</option>
+          <option value="volunteer">Volunteer</option>
+          <option value="general">General Meeting</option>
+          <option value="pd">Professional Development</option>
+        </select>
+        <button class="search-button" id="searchButton">Search</button>
+      </div>
+
+      <section class="events-container" id="events-container"></section>
+    </main>
+
+    <button class="floating-login" id="login-btn" onclick="window.location.href='/login.html'">
+      My Account
+    </button>
+
+    <footer>
+      <p>© Chapter</p>
+    </footer>
   </div>
 
   <script>
