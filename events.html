@@ -54,7 +54,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
-      padding: 2rem;
+      padding: 3rem;
     }
 
     .event-card {
@@ -79,11 +79,13 @@
       margin-bottom: 0.75rem;
     }
 
-    .event-body {
-      padding: 0 1rem;
-      color: white;
-      text-align: center;
-    }
+.event-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 
     .event-footer {
       display: flex;
@@ -112,21 +114,22 @@
       font-size: 0.95rem;
     }
 
-    .see-more-btn {
-      background-color: #facc15;
-      color: #1e293b;
-      border: none;
-      border-radius: 9999px;
-      padding: 0.4rem 0.9rem;
-      font-weight: bold;
-      cursor: pointer;
-      display: inline-block;
-      transition: background-color 0.2s ease;
-    }
+.see-more-btn {
+  background-color: #facc15;
+  color: #1e293b;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.4rem 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s ease;
+}
 
-    .see-more-btn:hover {
-      background-color: #fde047;
-    }
+.see-more-btn:hover {
+  background-color: #fde047;
+}
 
     .tag {
       display: inline-block;
