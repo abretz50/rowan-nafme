@@ -58,17 +58,21 @@
     }
 
     .event-card {
-      background-color: #008eb3;
-      border-radius: 0.75rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      overflow: hidden;
-      transition: transform 0.3s;
-      padding-bottom: 1rem;
-      width: 100%;
-      max-width: 320px;
-      margin: auto;
-      color: white;
-      text-align: center;
+        background-color: #008eb3;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: transform 0.3s;
+  padding-bottom: 1rem;
+  width: 100%;
+  max-width: 320px;
+  margin: auto;
+  color: white;
+  text-align: center;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
     }
 
     .event-image {
@@ -77,7 +81,7 @@
       object-fit: cover;
       object-position: center;
       display: block;
-      border-radius: 0.75rem 0.75rem 0 0;
+      border-radius: 0.75rem;
       margin-bottom: 0.75rem;
     }
 
@@ -195,8 +199,9 @@ function displayEvents(events) {
           </a>
         </div>
         <span class="tag tag-${event.tag}">
-          ${capitalizeTag(event.tag)}
-        </span>
+  ${tagLabel(event.tag)}
+</span>
+
         <button class="see-more-btn" onclick="openPopup(${event.id})">See More</button>
       </div>
     `;
@@ -205,10 +210,16 @@ function displayEvents(events) {
   });
 }
 
-// Helper function to capitalize tags
-function capitalizeTag(tag) {
-  return tag.charAt(0).toUpperCase() + tag.slice(1);
+function tagLabel(tag) {
+  const map = {
+    general: "General Meeting",
+    pd: "Professional Development",
+    volunteer: "Volunteer",
+    performance: "Performance"
+  };
+  return map[tag] || tag;
 }
+
 
 // Placeholder function for popup
 function openPopup(eventId) {
