@@ -1,47 +1,93 @@
-<script>
-  async function fetchEvents() {
-    try {
-      const response = await fetch('/.netlify/functions/get_events');
-      
-      if (!response.ok) {
-        throw new Error(`Network response failed: ${response.status} ${response.statusText}`);
-      }
-
-      const result = await response.json();
-
-      if (result && Array.isArray(result.data)) {
-        displayEvents(result.data);
-      } else {
-        throw new Error(`Unexpected data format: ${JSON.stringify(result)}`);
-      }
-    } catch (error) {
-      console.error('Error fetching events:', error);
-      document.body.innerHTML = `<pre style="color:red;">${error}</pre>`;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Events | Rowan NAfME</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9fafb;
+      margin: 0;
+      padding: 20px;
     }
-  }
 
-  function displayEvents(events) {
-    const container = document.getElementById('events-container');
-    container.innerHTML = '';
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
 
-    events.forEach(event => {
-      const eventDate = new Date(event.date);
-      const formattedDate = eventDate.toLocaleDateString('en-US', {
-        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    .event-box {
+      background-color: #ffffff;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .event-box h2 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .event-box p {
+      margin: 5px 0;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Test Events</h1>
+    <div id="events-container"></div>
+  </div>
+
+  <script>
+    async function fetchEvents() {
+      try {
+        const response = await fetch('/.netlify/functions/get_events');
+        
+        if (!response.ok) {
+          throw new Error(`Network response failed: ${response.status} ${response.statusText}`);
+        }
+
+        const result = await response.json();
+
+        if (result && Array.isArray(result.data)) {
+          displayEvents(result.data);
+        } else {
+          throw new Error(`Unexpected data format: ${JSON.stringify(result)}`);
+        }
+      } catch (error) {
+        console.error('Error fetching events:', error);
+        document.body.innerHTML = `<pre style="color:red;">${error}</pre>`;
+      }
+    }
+
+    function displayEvents(events) {
+      const container = document.getElementById('events-container');
+      container.innerHTML = '';
+
+      events.forEach(event => {
+        const eventDate = new Date(event.date);
+        const formattedDate = eventDate.toLocaleDateString('en-US', {
+          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        });
+
+        const eventBox = document.createElement('div');
+        eventBox.classList.add('event-box');
+
+        eventBox.innerHTML = `
+          <h2>${event.title}</h2>
+          <p><strong>Date:</strong> ${formattedDate}</p>
+          <p>${event.description}</p>
+        `;
+
+        container.appendChild(eventBox);
       });
+    }
 
-      const eventBox = document.createElement('div');
-      eventBox.classList.add('event-box');
-
-      eventBox.innerHTML = `
-        <h2>${event.title}</h2>
-        <p><strong>Date:</strong> ${formattedDate}</p>
-        <p>${event.description}</p>
-      `;
-
-      container.appendChild(eventBox);
-    });
-  }
-
-  fetchEvents();
-</script>
+    fetchEvents();
+  </script>
+</body>
+</html>
