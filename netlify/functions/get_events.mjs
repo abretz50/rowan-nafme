@@ -3,7 +3,7 @@ import { neon } from '@neondatabase/serverless';
 export async function handler(event) {
   const sql = neon(process.env.DATABASE_URL);
   try {
-    const rows = await sql`SELECT * FROM events ORDER BY date ASC;`;
+    const rows = await sql`SELECT id, title, description, date, event_time, location, image_name, tag, see_more FROM events ORDER BY date ASC;`;
 
     return {
       statusCode: 200,
