@@ -2,15 +2,21 @@
   async function fetchEvents() {
     try {
       const response = await fetch('/.netlify/functions/get_events');
+      
+      if (!response.ok) {
+        throw new Error(`Network response failed: ${response.status} ${response.statusText}`);
+      }
+
       const result = await response.json();
 
       if (result && Array.isArray(result.data)) {
         displayEvents(result.data);
       } else {
-        console.error('Unexpected data format:', result);
+        throw new Error(`Unexpected data format: ${JSON.stringify(result)}`);
       }
     } catch (error) {
       console.error('Error fetching events:', error);
+      document.body.innerHTML = `<pre style="color:red;">${error}</pre>`;
     }
   }
 
