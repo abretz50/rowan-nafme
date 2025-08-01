@@ -57,20 +57,34 @@
       padding: 3rem;
     }
 
-   .event-card {
+    .event-card {
+        background-color: #008eb3;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: transform 0.3s;
+  padding: .5 rem;
+
+  width: 100%;
+  max-width: 320px;
+  margin: auto;
+  color: white;
+  text-align: center;
+  height: 350px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* optional: for centering the text under the image */
-  padding: 0;
-  margin: 0;
-}
+	align-items: stretch;
+  justify-content: space-between;
+    }
 
-.event-image {
-  width: 100%;
-  height: auto;
-  margin-bottom: 0; /* remove any space below image */
-  display: block;
-}
+    .event-image {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      border-radius: 0.75rem;
+    }
 
     .event-title {
       font-size: 1.25rem;
@@ -82,12 +96,6 @@
       font-size: .8rem;
       margin-bottom: 0.5rem;
     }
-
-
-.event-body {
-  padding-top: 0.5rem; /* adjust spacing as needed */
-  text-align: center;
-}
 
 .see-more-btn {
   background-color: #facc15;
