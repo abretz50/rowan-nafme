@@ -14,7 +14,6 @@
       gap: 0.75rem;
       margin-top: 1.5rem;
       flex-wrap: wrap;
-      margin-bottom: 2.5rem;
     }
 
     .search-input {
@@ -54,9 +53,8 @@
     .events-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1rem;
+      gap: 2rem;
       padding: 2rem;
-
     }
 
     .event-card {
@@ -236,7 +234,7 @@
         const card = document.createElement("div");
         card.className = "event-card";
         card.setAttribute("data-type", event.tag);
-        card.innerHTML = 
+        card.innerHTML = `
           <img class="event-image" src="images/events/${event.image_name}" alt="${event.title}" />
           <div class="event-body">
             <div class="event-title" onclick="openPopup('${event.id}')">
@@ -257,7 +255,7 @@
               See More
             </button>
           </div>
-        ;
+        `;
         container.appendChild(card);
       });
     }
