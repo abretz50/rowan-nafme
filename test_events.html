@@ -53,10 +53,10 @@
     }
 
 .events-container {
-    display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 320px)); /* fixed-width columns */
   gap: 1.5rem;
-  justify-content: center;
+  justify-content: center; /* center the whole grid */
   padding: 1rem 2rem;
   max-width: 1000px;
   margin: 0 auto;
@@ -65,25 +65,14 @@
 
 
 .event-card {
-  background-color: #008eb3;
+  background-color: #008eb3; /* teal */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   border-radius: 0.75rem;
-  max-width: 320px;
+  padding-bottom: 1rem;
   width: 100%;
+  max-width: 320px;
   justify-self: center;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.event-body {
-  padding: 1rem;
-  color: white;
-  text-align: center;
-  flex: 1; /* grow to fill card */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  padding: 1.5rem;
 }
 
 
@@ -98,7 +87,11 @@
       margin-bottom: 0.75rem;
     }
 
-
+    .event-body {
+      padding: 0 1rem;
+      color: white;
+      text-align: center;
+    }
 
     .event-footer {
       display: flex;
@@ -250,7 +243,7 @@
         const card = document.createElement("div");
         card.className = "event-card";
         card.setAttribute("data-type", event.tag);
-        card.innerHTML = `
+        card.innerHTML = 
           <img class="event-image" src="images/events/${event.image_name}" alt="${event.title}" />
           <div class="event-body">
             <div class="event-title" onclick="openPopup('${event.id}')">
@@ -271,7 +264,7 @@
               See More
             </button>
           </div>
-        `;
+        ;
         container.appendChild(card);
       });
     }
