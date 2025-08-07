@@ -156,95 +156,49 @@
       background-color: #f97316;
     }
   </style>
- </head>
- <body>
+</head>
+<body>
   <div class="container">
-   <header class="navbar" id="navbar">
-    <div class="nav-container">
-     <a class="logo-wrapper" href="index.html">
-      <img alt=" Logo" class="nav-logo" src="logo.png"/>
-      <span class="nav-logo-text">
-       Rowan NAfME
-      </span>
-      <span style="color: yellow;">
-      </span>
-     </a>
-     <ul class="nav-links">
-      <li>
-       <a href="index.html#our-chapter">
-        Our Chapter
-       </a>
-      </li>
-      <li>
-       <a class="active" href="events.html">
-        Events
-       </a>
-      </li>
-      <li>
-       <a href="convention.html">
-        Convention
-       </a>
-      </li>
-      <li>
-       <a href="eboard.html">
-        E-Board
-       </a>
-      </li>
-      <li>
-       <a href="resources.html">
-        Resources
-       </a>
-      </li>
-     </ul>
-    </div>
-   </header>
-   <main style="max-width: 1000px; margin: auto; padding: 2rem;">
-    <h2>
-     Upcoming Events
-    </h2>
-    <div class="search-filter-container">
-     <input class="search-input" id="searchInput" placeholder="Search events..." type="text"/>
-     <select class="dropdown-filter" id="filterSelect">
-      <option value="">
-       All
-      </option>
-      <option value="performance">
-       Performances
-      </option>
-      <option value="volunteer">
-       Volunteer
-      </option>
-      <option value="general">
-       General Meeting
-      </option>
-      <option value="pd">
-       Professional Development
-      </option>
-     </select>
-     <button class="search-button" id="searchButton">
-      Search
-     </button>
-    </div>      
+    <header class="navbar" id="navbar">
+      <div class="nav-container">
+        <a class="logo-wrapper" href="index.html">
+          <img alt=" Logo" class="nav-logo" src="logo.png"/>
+          <span class="nav-logo-text">Rowan NAfME</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#our-chapter">Our Chapter</a></li>
+          <li><a class="active" href="events.html">Events</a></li>
+          <li><a href="convention.html">Convention</a></li>
+          <li><a href="eboard.html">E-Board</a></li>
+          <li><a href="resources.html">Resources</a></li>
+        </ul>
+      </div>
+    </header>
 
-<section class="events-container" id="eventsContainer"></section>
-    
-<main>
-  <section class="events-container" id="eventsContainerWrapper">
-    <div style="display: flex; flex-direction: column; gap: 1.5rem; align-items: center; max-width: 1000px; margin: 0 auto;">
-      
+    <main style="max-width: 1000px; margin: auto; padding: 2rem;">
+      <h2>Upcoming Events</h2>
 
-      <!-- Events Grid -->
-      <div class="events-container" id="eventsContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; width: 100%;">
-        <!-- dynamically inserted cards -->
+      <div class="search-filter-container">
+        <input class="search-input" id="searchInput" placeholder="Search events..." type="text"/>
+        <select class="dropdown-filter" id="filterSelect">
+          <option value="">All</option>
+          <option value="performance">Performances</option>
+          <option value="volunteer">Volunteer</option>
+          <option value="general">General Meeting</option>
+          <option value="pd">Professional Development</option>
+        </select>
+        <button class="search-button" id="searchButton">Search</button>
       </div>
 
-    </div>
-  </section>
+      <!-- Events Grid -->
+      <section class="events-container" id="eventsContainer">
+        <!-- dynamically inserted cards -->
+      </section>
 
-  <footer>
-    <p>© Chapter</p>
-  </footer>
-</main>
+      <footer style="text-align: center; padding-top: 2rem;">
+        <p>© Chapter</p>
+      </footer>
+    </main>
   </div>
 
   <script>
@@ -263,44 +217,48 @@
     }
 
     function displayEvents(events) {
-  const container = document.getElementById("eventsContainer");
-  container.innerHTML = "";
+      const container = document.getElementById("eventsContainer");
+      container.innerHTML = "";
 
-  events.forEach(event => {
-    const eventDate = new Date(event.date);
-    const formattedDate = eventDate.toLocaleDateString("en-US", {
-      weekday: "long", year: "numeric", month: "long", day: "numeric"
-    });
+      if (events.length === 0) {
+        container.innerHTML = "<p>No events found.</p>";
+        return;
+      }
 
-    const card = document.createElement("div");
-    card.className = "event-card";
-    card.setAttribute("data-type", event.tag);
-    card.innerHTML = `
-      <img class="event-image" src="images/events/${event.image_name}" alt="${event.title}" />
-      <div class="event-body">
-        <div class="event-title" onclick="openPopup('${event.id}')">
-          ${event.title}
-        </div>
-        <div class="event-desc">
-          ${event.description}
-        </div>
-        <div class="event-meta">
-          <a href="https://calendar.google.com/calendar/u/0/r/eventedit" target="_blank">
-            ${formattedDate} – ${event.event_time} – ${event.location}
-          </a>
-        </div>
-        <span class="tag tag-${event.tag}">
-          ${tagLabel(event.tag)}
-        </span>
-        <button class="see-more-btn" onclick="openPopup('${event.id}')">
-          See More
-        </button>
-      </div>
-    `;
-    container.appendChild(card);
-  });
-}
+      events.forEach(event => {
+        const eventDate = new Date(event.date);
+        const formattedDate = eventDate.toLocaleDateString("en-US", {
+          weekday: "long", year: "numeric", month: "long", day: "numeric"
+        });
 
+        const card = document.createElement("div");
+        card.className = "event-card";
+        card.setAttribute("data-type", event.tag);
+        card.innerHTML = `
+          <img class="event-image" src="images/events/${event.image_name}" alt="${event.title}" />
+          <div class="event-body">
+            <div class="event-title" onclick="openPopup('${event.id}')">
+              ${event.title}
+            </div>
+            <div class="event-desc">
+              ${event.description}
+            </div>
+            <div class="event-meta">
+              <a href="https://calendar.google.com/calendar/u/0/r/eventedit" target="_blank">
+                ${formattedDate} – ${event.event_time} – ${event.location}
+              </a>
+            </div>
+            <span class="tag tag-${event.tag}">
+              ${tagLabel(event.tag)}
+            </span>
+            <button class="see-more-btn" onclick="openPopup('${event.id}')">
+              See More
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
 
     function tagLabel(tag) {
       const map = {
