@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
+<head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>
-   E-Board |
+    E-Board |
   </title>
   <link href="style.css" rel="stylesheet"/>
-  <script defer="" src="script.js">
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js">
   </script>
-  <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js">
+  <script src="auth0.js">
   </script>
   <style>
     .eboard-grid {
@@ -144,15 +144,11 @@
       border-radius: .75rem; /* Create a circular close button */
     }
 
- 
-
-
-
-
   
   </style>
- </head>
- <body>
+</head>
+
+<body>
   <div class="container">
     <header class="navbar">
       <div class="nav-container">
@@ -310,39 +306,8 @@
       
 
     </main>
-   <footer>
-    <p>
-     © Chapter
-    </p>
-   </footer>
-   <script>
-    let auth0 = null;
-
-  async function configureClient() {
-    auth0 = await createAuth0Client({
-      domain: "{{AUTH0_DOMAIN}}",
-      client_id: "{{AUTH0_CLIENT_ID}}",
-      authorizationParams: {
-        audience: "{{AUTH0_AUDIENCE}}",
-        redirect_uri: window.location.origin + "/eboard.html"
-      }
-    });
-
-    const isAuthenticated = await auth0.isAuthenticated();
-   if (isAuthenticated) {
-  document.getElementById("login-btn").style.display = "none";
-  document.getElementById("logout-btn").style.display = "inline-block";
-} else {
-  document.getElementById("login-btn").style.display = "inline-block";
-  document.getElementById("logout-btn").style.display = "none";
-}
-
-    }
-  }
-
-  window.onload = configureClient;
-
-    const eboardItems = document.querySelectorAll('.eboard-item');
+    <script>
+      const eboardItems = document.querySelectorAll('.eboard-item');
       const eboardCards = document.querySelectorAll('.eboard-card');
       const eboardCardsContainer = document.querySelector('.eboard-cards');
       const closeButton = document.querySelectorAll('.close-button');
@@ -366,18 +331,7 @@
           eboardCardsContainer.style.display = 'none';
         });
       });
-
-   </script>
+    </script>
   </div>
-  <button class="floating-login" id="login-btn" onclick="window.location.href='/login.html'">
-   My Account
-  </button>
-  <button class="floating-login" id="logout-btn" onclick="logout()" style="display:none;">
-   Logout
-  </button>
-  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js">
-  </script>
-  <script src="auth0.js">
-  </script>
- </body>
+</body>
 </html>
