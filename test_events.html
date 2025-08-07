@@ -55,12 +55,17 @@
 .events-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  padding: 2rem;
+  gap: 1.5rem; /* equal vertical/horizontal space */
+  justify-content: center; /* 🔥 this centers the whole grid */
+  padding: 1rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
 }
+
 
 .event-card {
   max-width: 320px;
+  margin: 0;
   background-color: #008eb3;
   border-radius: 0.75rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -175,7 +180,8 @@
       </div>
     </header>
 
-    <main style="max-width: 1000px; margin: auto; padding: 2rem;">
+    <main style="margin: 0 auto; padding: 2rem; max-width: 1000px;">
+
       <h2>Upcoming Events</h2>
 
       <div class="search-filter-container">
