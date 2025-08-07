@@ -54,8 +54,8 @@
     .events-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: .5rem;
-      padding: 1rem;
+      gap: 1rem;
+      padding: 2rem;
 
     }
 
@@ -68,8 +68,7 @@
       padding-bottom: 1rem;
       width: 100%;
       max-width: 320px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: auto;
     }
 
     .event-image {
@@ -237,7 +236,7 @@
         const card = document.createElement("div");
         card.className = "event-card";
         card.setAttribute("data-type", event.tag);
-        card.innerHTML = `
+        card.innerHTML = 
           <img class="event-image" src="images/events/${event.image_name}" alt="${event.title}" />
           <div class="event-body">
             <div class="event-title" onclick="openPopup('${event.id}')">
@@ -258,7 +257,7 @@
               See More
             </button>
           </div>
-        `;
+        ;
         container.appendChild(card);
       });
     }
