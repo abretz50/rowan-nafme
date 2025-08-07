@@ -144,6 +144,23 @@
       border-radius: .75rem; /* Create a circular close button */
     }
 
+   <style>
+  .floating-login {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #7a288a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 1rem;
+    cursor: pointer;
+    z-index: 1000;
+  }
+</style>
+
+
   
   </style>
  </head>
@@ -324,12 +341,14 @@
     });
 
     const isAuthenticated = await auth0.isAuthenticated();
-    if (isAuthenticated) {
-      const user = await auth0.getUser();
-      const role = user['user_metadata']?.role || user.role;
-      if (role === "eboard") {
-        document.getElementById("eboard-btn").style.display = "inline-block";
-      }
+   if (isAuthenticated) {
+  document.getElementById("login-btn").style.display = "none";
+  document.getElementById("logout-btn").style.display = "inline-block";
+} else {
+  document.getElementById("login-btn").style.display = "inline-block";
+  document.getElementById("logout-btn").style.display = "none";
+}
+
     }
   }
 
