@@ -108,10 +108,15 @@
       cursor: pointer;
     }
 
-    .event-desc {
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-    }
+   .event-desc {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
     .event-meta a {
       color: #1e293b;
