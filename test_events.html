@@ -20,8 +20,10 @@
 .events-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem; /* Horizontal AND vertical space between cards */
+  gap: 2rem;            /* same horizontal & vertical spacing */
   padding: 2rem;
+  align-items: start;    /* prevent vertical centering weirdness */
+  justify-items: center; /* center cards without auto margins */
 }
 
 
