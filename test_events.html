@@ -6,25 +6,70 @@
   <title>Events | Rowan NAfME</title>
   <link href="style.css" rel="stylesheet"/>
   <script defer src="script.js"></script>
+
 <style>
+  /* --- Filters row --- */
+  .search-filter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .search-input {
+    width: 250px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+  }
+
+  .dropdown-filter {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #000;
+  }
+
+  .search-button {
+    padding: 0.5rem 1.25rem;
+    font-size: 1rem;
+    background-color: var(--highlight);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #000;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+  .search-button:hover { background-color: #ffdb70; }
+
+  /* --- Grid --- */
   .events-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-    gap: 0.8rem;           /* same spacing horizontally & vertically */
-    padding: 0.8rem;       /* balanced padding around grid */
+    gap: 0.8rem;       /* same vertical & horizontal spacing */
+    padding: 0.8rem;   /* balanced edge padding */
   }
 
+  /* --- Card --- */
   .event-card {
     background-color: #008eb3;
     border-radius: 0.9rem;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     overflow: hidden;
     transition: transform 0.2s ease;
-    max-width: 200px;
+    max-width: 320px;
     margin: auto;
     display: flex;
     flex-direction: column;
-    height: 420px;
+    height: 420px;     /* uniform height */
     padding-bottom: 0.9rem;
   }
   .event-card:hover { transform: translateY(-2px); }
@@ -58,24 +103,25 @@
   .event-desc {
     font-size: 1rem;
     margin-bottom: 0.35rem;
-    flex: 1;
+    flex: 1; /* pushes footer down */
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
   }
 
+  /* --- Footer (date on full row, tighter tag + button) --- */
   .event-footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    column-gap: 0.5rem;
+    column-gap: 0.5rem;   /* tight space between tag & button */
     row-gap: 0.3rem;
     flex-wrap: wrap;
     margin-top: auto;
   }
   .event-footer .event-meta {
-    flex-basis: 100%;
+    flex-basis: 100%;     /* date line spans full width */
     text-align: center;
   }
 
@@ -116,15 +162,15 @@
   .tag-volunteer { background-color: #0ea5e9; }
   .tag-performance { background-color: #f97316; }
 
+  /* --- Small screens --- */
   @media (max-width: 640px) {
-    .events-container { gap: 0.8rem; }
+    .events-container { gap: 0.8rem; padding: 0.6rem; }
     .event-card { height: 400px; }
     .event-image { height: 150px; }
   }
 </style>
 
-
-
+  
 </head>
 <body>
   <div class="container">
