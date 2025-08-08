@@ -201,50 +201,52 @@
     </main>
   </div>
 
-  <script>
-    async function fetchEvents() {
-      try {
-        const response = await fetch('/.netlify/functions/get_events');
-        const result = await response.json();
-        if (Array.isArray(result.data)) {
-          displayEvents(result.data);
-        } else {
-          console.error("Unexpected response:", result);
-        }
-      } catch (error) {
-        console.error('Error fetching events:', error);
+ <script>
+  async function fetchEvents() {
+    try {
+      const response = await fetch('/.netlify/functions/get_events');
+      const result = await response.json();
+      if (Array.isArray(result?.data)) {
+        displayEvents(result.data);
+      } else {
+        console.error("Unexpected response:", result);
       }
+    } catch (error) {
+      console.error('Error fetching events:', error);
+    }
+  }
+
+  function displayEvents(events) {
+    const container = document.getElementById("eventsContainer");
+    container.innerHTML = "";
+
+    if (!events.length) {
+      container.innerHTML = "<p>No events found.</p>";
+      return;
     }
 
-    function displayEvents(events) {
-      const container = document.getElementById("eventsContainer");
-      container.innerHTML = "";
+    events.forEach(event => {
+      const eventDate = new Date(event.date);
+      const formattedDate = eventDate.toLocaleDateString("en-US", {
+        weekday: "long", year: "numeric", month: "long", day: "numeric"
+      });
 
-      if (events.length === 0) {
-        container.innerHTML = "<p>No events found.</p>";
-        return;
-      }
+      const card = document.createElement("div");
+      card.className = "event-card";
+      card.setAttribute("data-type", event.tag);
 
-      events.forEach(event => {
-        const eventDate = new Date(event.date);
-        const formattedDate = eventDate.toLocaleDateString("en-US", {
-          weekday: "long", year: "numeric", month: "long", day: "numeric"
-        });
-
-        const card = document.createElement("div");
-        card.className = "event-card";
-        card.setAttribute("data-type", event.tag);
-        card.innerHTML = 
-          <img class="event-image" src="images/events/${event.image_name}" alt="${event.title}" />
-          <div class="event-body">
-            <div class="event-title" onclick="openPopup('${event.id}')">
-              ${event.title}
-            </div>
-            <div class="event-desc">
-              ${event.description}
-            </div>
+      card.innerHTML = `
+        <img class="event-image" src="images/events/${event.image_name}" alt="${event.title}" />
+        <div class="event-body">
+          <div class="event-title" onclick="openPopup('${event.id}')">
+            ${event.title}
+          </div>
+          <div class="event-desc">
+            ${event.description}
+          </div>
+          <div class="event-footer">
             <div class="event-meta">
-              <a href="https://calendar.google.com/calendar/u/0/r/eventedit" target="_blank">
+              <a href="https://calendar.google.com/calendar/u/0/r/eventedit" target="_blank" rel="noopener">
                 ${formattedDate} – ${event.event_time} – ${event.location}
               </a>
             </div>
@@ -255,26 +257,29 @@
               See More
             </button>
           </div>
-        ;
-        container.appendChild(card);
-      });
-    }
+        </div>
+      `;
 
-    function tagLabel(tag) {
-      const map = {
-        general: "General Meeting",
-        pd: "Professional Development",
-        volunteer: "Volunteer",
-        performance: "Performance"
-      };
-      return map[tag] || tag;
-    }
+      container.appendChild(card);
+    });
+  }
 
-    function openPopup(id) {
-      alert("More details for event ID: " + id);
-    }
+  function tagLabel(tag) {
+    const map = {
+      general: "General Meeting",
+      pd: "Professional Development",
+      volunteer: "Volunteer",
+      performance: "Performance"
+    };
+    return map[tag] || tag;
+  }
 
-    fetchEvents();
-  </script>
+  function openPopup(id) {
+    alert("More details for event ID: " + id);
+  }
+
+  fetchEvents();
+</script>
+
 </body>
 </html>
