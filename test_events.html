@@ -13,7 +13,7 @@
     align-items: center;
     gap: 0.75rem;
     margin-top: 1.5rem;
-    margin-bottom: 1rem; /* tightened space */
+    margin-bottom: 0.75rem; /* a bit tighter */
     flex-wrap: wrap;
   }
 
@@ -29,10 +29,10 @@
   .dropdown-filter {
     padding: 0.5rem 1rem;
     font-size: 1rem;
-    border-radius: 4px;
+    border-radius: 8px;
     border: 1px solid #ccc;
-    background-color: white;
-    color: black;
+    background-color: #fff;
+    color: #000;
   }
 
   .search-button {
@@ -42,36 +42,34 @@
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    color: black;
+    color: #000;
     font-weight: 600;
     transition: background-color 0.3s ease;
   }
-
-  .search-button:hover {
-    background-color: #ffdb70;
-  }
+  .search-button:hover { background-color: #ffdb70; }
 
   .events-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    padding: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 1.25rem;           /* slightly closer horizontally */
+    padding: 1rem 0.75rem;  /* a bit tighter overall */
   }
 
-  /* Event cards - uniform size */
+  /* Uniform card sizing & tidy layout */
   .event-card {
     background-color: #008eb3;
-    border-radius: 0.75rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-radius: 0.9rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     overflow: hidden;
-    transition: transform 0.3s;
-    padding-bottom: 1rem;
+    transition: transform 0.2s ease;
     max-width: 320px;
     margin: auto;
     display: flex;
     flex-direction: column;
-    height: 420px; /* fixed height for uniformity */
+    height: 420px; /* fixed height for consistent rows */
+    padding-bottom: 0.9rem;
   }
+  .event-card:hover { transform: translateY(-2px); }
 
   .event-image {
     width: 100%;
@@ -79,32 +77,33 @@
     object-fit: cover;
     object-position: center;
     display: block;
-    border-radius: 0.75rem 0.75rem 0 0;
+    border-radius: 0.9rem 0.9rem 0 0;
+    margin-bottom: 0.75rem;
   }
 
   .event-body {
     padding: 0 1rem;
-    color: white;
+    color: #fff;
     text-align: center;
-    flex: 1; /* fills available space */
     display: flex;
     flex-direction: column;
+    flex: 1; /* fill remaining height */
   }
 
   .event-title {
     font-size: 1.25rem;
-    font-weight: bold;
-    margin: 0.5rem 0;
+    font-weight: 800;
+    margin: 0.25rem 0 0.35rem;
     cursor: pointer;
   }
 
   .event-desc {
     font-size: 1rem;
-    margin-bottom: 0.5rem;
-    flex: 1; /* pushes footer down */
+    margin-bottom: 0.4rem;
+    flex: 1; /* pushes footer to the bottom */
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* limit to 3 lines */
+    -webkit-line-clamp: 3;           /* show ~3 lines, then ellipsis */
     -webkit-box-orient: vertical;
   }
 
@@ -114,13 +113,14 @@
     justify-content: space-between;
     gap: 0.75rem;
     flex-wrap: wrap;
-    margin-top: auto; /* sticks footer to bottom */
+    margin-top: auto; /* stick to bottom of card */
   }
 
   .event-meta a {
     color: #1e293b;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 0.95rem;
+    text-decoration: underline;
   }
 
   .see-more-btn {
@@ -128,34 +128,40 @@
     color: #1e293b;
     border: none;
     border-radius: 9999px;
-    padding: 0.4rem 0.9rem;
-    font-weight: bold;
+    padding: 0.45rem 0.95rem;
+    font-weight: 800;
     cursor: pointer;
     display: inline-block;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.15s ease;
+    white-space: nowrap;
   }
-
-  .see-more-btn:hover {
-    background-color: #fde047;
-  }
+  .see-more-btn:hover { background-color: #fde047; }
 
   .tag {
     display: inline-block;
-    padding: 0.2rem 0.6rem;
-    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    font-weight: 700;
     border-radius: 9999px;
     font-size: 0.7rem;
     pointer-events: none;
     text-align: center;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    color: black !important;
+    color: #000 !important;
+    white-space: nowrap;
   }
-
   .tag-general { background-color: #eab308; }
   .tag-pd { background-color: #8b5cf6; }
   .tag-volunteer { background-color: #0ea5e9; }
   .tag-performance { background-color: #f97316; }
+
+  /* Small screens tweaks */
+  @media (max-width: 640px) {
+    .events-container { gap: 1rem; }
+    .event-card { height: 400px; }
+    .event-image { height: 150px; }
+  }
 </style>
+
 
 </head>
 <body>
