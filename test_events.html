@@ -51,12 +51,13 @@
   .search-button:hover { background-color: #ffdb70; }
 
   /* --- Grid --- */
-  .events-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-    gap: 0.8rem;       /* same vertical & horizontal spacing */
-    padding: 0.8rem;   /* balanced edge padding */
-  }
+.events-container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+  gap:0.8rem;           /* same horizontal + vertical gap */
+  padding:0.8rem;
+  align-items:start;     /* keep items pinned to the top of each row */
+}
 
   /* --- Card --- */
   .event-card {
