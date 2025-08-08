@@ -48,16 +48,18 @@
 .search-button:hover{ background:#ffdb70; }
 
 /* --- Grid (uniform spacing) --- */
-.events-container{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
-  gap:0.5rem;        /* same horizontal + vertical spacing */
-  padding:0.75rem;
-  align-items:start; /* pin cards to the top of the row */
+.events-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  column-gap: 0.5rem;  /* horizontal space */
+  row-gap: 1.5rem;     /* vertical space */
+  padding: 0.75rem;
+  align-items: start;
   margin-left: 50px;
   margin-right: 50px;
   margin-top: 200px;
 }
+
 
 /* --- Card --- */
 .event-card{
