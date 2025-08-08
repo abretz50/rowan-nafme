@@ -54,9 +54,9 @@
 .events-container{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
-  gap:0.8rem;           /* same horizontal + vertical gap */
+  gap:0.8rem;        /* same horizontal + vertical gap */
   padding:0.8rem;
-  align-items:start;     /* keep items pinned to the top of each row */
+  align-items:start; /* pin cards to top of each grid row */
 }
 
   /* --- Card --- */
@@ -67,7 +67,7 @@
     overflow: hidden;
     transition: transform 0.2s ease;
     max-width: 340px;
-    margin: auto;
+    margin: 0 auto;  
     display: flex;
     flex-direction: column;
     height: 340px;     /* uniform height */
