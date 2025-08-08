@@ -7,52 +7,11 @@
   <link href="style.css" rel="stylesheet"/>
   <script defer src="script.js"></script>
 <style>
-  .search-filter-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
-    margin-bottom: 0.75rem;
-    flex-wrap: wrap;
-  }
-
-  .search-input {
-    width: 250px;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    outline: none;
-  }
-
-  .dropdown-filter {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    color: #000;
-  }
-
-  .search-button {
-    padding: 0.5rem 1.25rem;
-    font-size: 1rem;
-    background-color: var(--highlight);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    color: #000;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-  }
-  .search-button:hover { background-color: #ffdb70; }
-
   .events-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-    gap: 0.8rem;              /* closer horizontally */
-    padding: 1rem 0.5rem;
+    gap: 0.8rem;           /* same spacing horizontally & vertically */
+    padding: 0.8rem;       /* balanced padding around grid */
   }
 
   .event-card {
@@ -65,7 +24,7 @@
     margin: auto;
     display: flex;
     flex-direction: column;
-    height: 420px;           /* uniform height */
+    height: 420px;
     padding-bottom: 0.9rem;
   }
   .event-card:hover { transform: translateY(-2px); }
@@ -106,18 +65,17 @@
     -webkit-box-orient: vertical;
   }
 
-  /* Footer: date line full width, tag + button tight */
   .event-footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    column-gap: 0.5rem;    /* tighter between tag & button */
+    column-gap: 0.5rem;
     row-gap: 0.3rem;
     flex-wrap: wrap;
     margin-top: auto;
   }
   .event-footer .event-meta {
-    flex-basis: 100%;      /* date line on its own row */
+    flex-basis: 100%;
     text-align: center;
   }
 
@@ -159,7 +117,7 @@
   .tag-performance { background-color: #f97316; }
 
   @media (max-width: 640px) {
-    .events-container { gap: 0.7rem; }
+    .events-container { gap: 0.8rem; }
     .event-card { height: 400px; }
     .event-image { height: 150px; }
   }
