@@ -7,25 +7,14 @@
   <link href="style.css" rel="stylesheet"/>
   <script defer src="script.js"></script>
   <style>
-.search-filter-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
-  margin-bottom: 2rem; /* This controls space above cards */
-  flex-wrap: wrap;
-}
-
-.events-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: .65rem;            /* same horizontal & vertical spacing */
-  padding: .85rem;
-  align-items: start;    /* prevent vertical centering weirdness */
-  justify-items: center; /* center cards without auto margins */
-}
-
+    .search-filter-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
 
     .search-input {
       width: 250px;
@@ -60,19 +49,25 @@
     .search-button:hover {
       background-color: #ffdb70;
     }
-.event-card {
-  background-color: #008eb3;
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  overflow: hidden;
-  transition: transform 0.3s;
-  width: 100%;
-  max-width: 320px;
 
-  height: 460px; /* fixed card height */
-  display: flex;
-  flex-direction: column;
-}
+    .events-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .event-card {
+      background-color: #008eb3;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      transition: transform 0.3s;
+      padding-bottom: 1rem;
+      width: 100%;
+      max-width: 320px;
+      margin: auto;
+    }
 
     .event-image {
       width: 100%;
@@ -83,16 +78,12 @@
       border-radius: 0.75rem 0.75rem 0 0;
       margin-bottom: 0.75rem;
     }
-.event-body {
-  padding: 0 1rem;
-  color: white;
-  text-align: center;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
 
+    .event-body {
+      padding: 0 1rem;
+      color: white;
+      text-align: center;
+    }
 
     .event-footer {
       display: flex;
@@ -110,15 +101,10 @@
       cursor: pointer;
     }
 
-   .event-desc {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* number of lines to show */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+    .event-desc {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
 
     .event-meta a {
       color: #1e293b;
@@ -248,7 +234,7 @@
         const card = document.createElement("div");
         card.className = "event-card";
         card.setAttribute("data-type", event.tag);
-        card.innerHTML = `
+        card.innerHTML = 
           <img class="event-image" src="images/events/${event.image_name}" alt="${event.title}" />
           <div class="event-body">
             <div class="event-title" onclick="openPopup('${event.id}')">
@@ -269,7 +255,7 @@
               See More
             </button>
           </div>
-        `;
+        ;
         container.appendChild(card);
       });
     }
