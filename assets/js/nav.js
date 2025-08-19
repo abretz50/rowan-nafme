@@ -29,13 +29,47 @@
     });
   }
 
-  function addAccountCTA(root){
-    const link = document.createElement("a");
-    link.id = "account-cta";
-    link.textContent = "My Account";
-    link.href = resolveHref("/accounts/account.html");
-    root.appendChild(link);
+function addAccountCTA(root){
+  const link = document.createElement("a");
+  link.id = "account-cta";
+  link.textContent = "My Account";
+  link.href = resolveHref("/accounts/account.html"); // fallback/default
+
+  // If the identity widget is globally available, make CTA smart:
+  function setBehavior(){
+    const ni = window.netlifyIdentity;
+    if (!ni) return; // leave the simple link fallback
+
+    const user = ni.currentUser();
+
+    if (user) {
+      // Logged in → go to Account page
+      link.href = resolveHref("/accounts/account.html");
+      link.onclick = null;
+      link.textContent = "My Account";
+    } else {
+      // Logged out → open login modal instead of navigating
+      link.href = "#";
+      link.onclick = (e) => {
+        e.preventDefault();
+        ni.open("login");
+      };
+      link.textContent = "My Account";
+    }
   }
+
+  root.appendChild(link);
+
+  // Attach listeners if widget exists
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", setBehavior);
+    window.netlifyIdentity.on("login", setBehavior);
+    window.netlifyIdentity.on("logout", setBehavior);
+    // Ensure we run once now too
+    setBehavior();
+  }
+}
+
 
   async function init(){
     let mount = document.getElementById("site-nav");

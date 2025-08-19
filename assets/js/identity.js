@@ -5,7 +5,7 @@
   const statusEl = document.getElementById("ni-status");
   const loginBtn = document.getElementById("ni-login");
   const logoutBtn = document.getElementById("ni-logout");
-  const afterLoginRedirect = "/eboard-dashboard/"; // <- change or set to "" to disable
+  const afterLoginRedirect = "/accounts/account.html"; // <- change or set to "" to disable
 
   function render(){
     const user = netlifyIdentity.currentUser();
