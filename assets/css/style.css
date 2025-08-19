@@ -1,24 +1,23 @@
-/* ===== Rowan NAfME — Modern Blue & Gold Theme ===== */
 :root{
     /* Core palette */
-    --blue-600:#0A66C2;      /* primary blue */
-    --blue-700:#0A4FA1;      /* darker for hover/nav */
-    --blue-400:#3B8BE4;      /* accents */
-    --gold-500:#F5C542;      /* modern gold (accessible) */
-    --gold-600:#E0AE1E;      /* hover/depth */
-    --ink:#0E0F12;           /* near-black lines & text */
-    --text:#0f1320;          /* body text */
-    --muted:#606978;         /* secondary text */
-    --bg:#f7f8fb;            /* page background for readable content */
-    --card:#ffffff;          /* surfaces */
-    --border:rgba(0,0,0,.18);/* thin dark border (modern) */
-    --ring:rgba(10,102,194,.35);
+    --blue-600:#1E3A8A;      /* deep royal blue */
+    --blue-700:#172554;      /* darker for hover/nav */
+    --blue-400:#3B82F6;      /* bright accent blue */
+    --gold-500:#FACC15;      /* bright modern gold */
+    --gold-600:#EAB308;      /* darker gold hover */
+    --ink:#111827;           /* deep ink/near-black */
+    --text:#1f2937;          /* readable body text */
+    --muted:#6b7280;         /* muted gray text */
+    --bg:#f9fafb;            /* very light gray background */
+    --card:#ffffff;          /* card surfaces */
+    --border:rgba(0,0,0,.15);/* thin dark border */
+    --ring:rgba(59,130,246,.35); /* blue glow focus ring */
   
-    /* Brand gradient (subtle) */
-    --gradient: linear-gradient(135deg, #0A66C2 0%, #3B8BE4 40%, #F5C542 110%);
+    /* Brand gradient (modern ribbon) */
+    --gradient: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 40%, #FACC15 100%);
   
     /* Elevation & radius */
-    --shadow: 0 8px 24px rgba(10, 17, 40, .12);
+    --shadow: 0 8px 24px rgba(17, 24, 39, .12);
     --radius: 16px;
     --tap: 44px;
   }
