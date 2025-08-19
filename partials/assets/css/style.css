@@ -1,130 +1,51 @@
-/* Modern palette: blue/cyan/purple gradient, white buttons, black borders */
+/* ==== Rowan NAfME — Theme from NAfME Torch Logo ====
+   Palette pulled from logo: Blue gradient & Torch Yellow
+   Drop this file in place of your main stylesheet.
+====================================================== */
+
 :root{
-  --ink:#0a0a0a;
-  --bg:#f7fafc;
-  --text:#111111;
-  --muted:#5b6570;
-  --brand-blue:#1f78ff;
-  --brand-cyan:#00c9d8;
-  --brand-purple:#6a39ff;
-  --card:#ffffff;
-  --border:#000000;        /* black borders as requested */
-  --radius:14px;
-  --tap:44px;
-  --shadow:0 10px 24px rgba(0,0,0,.10);
+  --blue-500:#1E7FB6;
+  --blue-400:#0092C9;
+  --blue-600:#0F6FA5;
+  --yellow:#FFD500;
+  --white:#ffffff;
+  --bg:#F6FAFF;
+  --surface:#ffffff;
+  --text:#0B1E39;
+  --muted:#546476;
+  --border:rgba(11,30,57,0.12);
+  --shadow:0 10px 30px rgba(3, 22, 41, .10);
+  --radius:16px;
+  --gradient: linear-gradient(135deg, var(--blue-400) 0%, var(--blue-500) 55%, var(--blue-600) 100%);
 }
-
-/* Base */
-*{box-sizing:border-box}
-html,body{height:100%}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-  color:var(--text);
-  background:
-    linear-gradient(135deg, rgba(31,120,255,.16), rgba(0,201,216,.14) 40%, rgba(106,57,255,.16)),
-    url('images/ui/background.png') center/cover fixed no-repeat;
-  line-height:1.6;
-  font-size:clamp(15px, 1.1vw + .45rem, 18px);
-}
-
-img{max-width:100%;display:block;height:auto}
-.container{width:min(1100px,92vw);margin-inline:auto}
-.section{padding:clamp(24px,4vw,48px) 0}
-
-/* Header / Nav */
-.site-header{
-  position:sticky; top:0; z-index:50;
-  background:rgba(255,255,255,.9);
-  backdrop-filter:saturate(180%) blur(8px);
-  border-bottom:2px solid var(--border);
-}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;}
-.brand{display:inline-flex;align-items:center;gap:10px;font-weight:800;color:var(--ink)}
-.site-nav{display:flex;align-items:center;gap:16px}
-.nav-list{display:flex;gap:8px;list-style:none;margin:0;padding:0}
-.nav-list a{
-  display:inline-flex;align-items:center;
-  padding:10px 14px; border-radius:12px; text-decoration:none;
-  color:var(--ink); border:2px solid transparent; background:#ffffffd9;
-}
-.nav-list a.active, .nav-list a[aria-current="page"]{
-  border-color:var(--border);
-  box-shadow: inset 0 0 0 2px transparent;
-}
-.nav-actions{display:flex;gap:10px;align-items:center;margin-left:8px}
-
-/* Buttons: white with black borders */
-.btn{
-  height:var(--tap); padding:0 16px;
-  border-radius:12px; border:2px solid var(--border);
-  background:#fff; color:var(--ink);
-  cursor:pointer; font-weight:700;
-  box-shadow:0 2px 0 #000;
-  transition:transform .05s ease, box-shadow .05s ease, background .15s ease;
-}
-.btn:hover{background:#f2f2f2}
-.btn:active{transform:translateY(1px); box-shadow:0 1px 0 #000}
-.btn-outline{background:#fff}
-
-/* Mobile nav */
-.nav-toggle{display:none;background:none;border:0;cursor:pointer;height:var(--tap);width:var(--tap);border-radius:12px}
-.nav-toggle .bar{display:block;height:2px;background:#111;margin:6px 8px}
-@media (max-width:860px){
-  .nav-toggle{display:inline-flex;align-items:center;justify-content:center}
-  .site-nav{
-    position:fixed; inset:64px 0 auto 0;
-    background:rgba(255,255,255,.98);
-    border-top:2px solid var(--border);
-    padding:12px; display:none; flex-direction:column; gap:12px;
-    box-shadow:var(--shadow);
-  }
-  .site-nav.open{display:flex}
-  .nav-list{flex-direction:column}
-}
-
-/* Hero uses gradient overlay for readability */
-.hero{
-  padding:clamp(32px,6vw,96px) 0;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.82), rgba(255,255,255,.78) 40%, rgba(255,255,255,.70) 60%, rgba(255,255,255,.62));
-}
-.hero h1{font-size:clamp(28px,3.6vw + 1rem,48px); line-height:1.15; margin:0 0 8px}
-.hero p{margin:0; color:var(--muted); max-width:62ch}
-
-/* Cards: white with black border */
-.card{
-  background:var(--card);
-  border:2px solid var(--border);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  padding:clamp(14px,1.8vw,18px);
-}
-.card h3{margin:0 0 8px}
-.muted{color:var(--muted)}
-.spacer{height:24px}
-
-/* Grid helpers */
-.grid{display:grid;gap:clamp(12px,2vw,20px)}
-.events-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-
-/* Event pieces */
-.event{display:flex;flex-direction:column;gap:12px}
-.event .thumb{aspect-ratio:16/9;background:#e9efff;border-radius:12px;overflow:hidden;border:2px solid var(--border)}
-.event .meta{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:.94em}
-
-/* Tables */
-.table{width:100%; border-collapse:separate; border-spacing:0; border:2px solid var(--border); border-radius:12px; overflow:hidden}
-.table th,.table td{padding:10px 12px; border-bottom:2px solid var(--border); text-align:left; background:#fff}
-.table tr:last-child td{border-bottom:0}
-.table th{font-weight:700}
-/* Tabs */
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-.tab{border:2px solid var(--border); background:#fff; border-radius:12px; padding:8px 12px; cursor:pointer; font-weight:700}
-.tab[aria-selected="true"]{outline:3px solid #000}
-
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Outfit",Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:clamp(15px, 1.2vw + 0.4rem, 18px);line-height:1.55}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+/* Navbar */
+.navbar{position:sticky;top:0;z-index:50;background:var(--gradient);color:var(--white);border-bottom:1px solid rgba(255,255,255,.15)}
+.navbar .inner{display:flex;align-items:center;gap:18px;justify-content:space-between;padding:14px 18px}
+.nav-links{display:flex;gap:14px;flex-wrap:wrap}
+.nav-links a{padding:10px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.22);transition:.18s ease}
+.nav-links a:hover,.nav-links a[aria-current="page"]{background:rgba(255,255,255,.14)}
+/* Hero */
+.hero{background:var(--gradient);color:var(--white);padding:clamp(36px,8vw,96px) 0}
+.hero .title{font-size:clamp(28px,5vw,48px);font-weight:800;margin:0 0 8px}
+.hero .subtitle{opacity:.95;max-width:800px;margin:0}
+/* Cards */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:12px 18px;border-radius:999px;border:1px solid transparent;font-weight:700;cursor:pointer;transition:.18s ease}
+.btn-primary{background:var(--yellow);color:#1d2b3a;border-color:rgba(0,0,0,.08)}
+.btn-primary:hover{filter:brightness(.96)}
+.btn-secondary{background:var(--gradient);color:var(--white)}
+.btn-secondary:hover{opacity:.95}
+/* Sections */
+.section{padding:clamp(28px,6vw,64px) 0}
+.section .section-title{font-weight:800;margin:0 0 8px;font-size:clamp(22px,3.5vw,30px)}
+.section .section-sub{color:var(--muted);margin:0 0 18px}
 /* Footer */
-.site-footer{padding:24px 0; border-top:2px solid var(--border); background:#fff; margin-top:40px;}
-.small{font-size:.92em}
-.center{text-align:center}
+.footer{background:var(--blue-600);color:var(--white)}
+.footer .inner{display:grid;gap:18px;padding:24px}
+.footer a{opacity:.92}
+.footer a:hover{opacity:1}
