@@ -1,6 +1,1 @@
-/* Minimal, function-first. Style later. */
-html,body{margin:0}
-#primary-nav{padding:8px}
-#primary-nav a{margin-right:10px}
-#primary-nav a.active{outline:1px dashed currentColor}
-main{padding:16px}
+html,body{margin:0} main{padding:16px} #primary-nav a{margin-right:10px} #primary-nav a.active{outline:1px dashed currentColor}
