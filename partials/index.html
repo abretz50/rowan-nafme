@@ -1,26 +1,91 @@
-<!DOCTYPE html><html lang="en"><head><title>Rowan NAfME | Home</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <link rel="icon" href="images/logo/logo.svg"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Rowan NAfME | Home</title>
+  <link rel="icon" type="image/svg+xml" href="images/logo/logo.svg"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css"/>
-  <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script defer src="assets/js/nav.js"></script>
-  <script defer src="assets/js/identity.js"></script>
 </head>
-<body><div id="navbar"></div>
-<main>
-  <section class="hero"><div class="container">
-    <span class="muted">Rowan University</span>
-    <h1>National Association for Music Education — Rowan Chapter</h1>
-    <p>Join events, earn points, and build your network.</p>
-    <div class="spacer"></div>
-    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
-      <article class="card"><h3>Upcoming Events</h3><p class="muted">Workshops, meetings, volunteering.</p><p><a class="btn" href="/events.html">Browse Events</a></p></article>
-      <article class="card"><h3>Convention</h3><p class="muted">Schedules and logistics.</p><p><a class="btn btn-outline" href="/convention.html">View Convention</a></p></article>
-      <article class="card"><h3>E-Board Portal</h3><p class="muted">Manage events & points.</p><p><a class="btn btn-outline" href="/eboard.html">Open E-Board</a></p></article>
-    </div>
-  </div></section>
-</main>
-<div id="footer"></div></body></html>
+<body>
+  <div class="site-wrap">
+    <!-- ===== Navbar ===== -->
+    <nav class="navbar">
+      <div class="navbar-inner container">
+        <div class="nav-brand">
+          <span class="logo-dot"></span> Rowan NAfME
+        </div>
+        <div class="nav-links">
+          <a class="nav-link active" href="index.html">Home</a>
+          <a class="nav-link" href="events.html">Events</a>
+          <a class="nav-link" href="convention.html">Convention</a>
+          <a class="nav-link" href="eboard.html">E-Board</a>
+          <a class="nav-link" href="resources.html">Resources</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===== Hero Section ===== -->
+    <header class="site-content section">
+      <div class="container">
+        <h1 class="section-title">Welcome to Rowan NAfME</h1>
+        <p class="section-sub">
+          Rowan University’s chapter of the National Association for Music Education — supporting future music educators and musicians through events, resources, and community.
+        </p>
+        <button class="btn btn-primary">Join Us</button>
+        <button class="btn btn-outline">Learn More</button>
+      </div>
+    </header>
+
+    <!-- ===== Featured Events ===== -->
+    <section class="site-content section">
+      <div class="container">
+        <h2 class="section-title">Upcoming Events</h2>
+        <div class="grid grid-3">
+          <article class="card card--accent">
+            <header class="card-header">Kickoff Meeting</header>
+            <div class="card-body">
+              <p class="card-muted">September 5th · 7:00 PM</p>
+              <button class="btn btn-primary">RSVP</button>
+            </div>
+          </article>
+
+          <article class="card card--accent">
+            <header class="card-header">NAfME Convention Prep</header>
+            <div class="card-body">
+              <p class="card-muted">October 12th · 6:30 PM</p>
+              <button class="btn btn-outline">Details</button>
+            </div>
+          </article>
+
+          <article class="card card--accent">
+            <header class="card-header">Fundraising Concert</header>
+            <div class="card-body">
+              <p class="card-muted">November 9th · 8:00 PM</p>
+              <button class="btn btn-outline">Tickets</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== About Section ===== -->
+    <section class="site-content section">
+      <div class="container">
+        <h2 class="section-title">About Us</h2>
+        <p>
+          Rowan NAfME is dedicated to fostering professional growth, advocacy, and collaboration among music education students. Through workshops, conventions, and service events, we prepare our members for careers in teaching and leadership.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+      <div class="container footer-inner">
+        © Rowan NAfME · Built with ♫
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
