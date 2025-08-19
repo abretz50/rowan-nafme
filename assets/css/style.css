@@ -1,25 +1,20 @@
+/* ===== Rowan NAfME — Gradient Blue & Gold Theme ===== */
 :root{
-    /* Core palette */
     --blue-600:#1E3A8A;      /* deep royal blue */
-    --blue-700:#172554;      /* darker for hover/nav */
     --blue-400:#3B82F6;      /* bright accent blue */
     --gold-500:#FACC15;      /* bright modern gold */
-    --gold-600:#EAB308;      /* darker gold hover */
-    --ink:#111827;           /* deep ink/near-black */
-    --text:#1f2937;          /* readable body text */
-    --muted:#6b7280;         /* muted gray text */
-    --bg:#f9fafb;            /* very light gray background */
-    --card:#ffffff;          /* card surfaces */
-    --border:rgba(0,0,0,.15);/* thin dark border */
-    --ring:rgba(59,130,246,.35); /* blue glow focus ring */
+    --gold-600:#EAB308;      /* deeper gold */
+    --ink:#111827;           /* near-black */
+    --text:#1f2937;          /* body text */
+    --muted:#6b7280;         /* muted gray */
+    --bg:#f9fafb;            /* light gray background */
+    --card:#ffffff;          /* white surfaces */
+    --border:rgba(0,0,0,.15);
+    --ring:rgba(59,130,246,.35);
   
-    /* Brand gradient (modern ribbon) */
+    /* Hero Gradient */
     --gradient: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 40%, #FACC15 100%);
-  
-    /* Elevation & radius */
-    --shadow: 0 8px 24px rgba(17, 24, 39, .12);
-    --radius: 16px;
-    --tap: 44px;
+    --gradient-horizontal: linear-gradient(90deg, #1E3A8A 0%, #3B82F6 50%, #FACC15 100%);
   }
   
   /* ===== Base ===== */
@@ -44,129 +39,117 @@
   }
   .site-content{
     backdrop-filter: blur(6px);
-    background: linear-gradient(0deg, rgba(255,255,255,.82), rgba(255,255,255,.82));
+    background: linear-gradient(0deg, rgba(255,255,255,.9), rgba(255,255,255,.9));
   }
   
   /* ===== Container ===== */
   .container{max-width:1100px; margin:0 auto; padding: clamp(16px,3.5vw,28px)}
-  
   /* ===== Navbar ===== */
-  .navbar{
+.navbar{
     position:sticky; top:0; z-index:100;
-    background: rgba(255,255,255,.9);
-    backdrop-filter:saturate(140%) blur(8px);
-    border-bottom:1px solid var(--border);
+    background: var(--gradient-horizontal);
+    border-bottom: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,.15);
   }
   .navbar-inner{
     display:flex; align-items:center; justify-content:space-between;
-    gap:16px; padding:12px 16px;
-  }
-  .nav-brand{
-    display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px;
-  }
-  .nav-brand .logo-dot{
-    width:12px; height:12px; border-radius:50%;
-    background: radial-gradient(circle at 40% 40%, var(--gold-500), var(--gold-600));
-    outline:1px solid rgba(0,0,0,.35);
-  }
-  .nav-links{
-    display:flex; gap:10px; flex-wrap:wrap;
+    gap:16px; padding:14px 20px;
+    color:#fff;
   }
   .nav-link{
-    padding:8px 12px; line-height:1; border:1px solid var(--ink);
-    border-radius:999px; background:#fff; transition:.2s ease;
+    padding:8px 14px; border-radius:999px;
+    background:rgba(255,255,255,.15);
+    color:#fff; font-weight:600;
+    transition:.2s ease;
   }
-  .nav-link:hover{ background:var(--ink); color:#fff }
+  .nav-link:hover{
+    background:#fff; color:var(--ink);
+  }
   .nav-link.active{
-    background: var(--blue-600); color:#fff; border-color:var(--ink);
+    background:#fff; color:var(--ink);
   }
   
-  /* ===== Buttons ===== */
-  .btn{
+/* ===== Buttons ===== */
+.btn{
     display:inline-flex; align-items:center; justify-content:center;
-    min-height: var(--tap); padding: 0 18px; gap:10px; font-weight:600;
-    border:1px solid var(--ink); border-radius:999px; cursor:pointer;
-    background:#fff; transition: transform .05s ease, box-shadow .2s ease, background .2s ease;
-    box-shadow: 0 2px 0 rgba(0,0,0,.25);
+    min-height:44px; padding: 0 22px; font-weight:600;
+    border-radius:999px; cursor:pointer;
+    transition: transform .05s ease, box-shadow .2s ease;
+    border:none;
   }
-  .btn:hover{ transform: translateY(-1px) }
-  .btn:active{ transform: translateY(0) }
+  .btn:hover{ transform:translateY(-1px) }
+  .btn:active{ transform:translateY(0) }
   
   .btn-primary{
-    color:#fff; background: var(--blue-600); border-color: var(--ink);
+    background: var(--gradient);
+    color:#fff;
+    box-shadow: 0 3px 6px rgba(0,0,0,.25);
   }
-  .btn-primary:hover{ background: var(--blue-700) }
-  .btn-primary:focus-visible{ outline:3px solid var(--ring) }
+  .btn-primary:hover{
+    filter:brightness(1.1);
+  }
   
   .btn-outline{
-    background:#fff; color:var(--text);
+    background:#fff;
+    color:var(--blue-600);
+    border:2px solid transparent;
+    background-image: linear-gradient(#fff, #fff), var(--gradient);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
   }
   .btn-outline:hover{
-    background: var(--gold-500);
+    color:#fff;
+    background: var(--gradient);
   }
-  .btn-ghost{
-    background: transparent; border-color: var(--border);
-  }
-  .btn-ghost:hover{ background: rgba(10,16,25,.06) }
   
-  /* ===== Cards & Panels ===== */
-  .card{
-    background: var(--card);
-    border:1px solid var(--ink);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
+  
+/* ===== Cards ===== */
+.card{
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 6px 20px rgba(0,0,0,.1);
     overflow:hidden;
+    border:2px solid transparent;
+    background-image: linear-gradient(#fff, #fff), var(--gradient);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
   }
-  .card-header{ padding:18px 20px; border-bottom:1px solid var(--border); font-weight:700 }
-  .card-body{ padding:18px 20px; color:var(--text) }
-  .card-muted{ color:var(--muted) }
+  .card-header{
+    padding:18px 20px; font-weight:700;
+    background: var(--gradient-horizontal);
+    color:#fff;
+  }
+  .card-body{ padding:18px 20px; }
   
   /* Gradient accent border */
   .card--accent{
     position:relative;
-    border:1px solid transparent;
+    border:2px solid transparent;
     background: linear-gradient(#fff, #fff) padding-box, var(--gradient) border-box;
   }
   
-  /* ===== Badges/Tags ===== */
-  .badge{
-    display:inline-flex; align-items:center; gap:8px; padding:6px 10px;
-    border:1px solid var(--ink); border-radius:999px; background:#fff; font-weight:600;
-  }
-  .badge .dot{
-    width:8px; height:8px; border-radius:50%;
-    background: var(--gold-500); outline:1px solid rgba(0,0,0,.35);
-  }
-  
-  /* ===== Forms ===== */
-  .input, select, textarea{
-    width:100%; min-height:44px; padding:10px 12px; border-radius:12px;
-    border:1px solid var(--ink); background:#fff; color:var(--text);
-  }
-  .input:focus, select:focus, textarea:focus{ outline:3px solid var(--ring) }
-  
-  /* ===== Sections ===== */
-  .section{
-    padding: clamp(28px, 5.5vw, 64px) 0;
-    position:relative;
-  }
-  .section .section-title{
-    font-size: clamp(22px, 1.5vw + 1rem, 34px);
-    margin: 0 0 14px;
-    background: linear-gradient(90deg, var(--blue-600), var(--gold-500));
-    -webkit-background-clip: text; background-clip: text; color: transparent;
+/* ===== Sections ===== */
+.section .section-title{
+    font-size: clamp(24px, 2vw + 1rem, 36px);
+    margin: 0 0 16px;
+    background: var(--gradient-horizontal);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    font-weight:700;
   }
   .section .section-sub{ color:var(--muted); margin-bottom:24px }
   
-  /* ===== Footer ===== */
-  .footer{
-    border-top:1px solid var(--border);
-    background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
-  }
-  .footer-inner{ padding:20px 16px; color:var(--muted) }
   
+/* ===== Footer ===== */
+.footer{
+    background: var(--gradient-horizontal);
+    color:#fff;
+    text-align:center;
+  }
+  .footer-inner{ padding:20px }
   /* ===== Utilities ===== */
-  .hr{ height:1px; background:var(--border); border:0; margin:20px 0 }
+  .hr{ height:2px; background:var(--gold-500); border:0; margin:20px 0 }
   .grid{ display:grid; gap: clamp(14px,2.2vw,22px) }
   .grid-2{ grid-template-columns: repeat(2, minmax(0,1fr)) }
   .grid-3{ grid-template-columns: repeat(3, minmax(0,1fr)) }
@@ -177,6 +160,6 @@
     -webkit-background-clip:text; background-clip:text; color:transparent;
   }
   
-  /* Optional: thin focus ring for everything clickable */
+  /* Focus rings */
   :where(a, button, .btn, .nav-link):focus-visible{ outline:3px solid var(--ring); outline-offset:2px }
   
