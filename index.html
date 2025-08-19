@@ -1,26 +1,35 @@
-<!DOCTYPE html><html lang="en"><head><title>Rowan NAfME | Home</title>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <link rel="icon" href="images/logo/logo.svg"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css"/>
-  <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script defer src="assets/js/nav.js"></script>
-  <script defer src="assets/js/identity.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home</title>
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body><div id="navbar"></div>
-<main>
-  <section class="hero"><div class="container">
-    <span class="muted">Rowan University</span>
-    <h1>National Association for Music Education — Rowan Chapter</h1>
-    <p>Join events, earn points, and build your network.</p>
-    <div class="spacer"></div>
-    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
-      <article class="card"><h3>Upcoming Events</h3><p class="muted">Workshops, meetings, volunteering.</p><p><a class="btn" href="/events.html">Browse Events</a></p></article>
-      <article class="card"><h3>Convention</h3><p class="muted">Schedules and logistics.</p><p><a class="btn btn-outline" href="/convention.html">View Convention</a></p></article>
-      <article class="card"><h3>E-Board Portal</h3><p class="muted">Manage events & points.</p><p><a class="btn btn-outline" href="/eboard.html">Open E-Board</a></p></article>
-    </div>
-  </div></section>
-</main>
-<div id="footer"></div></body></html>
+<body>
+  <!-- Navbar mounts here -->
+  <div id="site-nav"></div>
+
+  <main>
+    <h1>Home</h1>
+    <!-- TODO: Build Home content -->
+    <section aria-labelledby="intro">
+      <h2 id="intro">Overview</h2>
+      <p>Describe what lives on this page and planned features.</p>
+    </section>
+
+    <section aria-labelledby="todos">
+      <h2 id="todos">Next up</h2>
+      <ul>
+        <li>Define data model / endpoints.</li>
+        <li>Decide auth requirements.</li>
+        <li>Wire basic interactions.</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Optional: set SITE_BASE if hosting at a subpath -->
+  <!-- <script>window.SITE_BASE="/your-repo";</script> -->
+  <script defer src="assets/js/nav.js"></script>
+</body>
+</html>
