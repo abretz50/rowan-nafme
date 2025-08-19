@@ -32,31 +32,34 @@
 function addAccountCTA(root){
   const link = document.createElement("a");
   link.id = "account-cta";
-  link.textContent = "My Account";
-  link.href = resolveHref("/accounts/account.html"); // fallback/default
+  link.href = resolveHref("/accounts/account.html");
+  link.textContent = "My Account"; // default when logged out
+  root.appendChild(link);
 
-  // If the identity widget is globally available, make CTA smart:
-  function setBehavior(){
-    const ni = window.netlifyIdentity;
-    if (!ni) return; // leave the simple link fallback
-
-    const user = ni.currentUser();
-
-    if (user) {
-      // Logged in → go to Account page
-      link.href = resolveHref("/accounts/account.html");
-      link.onclick = null;
-      link.textContent = "My Account";
-    } else {
-      // Logged out → open login modal instead of navigating
-      link.href = "#";
-      link.onclick = (e) => {
-        e.preventDefault();
-        ni.open("login");
-      };
-      link.textContent = "My Account";
+  // If Netlify Identity is loaded, personalize the link
+  function displayName(user){
+    // Prefer full name, then email before the @
+    const meta = user && (user.user_metadata || {});
+    if (meta.full_name && meta.full_name.trim()) return meta.full_name.trim();
+    if (user && user.email) return user.email.split("@")[0];
+    return "My Account";
     }
+
+  function applyUser(user){
+    link.textContent = user ? displayName(user) : "My Account";
+    link.setAttribute("href", resolveHref("/accounts/account.html"));
   }
+
+  if (window.netlifyIdentity) {
+    // Initialize and react to changes
+    window.netlifyIdentity.on("init", applyUser);
+    window.netlifyIdentity.on("login", applyUser);
+    window.netlifyIdentity.on("logout", applyUser);
+    // Run once immediately if possible
+    applyUser(window.netlifyIdentity.currentUser());
+  }
+}
+
 
   root.appendChild(link);
 

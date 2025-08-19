@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>My Account</title>
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <!-- Netlify Identity Widget -->
+  <link rel="stylesheet" href="../assets/css/style.css" />
   <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
@@ -13,11 +12,54 @@
 
   <main>
     <h1>My Account</h1>
-    <p id="ni-status">Loading...</p>
+    <p id="ni-status">Checking sign-in status…</p>
+
+    <section aria-labelledby="profile-info">
+      <h2 id="profile-info">Profile</h2>
+
+      <div id="avatar-block">
+        <img id="avatar-preview" alt="Profile picture" src="" style="max-width:120px; height:auto; display:none;">
+      </div>
+
+      <form id="account-form">
+        <label>
+          Full name
+          <input id="full-name" type="text" placeholder="Your name" />
+        </label>
+        <br/>
+        <label>
+          Email
+          <input id="email" type="email" placeholder="you@example.com" />
+        </label>
+        <br/>
+        <label>
+          Avatar URL
+          <input id="avatar-url" type="url" placeholder="https://…" />
+        </label>
+        <br/>
+        <button id="save-profile" type="submit">Save Profile</button>
+      </form>
+    </section>
+
+    <section aria-labelledby="security">
+      <h2 id="security">Security</h2>
+      <form id="password-form">
+        <label>
+          New password
+          <input id="new-password" type="password" autocomplete="new-password" />
+        </label>
+        <br/>
+        <button id="change-password" type="submit">Change Password</button>
+        <button id="password-recovery" type="button">Send Recovery Email</button>
+      </form>
+    </section>
+
     <p>
       <button id="ni-login" type="button">Log In / Sign Up</button>
       <button id="ni-logout" type="button" hidden>Log Out</button>
     </p>
+
+    <p id="account-message" role="status" aria-live="polite"></p>
   </main>
 
   <script defer src="../assets/js/nav.js"></script>
