@@ -5,14 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>My Account</title>
   <link rel="stylesheet" href="../assets/css/style.css">
+  <!-- Netlify Identity Widget -->
+  <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
   <div id="site-nav"></div>
+
   <main>
     <h1>My Account</h1>
-    <!-- TODO: build My Account content -->
+    <p id="ni-status">Loading...</p>
+    <p>
+      <button id="ni-login" type="button">Log In / Sign Up</button>
+      <button id="ni-logout" type="button" hidden>Log Out</button>
+    </p>
   </main>
-  <!-- <script>window.SITE_BASE="/your-repo";</script> -->
+
   <script defer src="../assets/js/nav.js"></script>
+  <script defer src="../assets/js/identity.js"></script>
 </body>
 </html>
