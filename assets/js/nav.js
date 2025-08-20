@@ -20,6 +20,7 @@
       const target = a.getAttribute("data-href");
       const href = resolveHref(target);
       a.setAttribute("href", href);
+
       const normTarget = (target.replace(/\/$/, "") || "/");
       if (here === normTarget || (normTarget !== "/" && here.startsWith(normTarget))) {
         a.classList.add("active");
@@ -32,7 +33,7 @@
     const link = document.createElement("a");
     link.id = "account-cta";
     link.href = resolveHref("/accounts/account.html");
-    link.textContent = "My Account";
+    link.textContent = "My Account"; // default for logged-out
     root.appendChild(link);
 
     function displayName(user){
@@ -61,12 +62,14 @@
       mount.id = "site-nav";
       document.body.prepend(mount);
     }
+
     const candidates = [
       "partials/nav.html",
       "../partials/nav.html",
       "../../partials/nav.html",
       SITE_BASE ? SITE_BASE + "/partials/nav.html" : null
     ].filter(Boolean);
+
     const html = await fetchPartial(candidates);
     mount.innerHTML = html;
     setLinksAndActive(mount);

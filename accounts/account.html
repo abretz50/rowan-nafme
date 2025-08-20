@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>My Account</title>
   <link rel="stylesheet" href="../assets/css/style.css">
+  <!-- Netlify Identity Widget (needed on this page) -->
   <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
@@ -15,19 +16,27 @@
 
     <section aria-labelledby="profile-info">
       <h2 id="profile-info">Profile</h2>
+
       <div id="avatar-block">
         <img id="avatar-preview" alt="Profile picture" src="" style="max-width:120px; height:auto; display:none;">
       </div>
+
       <form id="account-form">
-        <label>Full name
+        <label>
+          Full name
           <input id="full-name" type="text" placeholder="Your name" />
-        </label><br/>
-        <label>Email
+        </label>
+        <br/>
+        <label>
+          Email
           <input id="email" type="email" placeholder="you@example.com" />
-        </label><br/>
-        <label>Avatar URL
+        </label>
+        <br/>
+        <label>
+          Avatar URL
           <input id="avatar-url" type="url" placeholder="https://…" />
-        </label><br/>
+        </label>
+        <br/>
         <button id="save-profile" type="submit">Save Profile</button>
       </form>
     </section>
@@ -35,22 +44,34 @@
     <section aria-labelledby="security">
       <h2 id="security">Security</h2>
       <form id="password-form">
-        <label>New password
+        <label>
+          New password
           <input id="new-password" type="password" autocomplete="new-password" />
-        </label><br/>
+        </label>
+        <br/>
         <button id="change-password" type="submit">Change Password</button>
         <button id="password-recovery" type="button">Password Recovery</button>
       </form>
+    </section>
+
+    <section aria-labelledby="eboard-tools">
+      <h2 id="eboard-tools" style="display:none;">E-Board Tools</h2>
+      <p id="eboard-note" style="display:none;">You have E-Board access.</p>
+      <p>
+        <button id="btn-points" type="button" hidden>Points Manager</button>
+        <button id="btn-events" type="button" hidden>Event Manager</button>
+      </p>
     </section>
 
     <p>
       <button id="ni-login" type="button">Log In / Sign Up</button>
       <button id="ni-logout" type="button" hidden>Log Out</button>
     </p>
+
     <p id="account-message" role="status" aria-live="polite"></p>
   </main>
 
-
+  <!-- No nav.js on this page -->
   <script defer src="../assets/js/identity.js"></script>
 </body>
 </html>
