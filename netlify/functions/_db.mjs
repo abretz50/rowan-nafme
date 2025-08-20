@@ -1,20 +1,19 @@
 import { neon } from '@neondatabase/serverless';
 
-const connectionString = process.env.DATABASE_URL;
+const connectionString = process.env.NEON_DATABASE_URL || process.env.DATABASE_URL;
 if (!connectionString) {
-  console.warn('DATABASE_URL is not set.');
+  console.warn('NEON_DATABASE_URL / DATABASE_URL is not set.');
 }
 
 export const sql = neon(connectionString);
 
-// Helpers
+// --- Helpers ---
 export async function ensureUserByEmail({ id, email, full_name }) {
-  // Upsert into users by email (email is unique), then ensure points row exists.
   const user = (await sql`
     INSERT INTO users (id, email, full_name)
     VALUES (${id}::uuid, ${email}, ${full_name})
     ON CONFLICT (email) DO UPDATE SET
-      full_name = EXCLUDED.full_name
+      full_name = COALESCE(EXCLUDED.full_name, users.full_name)
     RETURNING id, email, full_name, created_at;
   `)[0];
 
@@ -29,24 +28,27 @@ export async function ensureUserByEmail({ id, email, full_name }) {
 
 export async function getLeaderboard(limit = 100) {
   const rows = await sql`
-    SELECT u.id, u.full_name, u.email, COALESCE(p.points, 0) AS points
+    SELECT u.id, u.full_name, COALESCE(p.points, 0) AS points
     FROM users u
     LEFT JOIN points p ON p.user_id = u.id
-    ORDER BY points DESC, u.full_name NULLS LAST, u.email ASC
+    ORDER BY points DESC, u.full_name NULLS LAST, u.id ASC
     LIMIT ${limit};
   `;
   return rows;
 }
 
-export async function getUserByEmail(email) {
-  const rows = await sql`SELECT id, email, full_name FROM users WHERE email = ${email} LIMIT 1;`;
-  return rows[0] || null;
+export async function getUserByNameExact(name) {
+  const rows = await sql`
+    SELECT id, email, full_name FROM users
+    WHERE lower(full_name) = lower(${name})
+    LIMIT 2;`;
+  if (rows.length === 0) throw new Error('User not found by name');
+  if (rows.length > 1) throw new Error('Multiple users share that name. Please make the name unique.');
+  return rows[0];
 }
 
-export async function incrementPointsByEmail(email, delta) {
-  // Ensure user exists, then increment
-  let user = await getUserByEmail(email);
-  if (!user) throw new Error('User not found');
+export async function incrementPointsByName(name, delta) {
+  const user = await getUserByNameExact(name);
   const row = (await sql`
     INSERT INTO points (user_id, points)
     VALUES (${user.id}::uuid, ${delta})
@@ -55,12 +57,11 @@ export async function incrementPointsByEmail(email, delta) {
       updated_at = now()
     RETURNING points;
   `)[0];
-  return { email, points: row.points };
+  return { name: user.full_name, points: row.points };
 }
 
-export async function setPointsByEmail(email, pointsVal) {
-  let user = await getUserByEmail(email);
-  if (!user) throw new Error('User not found');
+export async function setPointsByName(name, pointsVal) {
+  const user = await getUserByNameExact(name);
   const row = (await sql`
     INSERT INTO points (user_id, points)
     VALUES (${user.id}::uuid, ${pointsVal})
@@ -69,5 +70,5 @@ export async function setPointsByEmail(email, pointsVal) {
       updated_at = now()
     RETURNING points;
   `)[0];
-  return { email, points: row.points };
+  return { name: user.full_name, points: row.points };
 }

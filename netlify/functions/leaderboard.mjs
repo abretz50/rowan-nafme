@@ -1,6 +1,6 @@
 import { getLeaderboard } from './_db.mjs';
 
-export default async (req, context) => {
+export default async (req) => {
   try {
     const url = new URL(req.url);
     const limit = Math.max(1, Math.min(500, parseInt(url.searchParams.get('limit') || '100', 10)));

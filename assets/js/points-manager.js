@@ -1,5 +1,4 @@
 (function(){
-  // Guard: only eboard role may view this page
   function bounce(){ window.location.href = "/accounts/account.html"; }
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -36,7 +35,7 @@
     tbody.innerHTML = "";
     (data.data || []).forEach((row, idx) => {
       const tr = document.createElement("tr");
-      tr.innerHTML = `<td>${idx+1}</td><td>${row.full_name || ""}</td><td>${row.email}</td><td>${row.points}</td>`;
+      tr.innerHTML = `<td>${idx+1}</td><td>${row.full_name || ""}</td><td>${row.points}</td>`;
       tbody.appendChild(tr);
     });
   }
@@ -52,37 +51,31 @@
   }
 
   function initUI(){
-    // Increment
+    // Increment by name
     const incForm = document.getElementById("inc-form");
     if (incForm) {
       incForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const email = document.getElementById("inc-email").value.trim();
+        const name = document.getElementById("inc-name").value.trim();
         const delta = parseInt(document.getElementById("inc-amount").value, 10);
-        if (!email || !Number.isFinite(delta)) return;
-        const res = await postPoints({ action: "increment", email, delta });
+        if (!name || !Number.isFinite(delta)) return;
+        const res = await postPoints({ action: "increment", name, delta });
         if (!res.ok) alert(res.error || "Failed");
         await loadLeaderboard();
       });
     }
-    // Set
+    // Set by name
     const setForm = document.getElementById("set-form");
     if (setForm) {
       setForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const email = document.getElementById("set-email").value.trim();
+        const name = document.getElementById("set-name").value.trim();
         const points = parseInt(document.getElementById("set-points").value, 10);
-        if (!email || !Number.isFinite(points)) return;
-        const res = await postPoints({ action: "set", email, points });
+        if (!name || !Number.isFinite(points)) return;
+        const res = await postPoints({ action: "set", name, points });
         if (!res.ok) alert(res.error || "Failed");
         await loadLeaderboard();
       });
-    }
-    // Sync current user row (helpful if not created yet)
-    if (window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
-      window.netlifyIdentity.currentUser().jwt().then(token =>
-        fetch("/.netlify/functions/sync-user", { method: "POST", headers: { authorization: "Bearer " + token } })
-      ).catch(() => {});
     }
   }
 })();
