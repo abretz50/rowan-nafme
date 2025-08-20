@@ -1,4 +1,4 @@
-// assets/js/nav.js
+// assets/js/nav.js (account-free)
 (function(){
   const SITE_BASE = (window.SITE_BASE || "").replace(/\/$/, "");
 
@@ -7,14 +7,13 @@
       try {
         const r = await fetch(p, { cache: "no-cache" });
         if (r.ok) return await r.text();
-      } catch(e){ /* ignore */ }
+      } catch(e){}
     }
     throw new Error("partials not found");
   }
 
-  function resolveHref(path){ 
-    // Ensure leading slash and prepend SITE_BASE
-    const target = (path || "/").replace(/^\.?\/?/, "/");
+  function resolveHref(path){
+    const target = (path || "/").replace(/^\.?\/??/, "/");
     return SITE_BASE + target;
   }
 
@@ -45,42 +44,6 @@
     });
   }
 
-  function addAccountCTA(root){
-    // Optional Netlify Identity integration; degrade gracefully.
-    const slot = root.querySelector('[data-account-slot]');
-    if (!slot) return;
-    try {
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on('init', user => {
-          render(user);
-        });
-        window.netlifyIdentity.on('login', user => { render(user); });
-        window.netlifyIdentity.on('logout', () => { render(null); });
-        render(window.netlifyIdentity.currentUser());
-      } else {
-        render(null);
-      }
-    } catch(e){ /* noop */ }
-
-    function render(user){
-      slot.innerHTML = "";
-      const a = document.createElement("a");
-      a.className = "btn account";
-      if (user) {
-        a.textContent = "Account";
-        a.href = resolveHref("/eboard.html");
-      } else {
-        a.textContent = "Log in";
-        a.href = "#";
-        a.addEventListener("click", (ev)=>{
-          ev.preventDefault();
-          if (window.netlifyIdentity) window.netlifyIdentity.open();
-        });
-      }
-      slot.appendChild(a);
-    }
-  }
-
   async function mountPartials(){
     const navHost = document.querySelector("[data-partial='nav']");
     const footerHost = document.querySelector("[data-partial='footer']");
@@ -91,7 +54,6 @@
       navHost.innerHTML = navHtml;
       setLinksAndActive(navHost);
       wireToggles(navHost);
-      addAccountCTA(navHost);
     }
     if (footerHost){
       const footerHtml = await fetchPartial(basePaths.map(b => `${b}/footer.html`));
@@ -100,7 +62,6 @@
     }
   }
 
-  // Defer until DOM ready
   if (document.readyState === "loading"){
     document.addEventListener("DOMContentLoaded", mountPartials);
   } else {
