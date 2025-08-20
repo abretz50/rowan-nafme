@@ -1,46 +1,319 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Rowan NAfME — Events</title>
-  <meta name="color-scheme" content="light">
-  <link rel="preload" as="image" href="/images/background.png">
-  <link rel="icon" href="/images/logo.png">
-  <link rel="stylesheet" href="/assets/css/style.css">
-</head>
-<body>
-  <nav class="site-nav"></nav>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Events | Rowan NAfME</title>
+  <link href="style.css" rel="stylesheet"/>
+  <script defer src="script.js"></script>
+
+<style>
+/* --- Filters row --- */
+.search-filter-container{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:0.75rem;
+  margin-top:1.5rem;
+  margin-bottom:1.5rem;
+  flex-wrap:wrap;
+}
+.search-input{
+  width:225px;
+  padding:0.5rem 1rem;
+  font-size:1rem;
+  border-radius:8px;
+  border:1px solid #ccc;
+  outline:none;
+}
+.dropdown-filter{
+  padding:0.5rem 1rem;
+  font-size:1rem;
+  border-radius:8px;
+  border:1px solid #ccc;
+  background:#fff;
+  color:#000;
+}
+.search-button{
+  padding:0.5rem 1.25rem;
+  font-size:1rem;
+  background:var(--highlight);
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  color:#000;
+  font-weight:600;
+  transition:background-color .3s ease;
+}
+.search-button:hover{ background:#ffdb70; }
+
+/* --- Grid (uniform spacing) --- */
+.events-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  column-gap: 0.5rem;  /* horizontal space */
+  row-gap: 1.5rem;     /* vertical space */
+  padding: 0.75rem;
+  align-items: start;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 200px;
+}
+
+
+/* --- Card --- */
+.event-card{
+  background:#008eb3;
+  border-radius:.9rem;
+  box-shadow:0 4px 12px rgba(0,0,0,.2);
+  overflow:hidden;
+  transition:transform .2s ease;
+  width:325px;       /* keeps columns consistent */
+  margin:0 auto;         /* horizontal center only (no vertical auto) */
+  display:flex;
+  flex-direction:column;
+  height:340px;          /* uniform height */
+  padding-bottom:1.1rem;
+}
+.event-card:hover{ transform:translateY(-2px); }
+
+/* Top corners only so edges align tightly with the card */
+.event-image{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+  border-radius:.9rem;  /* <-- changed */
+  margin-bottom:.7rem;
+}
+
+.event-body{
+  padding:0 1rem;
+  color:#fff;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+.event-title{
+  font-size:1.25rem;
+  font-weight:800;
+  margin:.25rem 0 .35rem;
+  cursor:pointer;
+}
+.event-desc{
+  font-size:1rem;
+  margin-bottom:.35rem;
+  flex:1; /* pushes footer down */
+  overflow:hidden;
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+}
+
+/* Footer: date full width; tag + button tight */
+.event-footer{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  column-gap:.5rem;
+  row-gap:.3rem;
+  flex-wrap:wrap;
+  margin-top:auto;
+}
+.event-footer .event-meta{
+  flex-basis:100%;
+  text-align:center;
+}
+.event-meta a{
+  color:#1e293b;
+  font-weight:600;
+  font-size:.95rem;
+  text-decoration:underline;
+}
+
+.see-more-btn{
+  background:#facc15;
+  color:#1e293b;
+  border:none;
+  border-radius:9999px;
+  padding:0.3rem 0.6rem;   /* less vertical + horizontal padding */
+  font-size:0.8rem;        /* smaller text */
+  font-weight:700;         /* still bold but slightly lighter */
+  cursor:pointer;
+  transition:background-color .15s ease;
+  white-space:nowrap;
+}
+
+.see-more-btn:hover{ background:#fde047; }
+
+.tag{
+  display:inline-block;
+  padding:.25rem .6rem;
+  font-weight:700;
+  border-radius:9999px;
+  font-size:.7rem;
+  pointer-events:none;
+  text-align:center;
+  box-shadow:0 1px 3px rgba(0,0,0,.1);
+  color:#000 !important;
+  white-space:nowrap;
+}
+.tag-general { 
+  background: #f97316; /* orange for General Meeting */
+}
+
+.tag-pd { 
+  background: #8b5cf6; /* purple for Professional Development */
+}
+
+.tag-volunteer { 
+  background: #0ea5e9; /* blue for Volunteer */
+}
+
+.tag-performance { 
+  background: #eab308; /* yellow for Performances */
+}
+
+
+/* --- Small screens --- */
+@media (max-width:640px){
+  .events-container{ gap:.7rem; padding:.6rem; }
+  .event-card{ height:400px; }
+  .event-image{ height:150px; }
+}
+
+</style>
 
   
-<header class="hero">
-  <div class="hero-inner container">
-    <div>
-      <h1>Events</h1>
-      <p>Workshops, meetings, volunteering, and convention prep. Filters below help you explore.</p>
-    </div>
-  </div>
-</header>
-<main>
-  <section class="section">
-    <div class="container">
-      <div class="filters">
-        <div class="chips" role="toolbar" aria-label="Filter events by tag">
-          <button class="button" data-filter="meeting" aria-pressed="false">Meeting</button>
-          <button class="button" data-filter="professional-development" aria-pressed="false">Professional Dev</button>
-          <button class="button" data-filter="workshop" aria-pressed="false">Workshop</button>
-          <button class="button" data-filter="volunteer" aria-pressed="false">Volunteer</button>
-          <button class="button" data-filter="convention" aria-pressed="false">Convention</button>
-        </div>
+</head>
+<body>
+  <div class="container">
+    <header class="navbar" id="navbar">
+      <div class="nav-container">
+        <a class="logo-wrapper" href="index.html">
+          <img alt=" Logo" class="nav-logo" src="logo.png"/>
+          <span class="nav-logo-text">Rowan NAfME</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#our-chapter">Our Chapter</a></li>
+          <li><a class="active" href="events.html">Events</a></li>
+          <li><a href="convention.html">Convention</a></li>
+          <li><a href="eboard.html">E-Board</a></li>
+          <li><a href="resources.html">Resources</a></li>
+        </ul>
       </div>
-      <div class="grid" id="eventsList" aria-live="polite"></div>
-    </div>
-  </section>
-</main>
-<script src="/assets/js/events.js"></script>
+    </header>
 
+    <main style="max-width: 1000px; margin: auto; padding: 2rem;">
+      <h2>Upcoming Events</h2>
+      <p style="margin-left: 60px; margin-right: 60px;">
+        Learn about upcoming Meetings, Volunteer Opportunities, Member Performances, and Professional Development sessions here! Hit the See More button to sign up, check in, or view more information for an event. You can also click the link on any event to add it to your calendar.
+      </p>
 
-  <footer class="site-footer"></footer>
-  <script src="/assets/js/nav.js" defer></script>
+      <div class="search-filter-container">
+        <input class="search-input" id="searchInput" placeholder="Search events..." type="text"/>
+        <select class="dropdown-filter" id="filterSelect">
+          <option value="">All</option>
+          <option value="performance">Performances</option>
+          <option value="volunteer">Volunteer</option>
+          <option value="general">General Meeting</option>
+          <option value="pd">Professional Development</option>
+        </select>
+        <button class="search-button" id="searchButton">Search</button>
+      </div>
+
+      <!-- Events Grid -->
+      <section class="events-container" id="eventsContainer">
+        <!-- dynamically inserted cards -->
+      </section>
+
+      <footer style="text-align: center; padding-top: 2rem;">
+        <p>© Chapter</p>
+      </footer>
+    </main>
+  </div>
+
+ <script>
+  async function fetchEvents() {
+    try {
+      const response = await fetch('/.netlify/functions/get_events');
+      const result = await response.json();
+      if (Array.isArray(result?.data)) {
+        displayEvents(result.data);
+      } else {
+        console.error("Unexpected response:", result);
+      }
+    } catch (error) {
+      console.error('Error fetching events:', error);
+    }
+  }
+
+  function displayEvents(events) {
+    const container = document.getElementById("eventsContainer");
+    container.innerHTML = "";
+
+    if (!events.length) {
+      container.innerHTML = "<p>No events found.</p>";
+      return;
+    }
+
+    events.forEach(event => {
+      const eventDate = new Date(event.date);
+      const formattedDate = eventDate.toLocaleDateString("en-US", {
+        weekday: "long", year: "numeric", month: "long", day: "numeric"
+      });
+
+      const card = document.createElement("div");
+      card.className = "event-card";
+      card.setAttribute("data-type", event.tag);
+
+      card.innerHTML = `
+        <img class="event-image" src="images/events/${event.image_name}" alt="${event.title}" />
+        <div class="event-body">
+          <div class="event-title" onclick="openPopup('${event.id}')">
+            ${event.title}
+          </div>
+          <div class="event-desc">
+            ${event.description}
+          </div>
+          <div class="event-footer">
+            <div class="event-meta">
+              <a href="https://calendar.google.com/calendar/u/0/r/eventedit" target="_blank" rel="noopener">
+                ${formattedDate} – ${event.event_time} – ${event.location}
+              </a>
+            </div>
+            <span class="tag tag-${event.tag}">
+              ${tagLabel(event.tag)}
+            </span>
+            <button class="see-more-btn" onclick="openPopup('${event.id}')">
+              See More
+            </button>
+          </div>
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+  }
+
+  function tagLabel(tag) {
+    const map = {
+      general: "General Meeting",
+      pd: "Professional Development",
+      volunteer: "Volunteer",
+      performance: "Performance"
+    };
+    return map[tag] || tag;
+  }
+
+  function openPopup(id) {
+    alert("More details for event ID: " + id);
+  }
+
+  fetchEvents();
+</script>
+
 </body>
 </html>
