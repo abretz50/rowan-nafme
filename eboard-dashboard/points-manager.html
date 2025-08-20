@@ -1,18 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Points Manager</title>
   <link rel="stylesheet" href="/assets/css/style.css">
   <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script defer src="/assets/js/identity.js"></script>
+  <script defer src="/assets/js/points-manager.js"></script>
 </head>
 <body>
   <main>
-    <a href="/accounts/account.html">← Back to My Account</a>
+    <p><a href="/accounts/account.html">← Back to My Account</a></p>
     <h1>Points Manager</h1>
-    <p>Only visible to E-Board members. Placeholder for points management tools.</p>
+
+    <section>
+      <h2>Leaderboard</h2>
+      <table id="leaderboard" border="1" cellpadding="6" cellspacing="0">
+        <thead>
+          <tr><th>#</th><th>Name</th><th>Email</th><th>Points</th></tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="4">Loading…</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Adjust Points (E-Board only)</h2>
+      <form id="inc-form">
+        <label>Email <input id="inc-email" type="email" required placeholder="user@example.com"></label>
+        <label>Change by <input id="inc-amount" type="number" required value="1"></label>
+        <button type="submit">Increment / Decrement</button>
+      </form>
+      <form id="set-form" style="margin-top:12px;">
+        <label>Email <input id="set-email" type="email" required placeholder="user@example.com"></label>
+        <label>Set to <input id="set-points" type="number" required value="0"></label>
+        <button type="submit">Set Points</button>
+      </form>
+      <p style="margin-top:8px;">Tip: If a user isn’t in the table yet, have them log in once so we can create their record.</p>
+    </section>
   </main>
 </body>
 </html>
