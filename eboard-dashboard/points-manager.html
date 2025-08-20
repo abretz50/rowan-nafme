@@ -1,37 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Points Manager</title>
-  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script defer src="/assets/js/identity.js"></script>
 </head>
 <body>
-  <div id="site-nav"></div>
   <main>
+    <a href="/accounts/account.html">← Back to My Account</a>
     <h1>Points Manager</h1>
-    <p>E-Board-only area.</p>
+    <p>Only visible to E-Board members. Placeholder for points management tools.</p>
   </main>
-  <!-- Netlify Identity widget for role checks -->
-  <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function(){
-      function bounce(){ window.location.href = "/accounts/account.html"; }
-      function allowIfEboard(){
-        const ni = window.netlifyIdentity;
-        if (!ni) return bounce();
-        const user = ni.currentUser();
-        const roles = (user && user.app_metadata && Array.isArray(user.app_metadata.roles)) ? user.app_metadata.roles : [];
-        if (!user || !roles.includes("eboard")) return bounce();
-      }
-      if (!window.netlifyIdentity) return bounce();
-      netlifyIdentity.on("init", allowIfEboard);
-      netlifyIdentity.on("login", allowIfEboard);
-      netlifyIdentity.on("logout", bounce);
-      netlifyIdentity.init();
-    });
-  </script>
-  <script defer src="../assets/js/nav.js"></script>
-
 </body>
 </html>

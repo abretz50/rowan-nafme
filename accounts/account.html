@@ -1,57 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Account</title>
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <!-- Netlify Identity Widget (needed on this page) -->
+  <link rel="stylesheet" href="/assets/css/style.css">
   <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script defer src="/assets/js/identity.js"></script>
 </head>
 <body>
   <main>
-    <p><a href="/">← Back to Home</a></p>
+    <a href="/index.html">← Back to Home</a>
     <h1>My Account</h1>
-    <p id="ni-status">Checking sign-in status…</p>
 
-    <section aria-labelledby="profile-info">
-      <h2 id="profile-info">Profile</h2>
-
-      <div id="avatar-block">
-        <img id="avatar-preview" alt="Profile picture" src="" style="max-width:120px; height:auto; display:none;">
+    <section aria-labelledby="profile">
+      <h2 id="profile">Profile</h2>
+      <p><strong>Name:</strong> <span id="user-name"></span></p>
+      <p><strong>Email:</strong> <span id="user-email"></span></p>
+      <div>
+        <img id="profile-pic" src="/images/ui/placeholder.png" alt="Profile picture" width="120">
+        <input type="file" id="upload-photo" accept="image/*">
       </div>
-
-      <form id="account-form">
-        <label>
-          Full name
-          <input id="full-name" type="text" placeholder="Your name" />
-        </label>
-        <br/>
-        <label>
-          Email
-          <input id="email" type="email" placeholder="you@example.com" />
-        </label>
-        <br/>
-        <label>
-          Avatar URL
-          <input id="avatar-url" type="url" placeholder="https://…" />
-        </label>
-        <br/>
-        <button id="save-profile" type="submit">Save Profile</button>
-      </form>
     </section>
 
     <section aria-labelledby="security">
       <h2 id="security">Security</h2>
+      <p id="security-help" aria-live="polite"></p>
       <form id="password-form">
-        <label>
-          New password
-          <input id="new-password" type="password" autocomplete="new-password" />
-        </label>
-        <br/>
-        <button id="change-password" type="submit">Change Password</button>
-        <button id="password-recovery" type="button">Password Recovery</button>
+        <label for="new-password">New Password</label>
+        <input type="password" id="new-password" autocomplete="new-password">
+        <button type="submit" id="change-password">Change Password</button>
       </form>
+      <button id="recovery-email">Password Recovery</button>
     </section>
 
     <section aria-labelledby="eboard-tools">
@@ -62,16 +42,6 @@
         <button id="btn-events" type="button" hidden>Event Manager</button>
       </p>
     </section>
-
-    <p>
-      <button id="ni-login" type="button">Log In / Sign Up</button>
-      <button id="ni-logout" type="button" hidden>Log Out</button>
-    </p>
-
-    <p id="account-message" role="status" aria-live="polite"></p>
   </main>
-
-  <!-- No nav.js on this page -->
-  <script defer src="../assets/js/identity.js"></script>
 </body>
 </html>
