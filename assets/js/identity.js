@@ -10,18 +10,12 @@
 
   const displayName = document.getElementById("display-name");
   const displayEmail = document.getElementById("display-email");
-  const avatarPreview = document.getElementById("avatar-preview");
 
   const accountForm = document.getElementById("account-form");
   const fullName = document.getElementById("full-name");
   const email = document.getElementById("email");
-  const avatarUrl = document.getElementById("avatar-url");
 
-  const passwordForm = document.getElementById("password-form");
-  const newPassword = document.getElementById("new-password");
   const recoveryBtn = document.getElementById("password-recovery");
-  const securityHelp = document.getElementById("security-help");
-  const changeBtn = document.getElementById("change-password");
 
   const toolsTitle = document.getElementById("eboard-tools");
   const toolsNote  = document.getElementById("eboard-note");
@@ -35,11 +29,6 @@
   }
   function hasEboard(user){ return getRoles(user).includes("eboard"); }
 
-  function getProviders(user){
-    return Array.isArray(user?.identities) ? user.identities.map(i => i?.provider) : [];
-  }
-  function hasPasswordProvider(user){ return getProviders(user).includes("email"); }
-
   function render(){
     const user = ni.currentUser();
 
@@ -50,12 +39,8 @@
 
       if (displayName) displayName.textContent = "—";
       if (displayEmail) displayEmail.textContent = "—";
-      if (avatarPreview) { avatarPreview.style.display = "none"; avatarPreview.src = ""; }
 
       if (accountForm) accountForm.style.display = "none";
-      if (passwordForm) passwordForm.style.display = "none";
-      if (securityHelp) { securityHelp.textContent = "Sign in to manage your password."; }
-      if (changeBtn) changeBtn.disabled = true;
 
       if (toolsTitle) toolsTitle.style.display = "none";
       if (toolsNote)  toolsNote.style.display  = "none";
@@ -67,35 +52,14 @@
     // Logged in
     if (statusEl) statusEl.textContent = `Signed in as ${user.email}`;
     if (loginBtn) loginBtn.hidden = true;
-    if (logoutBtn) logoutBtn.hidden = true; // will unhide below after identity is stable
-    setTimeout(()=>{ if (logoutBtn) logoutBtn.hidden = false; }, 0);
+    if (logoutBtn) logoutBtn.hidden = false;
 
     const meta = user.user_metadata || {};
     const name = meta.full_name || "";
     if (displayName) displayName.textContent = name || (user.email ? user.email.split("@")[0] : "");
     if (displayEmail) displayEmail.textContent = user.email || "";
-    if (avatarPreview) {
-      const src = meta.avatar_url || "";
-      avatarPreview.src = src;
-      avatarPreview.style.display = src ? "block" : "none";
-    }
 
     if (accountForm) accountForm.style.display = "block";
-    if (passwordForm) passwordForm.style.display = "block";
-
-    if (fullName) fullName.value = name;
-    if (email) email.value = user.email || "";
-    if (avatarUrl) avatarUrl.value = meta.avatar_url || "";
-
-    if (securityHelp) {
-      if (hasPasswordProvider(user)) {
-        securityHelp.textContent = 'To change your password, enter a new one below and click “Change Password.” If you forgot your current password, click “Password Recovery” to receive a reset link via email.';
-        if (changeBtn) changeBtn.disabled = false;
-      } else {
-        securityHelp.textContent = 'Your account uses Single Sign-On (Google/GitHub). You don’t have a site-specific password yet. Click “Password Recovery” to set one via email, or continue using Single Sign-On.';
-        if (changeBtn) changeBtn.disabled = true;
-      }
-    }
 
     // Eboard role UI
     if (hasEboard(user)) {
@@ -126,16 +90,12 @@
       e.preventDefault();
       const user = ni.currentUser();
       if (!user) return;
-      const updates = {
-        email: (email && email.value) || user.email,
-        data: {
-          full_name: (fullName && fullName.value) || "",
-          avatar_url: (avatarUrl && avatarUrl.value) || ""
-        }
-      };
       try {
         setMsg("Saving profile…");
-        await user.update(updates);
+        await user.update({
+          email: (email && email.value) || user.email,
+          data: { full_name: (fullName && fullName.value) || "" }
+        });
         setMsg("Profile saved.");
         render();
       } catch (err) {
@@ -145,31 +105,11 @@
     });
   }
 
-  // Password change
-  if (passwordForm) {
-    passwordForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const user = ni.currentUser();
-      if (!user) return;
-      const pw = (newPassword && newPassword.value) || "";
-      if (!pw) { setMsg("Enter a new password first."); return; }
-      try {
-        setMsg("Updating password…");
-        await user.update({ password: pw });
-        newPassword.value = "";
-        setMsg("Password updated.");
-      } catch (err) {
-        console.error(err);
-        setMsg("Error updating password. Try recovery instead.");
-      }
-    });
-  }
-
-  // Recovery
+  // Forgot Password → open login modal so user can click "Forgot password?"
   if (recoveryBtn) {
     recoveryBtn.addEventListener("click", () => {
       ni.open("login");
-      setMsg('Click "Forgot password?" in the login window to receive a recovery email.');
+      setMsg('In the login window, click "Forgot password?" to reset your password.');
     });
   }
 

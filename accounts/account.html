@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>My Account</title>
-  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
   <!-- Netlify Identity Widget -->
   <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script defer src="/assets/js/identity.js"></script>
+  <script defer src="../assets/js/identity.js"></script>
 </head>
 <body>
   <main>
@@ -18,18 +18,16 @@
       <h2 id="auth-controls">Authentication</h2>
       <p id="ni-status">Checking sign-in status…</p>
       <p>
-        <button id="ni-login" type="button">Log In / Sign Up</button>
+        <button id="ni-login" type="button">Login</button>
         <button id="ni-logout" type="button" hidden>Log Out</button>
       </p>
+      <p class="note">If you just logged in and your info doesn't appear here, refresh this page.</p>
     </section>
 
     <section aria-labelledby="account-overview">
       <h2 id="account-overview">Account Overview</h2>
       <p><strong>Name:</strong> <span id="display-name">—</span></p>
       <p><strong>Email:</strong> <span id="display-email">—</span></p>
-      <div id="avatar-block">
-        <img id="avatar-preview" alt="Profile picture" src="" style="max-width:120px; height:auto; display:none;">
-      </div>
     </section>
 
     <section aria-labelledby="profile-edit">
@@ -41,23 +39,14 @@
         <label>Email<br>
           <input id="email" type="email" placeholder="you@example.com">
         </label><br><br>
-        <label>Avatar URL<br>
-          <input id="avatar-url" type="url" placeholder="https://…">
-        </label><br><br>
         <button id="save-profile" type="submit">Save Profile</button>
       </form>
     </section>
 
     <section aria-labelledby="security">
       <h2 id="security">Security</h2>
-      <p id="security-help" aria-live="polite"></p>
-      <form id="password-form">
-        <label>New password<br>
-          <input id="new-password" type="password" autocomplete="new-password">
-        </label>
-        <button id="change-password" type="submit">Change Password</button>
-      </form>
-      <p><button id="password-recovery" type="button">Password Recovery</button></p>
+      <p id="security-help">Use “Forgot Password” to open the login window and reset your password there.</p>
+      <p><button id="password-recovery" type="button">Forgot Password</button></p>
     </section>
 
     <section aria-labelledby="eboard-tools">
