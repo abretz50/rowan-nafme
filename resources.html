@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
  <head>
+  <link rel="stylesheet" href="/assets/css/style.css">
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>
@@ -11,6 +12,7 @@
   </script>
  </head>
  <body>
+  <div data-partial="nav"></div>
   <div class="container">
    <header class="navbar">
     <div class="nav-container">
@@ -548,7 +550,24 @@
 
 
 </style>
-   </main>
+   <section class="wrap">
+  <h1 class="page-title">Resources</h1>
+  <p class="muted">Curated links and tools for Rowan NAfME members.</p>
+  <div class="resource-grid">
+    <!-- Example cards; replace with your content -->
+    <article class="resource-card">
+      <h3>NAfME Membership</h3>
+      <p>Join or renew your NAfME membership to access member benefits.</p>
+      <a class="btn" href="https://nafme.org/" target="_blank" rel="noopener">Visit site</a>
+    </article>
+    <article class="resource-card">
+      <h3>Rowan Music Dept.</h3>
+      <p>Official Rowan Department of Music site: events, programs, contacts.</p>
+      <a class="btn" href="https://cpa.rowan.edu/music/" target="_blank" rel="noopener">Visit site</a>
+    </article>
+  </div>
+</section>
+</main>
    <footer>
     <p>
      © Chapter
@@ -565,5 +584,7 @@
   </script>
   <script src="auth0.js">
   </script>
- </body>
+   <div data-partial="footer"></div>
+  <script src="assets/js/nav.js"></script>
+</body>
 </html>
