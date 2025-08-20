@@ -1,8 +1,8 @@
 import { neon } from '@neondatabase/serverless';
 
-const connectionString = process.env.NEON_DATABASE_URL;
+const connectionString = process.env.DATABASE_URL;
 if (!connectionString) {
-  console.warn('NEON_DATABASE_URL is not set.');
+  console.warn('DATABASE_URL is not set.');
 }
 
 export const sql = neon(connectionString);
