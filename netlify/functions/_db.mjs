@@ -7,16 +7,17 @@ if (!connectionString) {
 }
 export const sql = neon(connectionString);
 
-// Upsert/ensure user row by email on login/sync
-export async function ensureUserByEmail({ id, email, full_name }) {
+// Create or fetch a user by case-insensitive full_name
+export async function getOrCreateUserByName(name) {
   const user = (await sql`
-    INSERT INTO users (id, email, full_name)
-    VALUES (${id}::uuid, ${email}, ${full_name})
-    ON CONFLICT (email) DO UPDATE SET
-      full_name = COALESCE(EXCLUDED.full_name, users.full_name)
-    RETURNING id, email, full_name, created_at;
+    INSERT INTO users (full_name)
+    VALUES (${name})
+    ON CONFLICT (lower(full_name)) DO UPDATE
+      SET full_name = EXCLUDED.full_name
+    RETURNING id, full_name;
   `)[0];
 
+  // Ensure points row exists
   await sql`
     INSERT INTO points (user_id, points)
     VALUES (${user.id}::uuid, 0)
@@ -24,6 +25,30 @@ export async function ensureUserByEmail({ id, email, full_name }) {
   `;
 
   return user;
+}
+
+export async function setPointsByUserId(userId, pointsVal) {
+  const row = (await sql`
+    INSERT INTO points (user_id, points)
+    VALUES (${userId}::uuid, ${pointsVal})
+    ON CONFLICT (user_id) DO UPDATE SET
+      points = ${pointsVal},
+      updated_at = now()
+    RETURNING points;
+  `)[0];
+  return row.points;
+}
+
+export async function incrementPointsByUserId(userId, delta) {
+  const row = (await sql`
+    INSERT INTO points (user_id, points)
+    VALUES (${userId}::uuid, ${delta})
+    ON CONFLICT (user_id) DO UPDATE SET
+      points = points.points + ${delta},
+      updated_at = now()
+    RETURNING points;
+  `)[0];
+  return row.points;
 }
 
 export async function getLeaderboard(limit = 1000) {
@@ -34,41 +59,4 @@ export async function getLeaderboard(limit = 1000) {
     ORDER BY points DESC, u.full_name NULLS LAST, u.id ASC
     LIMIT ${limit};
   `;
-}
-
-export async function getUserByNameExact(name) {
-  const rows = await sql`
-    SELECT id, email, full_name FROM users
-    WHERE lower(full_name) = lower(${name})
-    LIMIT 2;
-  `;
-  if (rows.length === 0) throw new Error('User not found by name');
-  if (rows.length > 1) throw new Error('Multiple users share that name. Please make the name unique.');
-  return rows[0];
-}
-
-export async function incrementPointsByName(name, delta) {
-  const user = await getUserByNameExact(name);
-  const row = (await sql`
-    INSERT INTO points (user_id, points)
-    VALUES (${user.id}::uuid, ${delta})
-    ON CONFLICT (user_id) DO UPDATE SET
-      points = points.points + ${delta},
-      updated_at = now()
-    RETURNING points;
-  `)[0];
-  return { name: user.full_name, points: row.points };
-}
-
-export async function setPointsByName(name, pointsVal) {
-  const user = await getUserByNameExact(name);
-  const row = (await sql`
-    INSERT INTO points (user_id, points)
-    VALUES (${user.id}::uuid, ${pointsVal})
-    ON CONFLICT (user_id) DO UPDATE SET
-      points = ${pointsVal},
-      updated_at = now()
-    RETURNING points;
-  `)[0];
-  return { name: user.full_name, points: row.points };
 }

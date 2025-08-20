@@ -1,5 +1,5 @@
 {
-  "name": "points-manager-neon",
+  "name": "points-manager-minimal-neon",
   "private": true,
   "type": "module",
   "dependencies": {

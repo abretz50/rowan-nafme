@@ -1,5 +1,5 @@
 
-import { incrementPointsByName, setPointsByName } from './_db.mjs';
+import { getOrCreateUserByName, incrementPointsByUserId, setPointsByUserId } from './_db.mjs';
 
 function isEboard(context) {
   const roles = context.clientContext?.user?.app_metadata?.roles || [];
@@ -7,6 +7,7 @@ function isEboard(context) {
 }
 
 export default async (req, context) => {
+  // Protect: only logged-in eboard may modify points
   if (!context.clientContext?.user) {
     return new Response(JSON.stringify({ ok: false, error: 'Unauthorized' }), { status: 401 });
   }
@@ -21,18 +22,20 @@ export default async (req, context) => {
       return new Response(JSON.stringify({ ok: false, error: 'Missing action or name' }), { status: 400 });
     }
 
+    const user = await getOrCreateUserByName(name);
+
     if (action === 'increment') {
       const d = parseInt(delta, 10);
       if (!Number.isFinite(d)) return new Response(JSON.stringify({ ok: false, error: 'Invalid delta' }), { status: 400 });
-      const result = await incrementPointsByName(name, d);
-      return new Response(JSON.stringify({ ok: true, result }), { status: 200, headers: { 'content-type': 'application/json' } });
+      const total = await incrementPointsByUserId(user.id, d);
+      return new Response(JSON.stringify({ ok: true, result: { name: user.full_name, points: total } }), { status: 200, headers: { 'content-type': 'application/json' } });
     }
 
     if (action === 'set') {
       const p = parseInt(points, 10);
       if (!Number.isFinite(p)) return new Response(JSON.stringify({ ok: false, error: 'Invalid points' }), { status: 400 });
-      const result = await setPointsByName(name, p);
-      return new Response(JSON.stringify({ ok: true, result }), { status: 200, headers: { 'content-type': 'application/json' } });
+      const total = await setPointsByUserId(user.id, p);
+      return new Response(JSON.stringify({ ok: true, result: { name: user.full_name, points: total } }), { status: 200, headers: { 'content-type': 'application/json' } });
     }
 
     return new Response(JSON.stringify({ ok: false, error: 'Unknown action' }), { status: 400 });

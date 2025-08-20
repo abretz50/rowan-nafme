@@ -15,11 +15,8 @@
     <h1>Points Manager</h1>
 
     <section>
-      <h2>Leaderboard (All Users)</h2>
-      <p>
-        <button id="btn-refresh" type="button">Refresh</button>
-        <button id="btn-sync-all" type="button">Sync All Users</button>
-      </p>
+      <h2>Leaderboard (Users who interacted with points)</h2>
+      <p><button id="btn-refresh" type="button">Refresh</button></p>
       <table id="leaderboard" border="1" cellpadding="6" cellspacing="0">
         <thead>
           <tr><th>#</th><th>Name</th><th>Points</th></tr>
@@ -28,7 +25,9 @@
           <tr><td colspan="3">Loading…</td></tr>
         </tbody>
       </table>
-      <p style="margin-top:8px;">“Sync All Users” pulls every Identity user into the database (requires server env var <code>IDENTITY_ADMIN_TOKEN</code>).</p>
+      <p style="margin-top:8px;">
+        Users are created on-demand the first time you adjust their points.
+      </p>
     </section>
 
     <section>
@@ -44,7 +43,7 @@
         <button type="submit">Set Points</button>
       </form>
       <p style="margin-top:8px;">
-        Names are matched exactly (case-insensitive). If duplicates exist, make them unique in Identity.
+        Names are matched case-insensitively and must be unique. If you hit a duplicate, rename one in your records.
       </p>
     </section>
   </main>
