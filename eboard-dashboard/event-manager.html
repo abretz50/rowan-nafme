@@ -1,18 +1,70 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Event Manager</title>
   <link rel="stylesheet" href="/assets/css/style.css">
   <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script defer src="/assets/js/identity.js"></script>
+  <script defer src="/assets/js/event-manager.js"></script>
 </head>
 <body>
   <main>
-    <a href="/accounts/account.html">← Back to My Account</a>
+    <p><a href="/accounts/account.html">← Back to My Account</a></p>
     <h1>Event Manager</h1>
-    <p>Only visible to E-Board members. Placeholder for event management tools.</p>
+
+    <section>
+      <h2>Create / Edit Event</h2>
+      <form id="event-form">
+        <input type="hidden" id="ev-id">
+        <p><label>Event Name<br><input id="ev-name" type="text" required></label></p>
+        <p><label>Description (complete)<br><textarea id="ev-description" rows="4"></textarea></label></p>
+        <p><label>Description preview<br><input id="ev-preview" type="text"></label></p>
+        <p>
+          <label>Date<br><input id="ev-date" type="date"></label>
+          <label>Start time<br><input id="ev-start-time" type="time"></label>
+          <label>End time<br><input id="ev-end-time" type="time"></label>
+        </p>
+        <p><label>Location<br><input id="ev-location" type="text"></label></p>
+        <p><label>Image link<br><input id="ev-image-url" type="url" placeholder="https://..."></label></p>
+        <p>
+          <label>Points<br><input id="ev-points" type="number" value="0"></label>
+          <label>Attendance<br><input id="ev-attendance" type="number" value="0"></label>
+          <label>Tag<br><input id="ev-tag" type="text" placeholder="e.g., social, workshop"></label>
+          <label>Volunteers / hour<br><input id="ev-vph" type="number"></label>
+        </p>
+        <p>
+          <button id="save-btn" type="submit">Create Event</button>
+          <button id="cancel-btn" type="button" style="display:none;">Cancel</button>
+          <button id="refresh-btn" type="button">Refresh List</button>
+        </p>
+      </form>
+    </section>
+
+    <section>
+      <h2>Events</h2>
+      <table id="events" border="1" cellpadding="6" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Preview</th>
+            <th>Date</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Location</th>
+            <th>Points</th>
+            <th>Attendance</th>
+            <th>Tag</th>
+            <th>Volunteers/hr</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="11">Loading…</td></tr>
+        </tbody>
+      </table>
+    </section>
   </main>
 </body>
 </html>
