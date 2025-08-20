@@ -1,3 +1,4 @@
+
 import { ensureUserByEmail } from './_db.mjs';
 
 export default async (req, context) => {

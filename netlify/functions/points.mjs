@@ -1,3 +1,4 @@
+
 import { incrementPointsByName, setPointsByName } from './_db.mjs';
 
 function isEboard(context) {

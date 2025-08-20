@@ -1,3 +1,4 @@
+
 (function(){
   function bounce(){ window.location.href = "/accounts/account.html"; }
 
@@ -28,7 +29,7 @@
   }
 
   async function loadLeaderboard(){
-    const res = await fetch("/.netlify/functions/leaderboard");
+    const res = await fetch("/.netlify/functions/leaderboard?limit=2000");
     const data = await res.json();
     const tbody = document.querySelector("#leaderboard tbody");
     if (!tbody) return;
@@ -46,6 +47,15 @@
       method: "POST",
       headers: { "content-type": "application/json", "authorization": "Bearer " + token },
       body: JSON.stringify(payload)
+    });
+    return await res.json();
+  }
+
+  async function syncAllUsers(){
+    const token = await jwt();
+    const res = await fetch("/.netlify/functions/sync-all-users", {
+      method: "POST",
+      headers: { "authorization": "Bearer " + token }
     });
     return await res.json();
   }
@@ -76,6 +86,28 @@
         if (!res.ok) alert(res.error || "Failed");
         await loadLeaderboard();
       });
+    }
+    // Sync all users (if admin token configured on server)
+    const syncBtn = document.getElementById("btn-sync-all");
+    if (syncBtn) {
+      syncBtn.addEventListener("click", async () => {
+        syncBtn.disabled = true;
+        syncBtn.textContent = "Syncing…";
+        try {
+          const res = await syncAllUsers();
+          if (!res.ok) alert(res.error || "Sync failed");
+          else alert(`Synced ${res.synced || 0} users.`);
+          await loadLeaderboard();
+        } finally {
+          syncBtn.disabled = false;
+          syncBtn.textContent = "Sync All Users";
+        }
+      });
+    }
+    // Refresh leaderboard
+    const refreshBtn = document.getElementById("btn-refresh");
+    if (refreshBtn) {
+      refreshBtn.addEventListener("click", loadLeaderboard);
     }
   }
 })();

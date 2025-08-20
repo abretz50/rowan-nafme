@@ -1,8 +1,7 @@
+
 [functions]
   node_bundler = "esbuild"
   external_node_modules = ["@neondatabase/serverless"]
-  # functions live in netlify/functions (already correct)
 
 [build]
-  publish = "."   # <- was "dist"
-  # no build command needed for plain HTML/CSS/JS
+  publish = "."
