@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rowan NAfME — Events</title>
+  <meta name="color-scheme" content="light">
+  <link rel="preload" as="image" href="/images/background.png">
+  <link rel="icon" href="/images/logo.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <nav class="site-nav"></nav>
+
+  
+<header class="hero">
+  <div class="hero-inner container">
+    <div>
+      <h1>Events</h1>
+      <p>Workshops, meetings, volunteering, and convention prep. Filters below help you explore.</p>
+    </div>
+  </div>
+</header>
+<main>
+  <section class="section">
+    <div class="container">
+      <div class="filters">
+        <div class="chips" role="toolbar" aria-label="Filter events by tag">
+          <button class="button" data-filter="meeting" aria-pressed="false">Meeting</button>
+          <button class="button" data-filter="professional-development" aria-pressed="false">Professional Dev</button>
+          <button class="button" data-filter="workshop" aria-pressed="false">Workshop</button>
+          <button class="button" data-filter="volunteer" aria-pressed="false">Volunteer</button>
+          <button class="button" data-filter="convention" aria-pressed="false">Convention</button>
+        </div>
+      </div>
+      <div class="grid" id="eventsList" aria-live="polite"></div>
+    </div>
+  </section>
+</main>
+<script src="/assets/js/events.js"></script>
+
+
+  <footer class="site-footer"></footer>
+  <script src="/assets/js/nav.js" defer></script>
+</body>
+</html>
