@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Convention |
+  </title>
+  <link href="style.css" rel="stylesheet"/>
+  <script defer="" src="script.js">
+  </script>
+  <style>
+   .container {
+    padding: 100px; /* add margin between content and border */
+   }
+   .image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+   }
+   .image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px;
+    width: 650px;
+   }
+   .image-container img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.image-container p {
+  width: 100%;
+  text-align: justify;
+  font-size: 16px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.image-container h3 {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+
+   .spacer {
+    height: 10px;
+   }
+   .titular-image {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+   }
+.link-button {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+   }
+   .link-button:hover {
+    background-color: #3e8e41;
+   }
+   .link-button.yellow {
+    background-color: #FFD700;
+    color: #000;
+    width: 150px;
+    margin: 20px auto;
+    text-decoration: none;
+   }
+   .animate {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.5s ease-in-out;
+   }
+   .animate.show {
+    opacity: 1;
+    transform: translateY(0);
+   }
+   .division-line {
+    border-bottom: 1px solid #ccc;
+    margin: 2.5px 0;
+   }
+.division-line-2 {
+  border-bottom: 1px solid #ccc;
+  margin: 2.5px 0;
+  width: 50%; /* adjust the width as needed */
+  margin: 0 auto; /* center the divider */
+}
+
+  </style>
+ </head>
+ <body>
+  <div class="container">
+   <header class="navbar">
+    <div class="nav-container">
+     <a class="logo-wrapper" href="index.html">
+      <img alt=" Logo" class="nav-logo" src="logo.png"/>
+      <span class="nav-logo-text">
+       Rowan NAfME
+      </span>
+      <span style="color: yellow;">
+      </span>
+     </a>
+     <ul class="nav-links">
+      <li>
+       <a href="index.html#our-chapter">
+        Our Chapter
+       </a>
+      </li>
+      <li>
+       <a href="events.html">
+        Events
+       </a>
+      </li>
+      <li>
+       <a class="active" href="convention.html">
+        Convention
+       </a>
+      </li>
+      <li>
+       <a href="eboard.html">
+        E-Board
+       </a>
+      </li>
+      <li>
+       <a href="resources.html">
+        Resources
+       </a>
+      </li>
+     </ul>
+    </div>
+   </header>
+   <main>
+<h2>
+      2026 NJMEA State Conference
+     </h2>
+    <section class="convention-details">
+     
+     <img src="images/convention/convention-center-exterior-1.jpg" alt="Convention Center Exterior" class="titular-image">
+     <p>
+      The 2026 NJMEA State Conference will be held at the Atlantic City Convention Center February 19th-21st, 2026. The conference hotel is the Sheraton, which has an enclosed walkway that takes you directly to the Convention Center.
+     </p>
+<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=2026%20NJMEA%20State%20Conference&dates=20260219T000000Z/20260221T000000Z&location=Convention%20Center%2C%20Atlantic%20City%2C%20NJ&details=2026%20NJMEA%20State%20Conference&sf=true&output=xml" target="_blank" target="_blank" style="text-decoration: none;">
+  <button class="link-button yellow">Add to Calendar</button>
+</a>
+
+
+     <div class="division-line"></div>
+     <h1>
+      What to Expect
+     </h1>
+     <p>
+      Join us for a weekend of more than
+      <strong>
+       200 Professional Development Workshops and Performances!
+      </strong>
+      From Thursday February 19th through Saturday February 22nd our Chapter will be staying in Atlantic City for the 2026 NJMEA State Conference. Student who attend will participate in Professional Devlopments, attend lectures from leaders in our field, witness performances from statewide ensembles, and so much more! The networking, career skills, and insights gained from this conference have consistenly insighted a positive disposition in all our educators who have had the opportunity to attend.
+     </p>
+<a href="#" class="link-button yellow" style="width: 150px; font-size: 14px;" onclick="showScheduleMessage()">Conference Schedule</a>
+
+<script>
+  function showScheduleMessage() {
+    var message = "When the schedule is released, it will be accessible here.";
+    alert(message);
+  }
+</script>
+
+
+
+<div class="division-line"></div>
+     <h1>
+      Events and Experiences
+     </h1>
+     <div class="division-line-2"></div>
+     <div class="image-gallery">
+      <div class="image-container animate">
+       <h3>Convention Center</h3>
+       <img src="images/convention/convention-center-interior-1.jpg" alt="Convention Center Interior 1">
+       <p style="text-align: center;">
+        The Atlantic City Convention Center is a beautiful facility that offers a convenient and comfortable experience for attendees. One of its most notable features is the attached Sheraton hotel, which provides easy access to accommodations for those attending the conference. The center also offers on-site parking, making it easy for visitors to arrive and depart. With its well-equipped and flexible conference rooms, the Atlantic City Convention Center has been a popular choice for NJMEA conferences for years. The center's emphasis on safety and security also gives us peace of mind, knowing that our attendees will be well taken care of! We cannot wait to be attending the 2026 NJMEA State Conference at this fantastic venue!
+       </p>
+      </div>
+      <div class="image-container animate">
+       <h3>Accommodations</h3>
+       <img src="images/convention/sheraton-exterior.jpg" alt="Sheraton Exterior">
+       <p style="text-align: center;">
+        We will be staying at the Sheraton Atlantic City Convention Center Hotel, which is conveniently attached to the convention center. The hotel offers comfortable and accessible accommodations, with amenities such as a 24-hour fitness center, gift shops, and a ballroom. Each room can accommodate up to 4 people, and we will be splitting the cost of the room to make it more affordable. We will be assigning groups to share rooms, so be sure to let us know if you have any preferences or special requests. We're looking forward to a comfortable and convenient stay at the Sheraton!
+       </p>
+      </div>
+      <div class="image-container animate">
+       <h3>Vendor Expo</h3>
+       <img src="images/convention/rowan-expo.jpg" alt="Rowan Expo">
+       <p style="text-align: center;">
+The vendor expo is a fantastic opportunity for our students to explore the latest resources and technologies available to music educators. They'll learn about new products and services, discover innovative tools and materials, and gain a better understanding of how to maintain and care for their instruments. Our students will also have the chance to learn about summer development programs, network with other teachers and music professionals, and make connections that can help them in their future careers as music educators.
+</p>
+
+      </div>
+      <div class="image-container animate">
+       <h3>Professional Developments</h3>
+       <img src="images/convention/professional-developments.jpg" alt="Professional Developments">
+       <p style="text-align: center;">
+        At this conference, our students will have the opportunity to attend a wide range of professional developments, potentially doubling or even tripling the amount of presentations they would normally attend in an entire academic year. With a vast catalogue of presentations to choose from, students can select the sessions that interest them most, gaining valuable insights from a diverse range of experts, including new teachers, seasoned educators with decades of experience, collegiate professors, and even early education specialists. All of these professionals bring unique perspectives and knowledge to the table, and we encourage our students to make connections, ask questions, and learn from their experiences. By attending these professional developments, our students will gain career-changing knowledge and make valuable contacts that can benefit them long after they graduate.
+       </p>
+      </div>
+      <div class="image-container animate">
+       <h3>Reading Sessions</h3>
+       <img src="images/convention/choral-reading.jpg" alt="Choral Reading">
+       <p style="text-align: center;">
+        Throughout the conference, students will have the opportunity to participate in numerous score reading sessions, where they can bring their instruments or sing, as appropriate, and experience new and emerging standards in their fields. These sessions provide a unique chance for students to sight-read music in an ensemble setting, working together with their peers to bring the scores to life. And as a special bonus, students will take home free copies of the music they've sight-read, allowing them to continue exploring and learning from the experience long after the conference is over. Whether you're an instrumentalist or a vocalist, these score reading sessions are a fantastic way to discover new repertoire, challenge yourself, and make music with others in a supportive and collaborative environment.
+       </p>
+      </div>
+      <div class="image-container animate">
+       <h3>Performances</h3>
+       <img src="images/convention/performance-1.jpg" alt="Performance 1">
+       <p style="text-align: center;">
+        Throughout the conference, we'll have the opportunity to enjoy a wide range of performances by high school groups, colleges, and professional ensembles. These performances will be scheduled throughout the event and will be included on the events schedule, so be sure to check it out and plan your attendance. Take advantage of this opportunity to be inspired, learn from others, and appreciate the hard work and dedication that goes into creating great music.
+       </p>
+      </div>
+     </div>
+     <div class="division-line"></div>
+     <h1>
+      Registration Information
+     </h1>
+     <p>
+      The top point earners in our chapter will receive free conference registration and a free NAfME membership to join us on the 2026 Conference trip. We will stay overnight in the Sheraton. If you are not a top point earner you may still join us on the trip by paying your own registration and membership fees, everyone will need to pay for their hotel rooms($50 a person).
+     </p>
+  <p>
+      <strong>
+       Membership Requirement:
+      </strong>
+      To register as an Active Member, you must have a NAfME/NJMEA membership current through 02/21/26. Registration will remain pending until your membership is renewed if it is not up-to-date.
+     </p>
+	<br/>
+ 
+      <strong>
+       NAfME Membership Registration:
+      </strong>
+      To become a member of NAfME, please click the link below to register for NJMEA/NAFME membership. If you are one of the top 20 point earners in our chapter, please wait to register until the spring when we will be registering as a group. This will allow us to take advantage of the free NAfME membership that comes with being a top point earner.
+      <br/>
+      <a href="https://nafme.my.site.com/joinapi__login?id=a201U000000NoT4QAK&order=2" class="link-button yellow">Membership</a>
+     </p>
+<p>
+      <strong>
+       Conference Registration:
+      </strong>
+      Link open August 2025 through February 6, 2026. To register for the NJMEA State Conference, please click the link below. If you are one of the top 20 point earners in our chapter, please wait to register until the spring when we will be registering as a group. This will allow us to take advantage of the free Conference Registration that comes with being a top point earner.
+
+      <br/>
+      <a href="https://www.njmea.org/state-conference" class="link-button yellow">Register Here</a>
+   
+     <footer>
+      <p>
+       &copy; Chapter
+      </p>
+     </footer>
+    </section>
+   </main>
+  </div>
+  <button class="floating-login" id="login-btn" style="background-color: #FFD700; color: #000;" onclick="window.location.href='/login.html'">
+   My Account
+  </button>
+  <button class="floating-login" id="logout-btn" style="display:none; background-color: #FFD700; color: #000;" onclick="logout()">
+   Logout
+  </button>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js">
+  </script>
+  <script src="auth0.js">
+  </script>
+  <script>
+   const elements = document.querySelectorAll('.animate');
+   window.addEventListener('scroll', () => {
+    elements.forEach((element) => {
+     const rect = element.getBoundingClientRect();
+     if (rect.top < window.innerHeight) {
+      element.classList.add('show');
+     }
+    });
+   });
+  </script>
+ </body>
+</html>
