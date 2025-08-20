@@ -1,52 +1,500 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Rowan NAfME — Resources</title>
-  <meta name="color-scheme" content="light">
-  <link rel="preload" as="image" href="/images/background.png">
-  <link rel="icon" href="/images/logo.png">
-  <link rel="stylesheet" href="/assets/css/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Resources — Rowan NAfME</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script defer src="assets/js/nav.js"></script>
+  <style>
+    /* Scoped styles to avoid conflicts */
+    :root{
+      --ink:#0a0a0a;
+      --bg:#0b0f14;
+      --card:#0f141b;
+      --text:#eef2f6;
+      --muted:#a7b0ba;
+      --brand-blue:#1f78ff;
+      --brand-cyan:#00c9d8;
+      --brand-purple:#6a39ff;
+      --border:#000;  /* black borders */
+      --radius:16px;
+      --tap:44px;
+      --shadow:0 10px 24px rgba(0,0,0,.30);
+      --grad: linear-gradient(135deg, var(--brand-blue), var(--brand-cyan), var(--brand-purple));
+    }
+    .resources-page{
+      color:var(--text);
+      background:var(--bg);
+      min-height:100dvh;
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+    .container{
+      width:min(1100px, 92vw);
+      margin-inline:auto;
+      padding: 24px 0 64px;
+    }
+    .hero{
+      display:grid;
+      gap:12px;
+      padding:28px 0 8px;
+    }
+    .title{
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .subtitle{ color:var(--muted); max-width:60ch; }
+    .controls{
+      margin-top: 16px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+    .search{
+      flex:1 1 260px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      background: #0a0e13;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      box-shadow: var(--shadow);
+    }
+    .search input{
+      all:unset;
+      flex:1;
+      font-size: 16px;
+      line-height: 1.4;
+      color:var(--text);
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      height: var(--tap);
+      padding: 0 16px;
+      border-radius: var(--radius);
+      border:2px solid var(--border);
+      background: white;
+      color: #111;
+      font-weight:600;
+      text-decoration:none;
+      box-shadow: var(--shadow);
+      cursor:pointer;
+      transition: transform .08s ease;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:2px solid var(--border);
+      background: #fff;
+      color:#111;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.02em;
+    }
+    .section{
+      margin-top: 36px;
+    }
+    .section h2{
+      font-size: clamp(20px, 3.2vw, 28px);
+      margin: 0 0 14px;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat( auto-fill, minmax(260px, 1fr) );
+      gap: 14px;
+    }
+    .card{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      border:2px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      padding: 14px;
+      min-height: 160px;
+      position: relative;
+      box-shadow: var(--shadow);
+    }
+    .card h3{
+      margin: 0;
+      font-size: 16px;
+      line-height:1.35;
+    }
+    .desc{ color: var(--muted); font-size: 14px; }
+    .meta{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:auto;
+    }
+    .outdated{ background:#ffd7d7; color:#111; }
+    .domain{
+      background: #e9f2ff;
+      color:#111;
+    }
+    .open{
+      margin-left:auto;
+      background: #fff;
+      border-color: var(--border);
+    }
+    .anchors{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .anchors a{
+      text-decoration:none;
+      border:2px solid var(--border);
+      border-radius: 999px;
+      padding:8px 12px;
+      background:#fff;
+      color:#111;
+      font-weight:700;
+      box-shadow: var(--shadow);
+    }
+    .sr-only{
+      position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+    }
+  </style>
 </head>
-<body>
-  <nav class="site-nav"></nav>
-
-  
-<header class="hero">
-  <div class="hero-inner container">
-    <div>
-      <h1>Resources</h1>
-      <p>Helpful links and docs for members. We’ll keep adding more throughout the year.</p>
-    </div>
-  </div>
-</header>
-<main>
-  <section class="section">
-    <div class="container">
+<body class="resources-page">
+  <!-- Nav/footer loaded by assets/js/nav.js if present -->
+  <main class="container">
+    <header class="hero">
+      <h1 class="title">Resources</h1>
+      <p class="subtitle">Curated links for Rowan NAfME members — tools, tutorials, calendars, standards, scholarships, and more. Use the search to filter by keyword.</p>
+      <div class="controls">
+        <label class="search" for="q">
+          <span aria-hidden="true">🔎</span>
+          <input id="q" type="search" placeholder="Search resources, e.g., Praxis, NJMEA, notation, wellness…" />
+        </label>
+      </div>
+      <div class="anchors" id="anchors"></div>
+    </header>
+    <script>window.__RESOURCE_SECTIONS__ = []; </script>
+    <section class="section" id="our-curriculum" data-section>
+      <h2>Our Curriculum</h2>
       <div class="grid">
-        <article class="card">
-          <div class="kicker">Documents</div>
-          <h3>Chapter Bylaws (placeholder)</h3>
-          <p><a class="button" href="#" aria-disabled="true">Download (soon)</a></p>
+        <article class="card" data-card data-title="Instrumental Music Education" data-desc="Our Music Education program is a double major -a Bachelor of Music in Music Education and a Bachelor of Arts in Education- that prepares students to teach music at all levels, from kindergarten to grade 12. The program offers two tracks: For more information visit:" data-domain="acrobat.adobe.com" data-sec="Our Curriculum">
+          <h3>Instrumental Music Education</h3>
+          <p class="desc">Our Music Education program is a double major -a Bachelor of Music in Music Education and a Bachelor of Arts in Education- that prepares students to teach music at all levels, from kindergarten to grade 12. The program offers two tracks: For more information visit:</p>
+          <div class="meta">
+            <span class="pill domain">acrobat.adobe.com</span>
+            <a class="btn open" href="https://acrobat.adobe.com/link/review?uri=urn:aaid:scds:US:2a8c2ada-bc82-33d7-a6a7-807703e23b5d" target="_blank" rel="noopener">Open ↗</a>
+          </div>
         </article>
-        <article class="card">
-          <div class="kicker">Education</div>
-          <h3>Lesson Plan Templates</h3>
-          <p><a class="button" href="#" aria-disabled="true">Google Drive (soon)</a></p>
+        <article class="card" data-card data-title="Vocal Music Education" data-desc="Our Music Education program is a double major -a Bachelor of Music in Music Education and a Bachelor of Arts in Education- that prepares students to teach music at all levels, from kindergarten to grade 12. The program offers two tracks: For more information visit:" data-domain="acrobat.adobe.com" data-sec="Our Curriculum">
+          <h3>Vocal Music Education</h3>
+          <p class="desc">Our Music Education program is a double major -a Bachelor of Music in Music Education and a Bachelor of Arts in Education- that prepares students to teach music at all levels, from kindergarten to grade 12. The program offers two tracks: For more information visit:</p>
+          <div class="meta">
+            <span class="pill domain">acrobat.adobe.com</span>
+            <a class="btn open" href="https://acrobat.adobe.com/link/review?uri=urn:aaid:scds:US:36e11886-8543-3ae7-8028-b63425ad7bc0" target="_blank" rel="noopener">Open ↗</a>
+          </div>
         </article>
-        <article class="card">
-          <div class="kicker">Funding</div>
-          <h3>Reimbursement Form</h3>
-          <p><a class="button" href="#" aria-disabled="true">SGA Link (soon)</a></p>
+        <article class="card" data-card data-title="Rowan University Music Education Webpage" data-desc="Our Music Education program is a double major -a Bachelor of Music in Music Education and a Bachelor of Arts in Education- that prepares students to teach music at all levels, from kindergarten to grade 12. The program offers two tracks: For more information visit:" data-domain="cpa.rowan.edu" data-sec="Our Curriculum">
+          <h3>Rowan University Music Education Webpage</h3>
+          <p class="desc">Our Music Education program is a double major -a Bachelor of Music in Music Education and a Bachelor of Arts in Education- that prepares students to teach music at all levels, from kindergarten to grade 12. The program offers two tracks: For more information visit:</p>
+          <div class="meta">
+            <span class="pill domain">cpa.rowan.edu</span>
+            <a class="btn open" href="https://cpa.rowan.edu/music/divisions/musicEdu.html" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+        <article class="card" data-card data-title="YouTube video player" data-desc="" data-domain="youtube.com" data-sec="Our Curriculum">
+          <h3>YouTube video player</h3>
+          <div class="meta">
+            <span class="pill domain">youtube.com</span>
+            <a class="btn open" href="https://www.youtube.com/embed/8F1lkGQSI5s?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=8F1lkGQSI5s&amp;playsinline=1" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+        <article class="card" data-card data-title="Wellness Center" data-desc="" data-domain="sites.rowan.edu" data-sec="Our Curriculum">
+          <h3>Wellness Center</h3>
+          <div class="meta">
+            <span class="pill domain">sites.rowan.edu</span>
+            <a class="btn open" href="https://sites.rowan.edu/wellness/" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+        <article class="card" data-card data-title="Savitz Hall" data-desc="" data-domain="rowan.edu" data-sec="Our Curriculum">
+          <h3>Savitz Hall</h3>
+          <div class="meta">
+            <span class="pill domain">rowan.edu</span>
+            <a class="btn open" href="https://www.rowan.edu/studentaffairs/savitz/" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+        <article class="card" data-card data-title="Flat.io" data-desc="A cloud-based music notation software that allows you to create, edit, and share sheet music. To use Flat.io, simply sign up for an account and start creating your own sheet music. You can also import and export files in various formats, including MusicXML and PDF." data-domain="flat.io" data-sec="Our Curriculum">
+          <h3>Flat.io</h3>
+          <p class="desc">A cloud-based music notation software that allows you to create, edit, and share sheet music. To use Flat.io, simply sign up for an account and start creating your own sheet music. You can also import and export files in various formats, including MusicXML and PDF.</p>
+          <div class="meta">
+            <span class="pill domain">flat.io</span>
+            <a class="btn open" href="https://flat.io" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+        <article class="card" data-card data-title="Musicca" data-desc="A music theory and keyboard training game that helps you learn music theory and improve your keyboard skills. To use Musicca, simply sign up for an account and start playing the games and exercises. You can also track your progress and compete with other users." data-domain="musicca.com" data-sec="Our Curriculum">
+          <h3>Musicca</h3>
+          <p class="desc">A music theory and keyboard training game that helps you learn music theory and improve your keyboard skills. To use Musicca, simply sign up for an account and start playing the games and exercises. You can also track your progress and compete with other users.</p>
+          <div class="meta">
+            <span class="pill domain">musicca.com</span>
+            <a class="btn open" href="https://www.musicca.com/" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+        <article class="card" data-card data-title="Soundtrap" data-desc="An online collaborative digital audio workstation (DAW) that allows you to create, record, and edit music with others in real-time. To use Soundtrap, simply sign up for an account and start creating your own music projects. You can also invite others to collaborate with you and share your projects with the world." data-domain="soundtrap.com" data-sec="Our Curriculum">
+          <h3>Soundtrap</h3>
+          <p class="desc">An online collaborative digital audio workstation (DAW) that allows you to create, record, and edit music with others in real-time. To use Soundtrap, simply sign up for an account and start creating your own music projects. You can also invite others to collaborate with you and share your projects with the world.</p>
+          <div class="meta">
+            <span class="pill domain">soundtrap.com</span>
+            <a class="btn open" href="https://soundtrap.com" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+        <article class="card" data-card data-title="MuseScore" data-desc="A free music notation software that allows you to create, edit, and share sheet music. To use MuseScore, simply download and install the software, and then start creating your own sheet music. You can also import and export files in various formats, including MusicXML and PDF. Tools &amp; Tutorials — Praxis Prep Tools(Needs Update)" data-domain="musescore.com" data-sec="Our Curriculum">
+          <h3>MuseScore</h3>
+          <p class="desc">A free music notation software that allows you to create, edit, and share sheet music. To use MuseScore, simply download and install the software, and then start creating your own sheet music. You can also import and export files in various formats, including MusicXML and PDF. Tools &amp; Tutorials — Praxis Prep Tools(Needs Update)</p>
+          <div class="meta">
+            <span class="pill domain">musescore.com</span>
+            <a class="btn open" href="https://musescore.com" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+        <article class="card" data-card data-title="Praxis Website" data-desc="The official website for the Praxis exam, where you can find study materials, practice tests, and registration information." data-domain="ets.org" data-sec="Our Curriculum">
+          <h3>Praxis Website</h3>
+          <p class="desc">The official website for the Praxis exam, where you can find study materials, practice tests, and registration information.</p>
+          <div class="meta">
+            <span class="pill domain">ets.org</span>
+            <a class="btn open" href="https://www.ets.org/praxis" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+        <article class="card" data-card data-title="Mometrix Praxis Study Guide" data-desc="A comprehensive study guide that includes practice tests, study materials, and test-taking strategies." data-domain="mometrix.com" data-sec="Our Curriculum">
+          <h3>Mometrix Praxis Study Guide</h3>
+          <p class="desc">A comprehensive study guide that includes practice tests, study materials, and test-taking strategies.</p>
+          <div class="meta">
+            <span class="pill domain">mometrix.com</span>
+            <a class="btn open" href="https://www.mometrix.com/academy/praxis-test/" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+        <article class="card" data-card data-title="Kaplan Praxis Prep" data-desc="A prep course that includes online lessons, practice tests, and personalized coaching. Tools &amp; Tutorials — Background Check Tutorials(Out of Date)" data-domain="kaptest.com" data-sec="Our Curriculum">
+          <h3>Kaplan Praxis Prep</h3>
+          <p class="desc">A prep course that includes online lessons, practice tests, and personalized coaching. Tools &amp; Tutorials — Background Check Tutorials(Out of Date)</p>
+          <div class="meta">
+            <span class="pill domain">kaptest.com</span>
+            <a class="btn open" href="https://www.kaptest.com/praxis" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+        <article class="card" data-card data-title="Rowan University Background Check Process" data-desc="A step-by-step guide to the background check process at Rowan University." data-domain="rowan.edu" data-sec="Our Curriculum">
+          <h3>Rowan University Background Check Process</h3>
+          <p class="desc">A step-by-step guide to the background check process at Rowan University.</p>
+          <div class="meta">
+            <span class="pill domain">rowan.edu</span>
+            <a class="btn open" href="https://www.rowan.edu/hr/background-checks" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+        <article class="card" data-card data-title="IdentoGO Background Check Tutorial" data-desc="A tutorial on how to complete the background check process through IdentoGO." data-domain="identogo.com" data-sec="Our Curriculum">
+          <h3>IdentoGO Background Check Tutorial</h3>
+          <p class="desc">A tutorial on how to complete the background check process through IdentoGO.</p>
+          <div class="meta">
+            <span class="pill domain">identogo.com</span>
+            <a class="btn open" href="https://www.identogo.com/" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+        <article class="card" data-card data-title="Fieldprint Background Check Tutorial" data-desc="A tutorial on how to complete the background check process through Fieldprint." data-domain="fieldprint.com" data-sec="Our Curriculum">
+          <h3>Fieldprint Background Check Tutorial</h3>
+          <p class="desc">A tutorial on how to complete the background check process through Fieldprint.</p>
+          <div class="meta">
+            <span class="pill domain">fieldprint.com</span>
+            <a class="btn open" href="https://www.fieldprint.com/" target="_blank" rel="noopener">Open ↗</a>
+          </div>
         </article>
       </div>
-    </div>
-  </section>
-</main>
+    </section>
+    <section class="section" id="njmea-collegiate-board" data-section>
+      <h2>NJMEA Collegiate Board</h2>
+      <div class="grid">
+        <article class="card" data-card data-title="NJMEA website" data-desc="Stay tuned for upcoming events and initiatives, including the state conference and advocacy efforts. We're excited to work together to support music education in New Jersey!" data-domain="njmea.org" data-sec="NJMEA Collegiate Board">
+          <h3>NJMEA website</h3>
+          <p class="desc">Stay tuned for upcoming events and initiatives, including the state conference and advocacy efforts. We're excited to work together to support music education in New Jersey!</p>
+          <div class="meta">
+            <span class="pill domain">njmea.org</span>
+            <a class="btn open" href="https://www.njmea.org/collegiate/" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="section" id="njmea-events-calendar" data-section>
+      <h2>NJMEA Events Calendar</h2>
+      <div class="grid">
+        <article class="card" data-card data-title="NJMEA Events Calendar" data-desc="View the to stay up-to-date on upcoming events and conferences." data-domain="njmea.org" data-sec="NJMEA Events Calendar">
+          <h3>NJMEA Events Calendar</h3>
+          <p class="desc">View the to stay up-to-date on upcoming events and conferences.</p>
+          <div class="meta">
+            <span class="pill domain">njmea.org</span>
+            <a class="btn open" href="https://www.njmea.org/njmea-events" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="section" id="job-opportunities" data-section>
+      <h2>Job Opportunities</h2>
+      <div class="grid">
+        <article class="card" data-card data-title="Job Opportunities" data-desc="In addition to the NJMEA job listings, you can also search for job openings by school district. Many school districts list their job openings on their own websites, and you can search for openings in specific districts that interest you." data-domain="njmea.org" data-sec="Job Opportunities">
+          <h3>Job Opportunities</h3>
+          <p class="desc">In addition to the NJMEA job listings, you can also search for job openings by school district. Many school districts list their job openings on their own websites, and you can search for openings in specific districts that interest you.</p>
+          <div class="meta">
+            <span class="pill domain">njmea.org</span>
+            <a class="btn open" href="https://www.njmea.org/job-opportunities" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="section" id="resource-personnel-contacts" data-section>
+      <h2>Resource Personnel Contacts</h2>
+      <div class="grid">
+        <article class="card" data-card data-title="NJMEA Website" data-desc="If you have a specific question or concern related to music education, you can reach out to the appropriate contact person on this list for guidance and support." data-domain="njmea.org" data-sec="Resource Personnel Contacts">
+          <h3>NJMEA Website</h3>
+          <p class="desc">If you have a specific question or concern related to music education, you can reach out to the appropriate contact person on this list for guidance and support.</p>
+          <div class="meta">
+            <span class="pill domain">njmea.org</span>
+            <a class="btn open" href="https://www.njmea.org/resource-personnel" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="section" id="program-advocacy" data-section>
+      <h2>Program Advocacy</h2>
+      <div class="grid">
+        <article class="card" data-card data-title="NJMEA Advocacy Page" data-desc="The New Jersey Music Educators Association (NJMEA) is committed to advocating for the importance of music education in our schools and communities. Their advocacy work focuses on raising awareness of the positive impact of music education on student learning and development." data-domain="njmea.org" data-sec="Program Advocacy">
+          <h3>NJMEA Advocacy Page</h3>
+          <p class="desc">The New Jersey Music Educators Association (NJMEA) is committed to advocating for the importance of music education in our schools and communities. Their advocacy work focuses on raising awareness of the positive impact of music education on student learning and development.</p>
+          <div class="meta">
+            <span class="pill domain">njmea.org</span>
+            <a class="btn open" href="https://www.njmea.org/advocacy" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="section" id="nafme-resource-library" data-section>
+      <h2>NAfME Resource Library</h2>
+      <div class="grid">
+        <article class="card" data-card data-title="NAfME Website" data-desc="The National Association for Music Education (NAfME) Resource Library is a comprehensive online collection of music education resources, including articles, research papers, and practical guides. The library is designed to support music educators in their teaching and professional development, and to provide access to a wide range of resources on topics such as music curriculum, instruction, and assessment." data-domain="nafme.org" data-sec="NAfME Resource Library">
+          <h3>NAfME Website</h3>
+          <p class="desc">The National Association for Music Education (NAfME) Resource Library is a comprehensive online collection of music education resources, including articles, research papers, and practical guides. The library is designed to support music educators in their teaching and professional development, and to provide access to a wide range of resources on topics such as music curriculum, instruction, and assessment.</p>
+          <div class="meta">
+            <span class="pill domain">nafme.org</span>
+            <a class="btn open" href="https://nafme.org/publications-resources/resource-library/" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="section" id="nafme-blog" data-section>
+      <h2>NAfME Blog</h2>
+      <div class="grid">
+        <article class="card" data-card data-title="NAfME Website" data-desc="The NAfME Blog is a valuable resource for music educators, featuring articles, research, and insights on music education and advocacy. The blog covers a wide range of topics, including music education policy, teaching strategies, and arts education research." data-domain="nafme.org" data-sec="NAfME Blog">
+          <h3>NAfME Website</h3>
+          <p class="desc">The NAfME Blog is a valuable resource for music educators, featuring articles, research, and insights on music education and advocacy. The blog covers a wide range of topics, including music education policy, teaching strategies, and arts education research.</p>
+          <div class="meta">
+            <span class="pill domain">nafme.org</span>
+            <a class="btn open" href="https://nafme.org/publications-resources/nafme-blog/" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="section" id="nafme-events-calendar" data-section>
+      <h2>NAfME Events Calendar</h2>
+      <div class="grid">
+        <article class="card" data-card data-title="NAfME Website" data-desc="The NAfME Events Calendar features a wide range of events, including webinars, conferences, and workshops, that provide professional development opportunities, advocacy events, and networking experiences for music educators." data-domain="nafme.org" data-sec="NAfME Events Calendar">
+          <h3>NAfME Website</h3>
+          <p class="desc">The NAfME Events Calendar features a wide range of events, including webinars, conferences, and workshops, that provide professional development opportunities, advocacy events, and networking experiences for music educators.</p>
+          <div class="meta">
+            <span class="pill domain">nafme.org</span>
+            <a class="btn open" href="https://nafme.org/professional-learning-events/event-calendar/" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="section" id="advocacy" data-section>
+      <h2>Advocacy</h2>
+      <div class="grid">
+        <article class="card" data-card data-title="NAfME Advocacy Page" data-desc="The National Association for Music Education (NAfME) is a leading advocate for music education at the federal, state, and local levels. NAfME believes that every student deserves access to a high-quality music education, and works to ensure that music programs are preserved and supported in schools across the nation." data-domain="nafme.org" data-sec="Advocacy">
+          <h3>NAfME Advocacy Page</h3>
+          <p class="desc">The National Association for Music Education (NAfME) is a leading advocate for music education at the federal, state, and local levels. NAfME believes that every student deserves access to a high-quality music education, and works to ensure that music programs are preserved and supported in schools across the nation.</p>
+          <div class="meta">
+            <span class="pill domain">nafme.org</span>
+            <a class="btn open" href="https://nafme.org/advocacy/" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="section" id="scholarships" data-section>
+      <h2>Scholarships</h2>
+      <div class="grid">
+        <article class="card" data-card data-title="NAfME Scholarships Page" data-desc="The National Association for Music Education (NAfME) offers a variety of scholarships to music students, including scholarships for high school juniors and seniors, college students, and students with disabilities. These scholarships can help support music education and provide opportunities for students to pursue their musical interests." data-domain="nafme.org" data-sec="Scholarships">
+          <h3>NAfME Scholarships Page</h3>
+          <p class="desc">The National Association for Music Education (NAfME) offers a variety of scholarships to music students, including scholarships for high school juniors and seniors, college students, and students with disabilities. These scholarships can help support music education and provide opportunities for students to pursue their musical interests.</p>
+          <div class="meta">
+            <span class="pill domain">nafme.org</span>
+            <a class="btn open" href="https://nafme.org/student-opportunities/scholarships/" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="section" id="music-standards" data-section>
+      <h2>Music Standards</h2>
+      <div class="grid">
+        <article class="card" data-card data-title="NAfME Standards Page" data-desc="The National Association for Music Education (NAfME) has developed music standards that emphasize conceptual understanding and musical literacy. The standards are designed to cultivate a student's ability to create, perform, and respond to music." data-domain="nafme.org" data-sec="Music Standards">
+          <h3>NAfME Standards Page</h3>
+          <p class="desc">The National Association for Music Education (NAfME) has developed music standards that emphasize conceptual understanding and musical literacy. The standards are designed to cultivate a student's ability to create, perform, and respond to music.</p>
+          <div class="meta">
+            <span class="pill domain">nafme.org</span>
+            <a class="btn open" href="https://nafme.org/publications-resources/standards/" target="_blank" rel="noopener">Open ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
 
+    <footer style="margin-top:48px;color:var(--muted);font-size:13px">
+      <p>Found something we should add or update? Email the E‑Board.</p>
+    </footer>
+  </main>
 
-  <footer class="site-footer"></footer>
-  <script src="/assets/js/nav.js" defer></script>
+  <script>
+    (function(){
+      const anchors = document.getElementById('anchors');
+      const sections = Array.from(document.querySelectorAll('[data-section]'));
+      // Anchor pills
+      sections.forEach(sec => {
+        const a = document.createElement('a');
+        a.href = '#' + sec.id;
+        a.textContent = sec.querySelector('h2').childNodes[0].textContent.trim();
+        anchors.appendChild(a);
+      });
+
+      // Client-side filter
+      const input = document.getElementById('q');
+      const cards = Array.from(document.querySelectorAll('[data-card]'));
+      function filter(){
+        const q = input.value.trim().toLowerCase();
+        cards.forEach(c => {
+          const hay = (c.dataset.title + ' ' + c.dataset.desc + ' ' + c.dataset.domain + ' ' + c.dataset.sec).toLowerCase();
+          c.style.display = hay.includes(q) ? '' : 'none';
+        });
+      }
+      input.addEventListener('input', filter);
+    })();
+  </script>
 </body>
 </html>
