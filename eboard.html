@@ -9,24 +9,33 @@
   <link rel="icon" href="/images/logo.png">
   <link rel="stylesheet" href="/assets/css/style.css">
 
-  <!-- Minimal, namespaced modal styles to avoid affecting your site -->
+  <!-- Page-local styles: equal card heights + modal (namespaced to avoid conflicts) -->
   <style>
+    /* equalize people cards and tidy layout */
+    .grid.people-grid .card.people-card{ display:flex; flex-direction:column; height:100%; }
+    .card.people-card img{
+      display:block; width:100%; aspect-ratio:16/9; object-fit:cover;
+      border-radius:12px;
+    }
+    .card.people-card p:last-child{ margin-top:auto; } /* "Click to read bio." pinned */
+    .card.people-card{ cursor:pointer; transition:transform .15s ease; }
+    .card.people-card:hover{ transform:translateY(-2px); }
+    .section{ overflow:visible; }
+
+    /* modal styles (scoped) */
     .nafme-modal-backdrop{
       position:fixed; inset:0; background:rgba(0,0,0,.5);
       display:none; align-items:flex-start; justify-content:center;
       padding:6vh 1rem; z-index:9999;
     }
     .nafme-modal-backdrop[aria-hidden="false"]{ display:flex; }
-
     .nafme-modal{
-      background:hsla(280,100%,20%,.98);
-      color:#fff; width:min(720px,100%); border-radius:16px;
+      background:hsla(280,100%,20%,.98); color:#fff;
+      width:min(720px,100%); border-radius:16px;
       box-shadow:0 10px 24px rgba(0,0,0,.25);
       display:flex; gap:1rem; padding:1rem; position:relative;
     }
-    .nafme-modal figure{
-      margin:0; width:200px; height:200px; border-radius:12px; overflow:hidden; flex:0 0 200px; background:#0002;
-    }
+    .nafme-modal figure{ margin:0; width:200px; height:200px; border-radius:12px; overflow:hidden; flex:0 0 200px; background:#0002; }
     .nafme-modal img{ width:100%; height:100%; object-fit:cover; display:block; }
     .nafme-modal .body{ flex:1; min-width:0; }
     .nafme-modal h3{ margin:.25rem 0 .5rem 0; font-size:1.5rem; color:#fff; }
@@ -36,9 +45,6 @@
       position:absolute; top:.5rem; right:.5rem; border:1px solid #000; background:#7a288a;
       color:#fff; border-radius:.75rem; padding:.5rem .75rem; cursor:pointer;
     }
-
-    /* small quality of life for the people grid cards */
-    .people-card{ cursor:pointer; }
     .people-card .subtle a{ color:inherit; text-decoration:underline; }
   </style>
 </head>
@@ -59,8 +65,7 @@
       <div class="container">
         <h2 id="officers-heading">2025–26 Officers</h2>
 
-        <!-- Grid of people uses your card/grid system -->
-        <div class="grid" style="--grid-min:260px">
+        <div class="grid people-grid" style="--grid-min:260px">
           <!-- President -->
           <article class="card people-card" data-bio-id="min-hwang">
             <div class="kicker">President</div>
@@ -68,8 +73,8 @@
             <p class="subtle">
               <a href="mailto:email@rowan.edu?subject=NAfME%20President">email@rowan.edu</a>
             </p>
-            <img src="/images/eboard/min-hwang.jpg" alt="Headshot of Min Hwang" style="width:100%;height:200px;object-fit:cover;border-radius:12px;margin-top:.5rem">
-            <p style="margin-top:.5rem">Click to read bio.</p>
+            <img src="/images/eboard/min-hwang.jpg" alt="Headshot of Min Hwang">
+            <p>Click to read bio.</p>
           </article>
 
           <!-- Vice President -->
@@ -79,8 +84,8 @@
             <p class="subtle">
               <a href="mailto:email@rowan.edu?subject=NAfME%20Vice%20President">email@rowan.edu</a>
             </p>
-            <img src="/images/eboard/cameron-hyson.jpg" alt="Headshot of Cameron Hyson" style="width:100%;height:200px;object-fit:cover;border-radius:12px;margin-top:.5rem">
-            <p style="margin-top:.5rem">Click to read bio.</p>
+            <img src="/images/eboard/cameron-hyson.jpg" alt="Headshot of Cameron Hyson">
+            <p>Click to read bio.</p>
           </article>
 
           <!-- Treasurer -->
@@ -90,8 +95,8 @@
             <p class="subtle">
               <a href="mailto:email@rowan.edu?subject=Treasurer">email@rowan.edu</a>
             </p>
-            <img src="/images/eboard/jessenia-zavala.jpg" alt="Headshot of Jessenia Zavala" style="width:100%;height:200px;object-fit:cover;border-radius:12px;margin-top:.5rem">
-            <p style="margin-top:.5rem">Click to read bio.</p>
+            <img src="/images/eboard/jessenia-zavala.jpg" alt="Headshot of Jessenia Zavala">
+            <p>Click to read bio.</p>
           </article>
 
           <!-- Secretary -->
@@ -101,8 +106,8 @@
             <p class="subtle">
               <a href="mailto:email@rowan.edu?subject=Secretary">email@rowan.edu</a>
             </p>
-            <img src="/images/eboard/makayli-matias.jpg" alt="Headshot of Makayli Matias" style="width:100%;height:200px;object-fit:cover;border-radius:12px;margin-top:.5rem">
-            <p style="margin-top:.5rem">Click to read bio.</p>
+            <img src="/images/eboard/makayli-matias.jpg" alt="Headshot of Makayli Matias">
+            <p>Click to read bio.</p>
           </article>
 
           <!-- Social Media Coordinator -->
@@ -112,8 +117,8 @@
             <p class="subtle">
               <a href="mailto:email@rowan.edu?subject=Social%20Media">email@rowan.edu</a>
             </p>
-            <img src="/images/eboard/emilee-townsley.jpg" alt="Headshot of Emilee Townsley" style="width:100%;height:200px;object-fit:cover;border-radius:12px;margin-top:.5rem">
-            <p style="margin-top:.5rem">Click to read bio.</p>
+            <img src="/images/eboard/emilee-townsley.jpg" alt="Headshot of Emilee Townsley">
+            <p>Click to read bio.</p>
           </article>
 
           <!-- Senator -->
@@ -123,15 +128,15 @@
             <p class="subtle">
               <a href="mailto:email@rowan.edu?subject=Senator">email@rowan.edu</a>
             </p>
-            <img src="/images/eboard/adam-bretz.jpg" alt="Headshot of Adam Bretz" style="width:100%;height:200px;object-fit:cover;border-radius:12px;margin-top:.5rem">
-            <p style="margin-top:.5rem">Click to read bio.</p>
+            <img src="/images/eboard/adam-bretz.jpg" alt="Headshot of Adam Bretz">
+            <p>Click to read bio.</p>
           </article>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Hidden bios (content only), used to populate the modal -->
+  <!-- Hidden bios (templates consumed by the modal) -->
   <template id="bio-min-hwang">
     <div class="role">President</div>
     <p>Hi! My name is Min Hwang and I am your Rowan NAfME President. I am currently in my third year at Rowan and I double major in Music Education and Psychology. My primary instrument is the violin but I've marched 4 years of mellophone and am now one of the Rowan University Marching Band drum majors. In my free time I like to play volleyball or go running. This year, I'm excited to empower other music majors into becoming excellent educators.</p>
@@ -162,7 +167,7 @@
     <p>Adam is an Electrical &amp; Computer Engineering major with a minor in music (Organ Performance). In his role he attends Student Government meetings and represents the club's interests to the school. Aside from Adam's primary role, he also maintains the chapter's website.</p>
   </template>
 
-  <!-- Modal backdrop (hidden by default) -->
+  <!-- Modal -->
   <div class="nafme-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="nafme-modal" role="document">
       <button class="close" type="button" aria-label="Close">Close</button>
@@ -178,7 +183,7 @@
   <footer class="site-footer"></footer>
   <script src="/assets/js/nav.js" defer></script>
 
-  <!-- Lightweight, scoped modal logic -->
+  <!-- Modal logic (scoped) -->
   <script>
     (function(){
       const cards = document.querySelectorAll('.people-card');
@@ -190,54 +195,26 @@
       const closeBtn = modal.querySelector('.close');
 
       const bios = {
-        "min-hwang": {
-          name: "Min Hwang",
-          img: "/images/eboard/min-hwang.jpg",
-          tmpl: "bio-min-hwang"
-        },
-        "cameron-hyson": {
-          name: "Cameron Hyson",
-          img: "/images/eboard/cameron-hyson.jpg",
-          tmpl: "bio-cameron-hyson"
-        },
-        "jessenia-zavala": {
-          name: "Jessenia Zavala",
-          img: "/images/eboard/jessenia-zavala.jpg",
-          tmpl: "bio-jessenia-zavala"
-        },
-        "makayli-matias": {
-          name: "Makayli Matias",
-          img: "/images/eboard/makayli-matias.jpg",
-          tmpl: "bio-makayli-matias"
-        },
-        "emilee-townsley": {
-          name: "Emilee Townsley",
-          img: "/images/eboard/emilee-townsley.jpg",
-          tmpl: "bio-emilee-townsley"
-        },
-        "adam-bretz": {
-          name: "Adam Bretz",
-          img: "/images/eboard/adam-bretz.jpg",
-          tmpl: "bio-adam-bretz"
-        }
+        "min-hwang": { name: "Min Hwang", img: "/images/eboard/min-hwang.jpg", tmpl: "bio-min-hwang" },
+        "cameron-hyson": { name: "Cameron Hyson", img: "/images/eboard/cameron-hyson.jpg", tmpl: "bio-cameron-hyson" },
+        "jessenia-zavala": { name: "Jessenia Zavala", img: "/images/eboard/jessenia-zavala.jpg", tmpl: "bio-jessenia-zavala" },
+        "makayli-matias": { name: "Makayli Matias", img: "/images/eboard/makayli-matias.jpg", tmpl: "bio-makayli-matias" },
+        "emilee-townsley": { name: "Emilee Townsley", img: "/images/eboard/emilee-townsley.jpg", tmpl: "bio-emilee-townsley" },
+        "adam-bretz": { name: "Adam Bretz", img: "/images/eboard/adam-bretz.jpg", tmpl: "bio-adam-bretz" }
       };
 
       function openModal(id){
-        const entry = bios[id];
-        if(!entry) return;
-        const tpl = document.getElementById(entry.tmpl);
-        if(!tpl) return;
+        const entry = bios[id]; if(!entry) return;
+        const tpl = document.getElementById(entry.tmpl); if(!tpl) return;
 
         img.src = entry.img;
         img.alt = "Headshot of " + entry.name;
         nameEl.textContent = entry.name;
-        roleEl.innerHTML = '';
-        bioEl.innerHTML = '';
+        roleEl.innerHTML = ''; bioEl.innerHTML = '';
 
-        // inject the template HTML (role + paragraph(s))
         const frag = tpl.content.cloneNode(true);
         const role = frag.querySelector('.role');
-        if(role) roleEl.appendChild(role);
+        if (role) roleEl.appendChild(role);
         frag.querySelectorAll('p, em, strong, a, ul, li').forEach(el => bioEl.appendChild(el.cloneNode(true)));
 
         modal.setAttribute('aria-hidden','false');
@@ -247,30 +224,19 @@
       function closeModal(){
         modal.setAttribute('aria-hidden','true');
         document.body.style.overflow = '';
-        img.src = '';
-        nameEl.textContent = '';
-        roleEl.innerHTML = '';
-        bioEl.innerHTML = '';
+        img.src = ''; nameEl.textContent = '';
+        roleEl.innerHTML = ''; bioEl.innerHTML = '';
       }
 
       cards.forEach(card => {
         card.addEventListener('click', (e) => {
-          // Allow mailto link clicks without opening modal
-          if (e.target.closest('a')) return;
-          const id = card.getAttribute('data-bio-id');
-          openModal(id);
+          if (e.target.closest('a')) return; // allow mailto without modal
+          openModal(card.getAttribute('data-bio-id'));
         });
       });
-
       closeBtn.addEventListener('click', closeModal);
-      modal.addEventListener('click', (e) => {
-        if(e.target === modal) closeModal();
-      });
-      window.addEventListener('keydown', (e) => {
-        if(e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false'){
-          closeModal();
-        }
-      });
+      modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+      window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closeModal(); });
     })();
   </script>
 </body>
