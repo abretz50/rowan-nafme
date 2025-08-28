@@ -1,203 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Rowan NAfME — Resources</title>
-  <link rel="stylesheet" href="style.css"/>
-  <script defer src="script.js"></script>
+  <meta name="color-scheme" content="light">
+  <link rel="preload" as="image" href="/images/background.png">
+  <link rel="icon" href="/images/logo.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
   <style>
-    .accordion-btn {
-      background-color: #FFD700;
-      color: black;
-      cursor: pointer;
-      padding: 1rem;
-      text-align: left;
-      border: none;
-      outline: none;
-      font-size: 1rem;
-      transition: background-color 0.2s ease;
-      margin-top: 0.5rem;
-      width: 65%;
-      font-weight: bold;
-      border-radius: 12px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      display: flex;
-      justify-content: space-between; /* arrow on right */
-      align-items: center;
-    }
-
-    .accordion-btn::after {
-      content: "▸";
-      font-size: 1rem;
-      transition: transform 0.2s ease;
-    }
-    .accordion-btn.active::after {
-      transform: rotate(90deg);
-    }
-
-    .accordion-btn:hover {
-      background-color: #e6c200;
-    }
-
-    .accordion-panel {
-      display: none;
-      padding: 1rem;
-      background-color: #fff8dc;
-      border-radius: 0 0 12px 12px;
-      color: #333;
-      margin-top: -10px;
-      width: 60%;
-      margin-left: 18.25%;
-      text-align: left;
-    }
-
-    .accordion-panel ul {
+    /* move disclosure arrow to the right */
+    details > summary {
       list-style: none;
-      padding: 0;
-      margin: 0;
+      position: relative;
+      padding-right: 2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: baseline;
+      gap: .5rem;
     }
-    .accordion-panel li {
-      margin-bottom: 10px;
+    details > summary::-webkit-details-marker { display: none; }
+    details > summary::after {
+      content: "▸";
+      position: absolute;
+      right: .25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: transform .2s ease;
     }
-    .accordion-panel a {
-      color: #0033a0;
-      text-decoration: underline;
-      background-color: #f0f0f0;
-      padding: 5px 10px;
-      border-radius: 5px;
-      display: inline-block;
-    }
-    .accordion-panel a:hover {
-      background-color: #e0e0e0;
+    details[open] > summary::after {
+      transform: translateY(-50%) rotate(90deg);
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header class="navbar">
-      <div class="nav-container">
-        <a class="logo-wrapper" href="index.html">
-          <img src="logo.png" alt="Logo" class="nav-logo"/>
-          <span class="nav-logo-text">Rowan NAfME</span>
-        </a>
-        <ul class="nav-links">
-          <li><a href="index.html#our-chapter">Our Chapter</a></li>
-          <li><a href="events.html">Events</a></li>
-          <li><a href="convention.html">Convention</a></li>
-          <li><a href="eboard.html">E-Board</a></li>
-          <li><a class="active" href="resources.html">Resources</a></li>
-        </ul>
+  <nav class="site-nav"></nav>
+
+  <header class="hero">
+    <div class="hero-inner container">
+      <div>
+        <h1>Resources</h1>
+        <p>Helpful links and docs for members. We’ll keep adding more throughout the year.</p>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <main>
-      <h2>Rowan Music Education Curriculum</h2>
-      <div class="accordion">
-        <button class="accordion-btn">Our Curriculum</button>
-        <div class="accordion-panel">
-          <ul>
-            <li><a href="https://acrobat.adobe.com/link/review?uri=urn:aaid:scds:US:2a8c2ada-bc82-33d7-a6a7-807703e23b5d" target="_blank">Instrumental Music Education (PDF)</a></li>
-            <li><a href="https://acrobat.adobe.com/link/review?uri=urn:aaid:scds:US:36e11886-8543-3ae7-8028-b63425ad7bc0" target="_blank">Vocal Music Education (PDF)</a></li>
-            <li><a href="https://cpa.rowan.edu/music/divisions/musicEdu.html" target="_blank">Rowan University Music Education Webpage</a></li>
-            <li><a href="https://www.youtube.com/watch?v=8F1lkGQSI5s" target="_blank">Intro to Program (YouTube)</a></li>
-          </ul>
-        </div>
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="grid">
 
-        <button class="accordion-btn">Academic Support</button>
-        <div class="accordion-panel">
-          <ul>
-            <li><a href="https://sites.rowan.edu/student-success/student-support-services/" target="_blank">Rowan Academic Success Center</a></li>
-            <li><a href="https://sites.rowan.edu/student-success/tutoring/" target="_blank">Tutoring Services</a></li>
-            <li>Advisor Contacts:
+          <!-- Rowan Music Education Curriculum -->
+          <article class="card">
+            <details>
+              <summary>
+                <div class="kicker">Curriculum</div>
+                <h3>Rowan Music Education</h3>
+              </summary>
               <ul>
-                <li>Alexandria Funkhouser — <a href="mailto:daniels@rowan.edu">daniels@rowan.edu</a> — 856-256-5183</li>
-                <li>Mary Bridget Downes Briscione — <a href="mailto:briscione@rowan.edu">briscione@rowan.edu</a> — 856-256-5545</li>
+                <li><a href="https://acrobat.adobe.com/link/review?uri=urn:aaid:scds:US:2a8c2ada-bc82-33d7-a6a7-807703e23b5d" target="_blank" rel="noopener">Instrumental Music Education (PDF)</a></li>
+                <li><a href="https://acrobat.adobe.com/link/review?uri=urn:aaid:scds:US:36e11886-8543-3ae7-8028-b63425ad7bc0" target="_blank" rel="noopener">Vocal Music Education (PDF)</a></li>
+                <li><a href="https://cpa.rowan.edu/music/divisions/musicEdu.html" target="_blank" rel="noopener">Rowan University Music Education webpage</a></li>
+                <li><a href="https://www.youtube.com/watch?v=8F1lkGQSI5s" target="_blank" rel="noopener">Intro to Program (YouTube)</a></li>
               </ul>
-            </li>
-            <li><a href="https://sites.rowan.edu/wellness/" target="_blank">Wellness Center</a></li>
-            <li><a href="https://www.rowan.edu/studentaffairs/savitz/" target="_blank">Savitz Hall Student Services</a></li>
-          </ul>
-        </div>
+            </details>
+          </article>
 
-        <button class="accordion-btn">Tools & Tutorials</button>
-        <div class="accordion-panel">
-          <h4>Software</h4>
-          <ul>
-            <li><a href="https://flat.io" target="_blank">Flat.io</a></li>
-            <li><a href="https://www.musicca.com/" target="_blank">Musicca</a></li>
-            <li><a href="https://soundtrap.com" target="_blank">Soundtrap</a></li>
-            <li><a href="https://musescore.com" target="_blank">MuseScore</a></li>
-          </ul>
-          <h4>Praxis Prep</h4>
-          <ul>
-            <li><a href="https://www.ets.org/praxis" target="_blank">Praxis Website</a></li>
-            <li><a href="https://www.mometrix.com/academy/praxis-test/" target="_blank">Mometrix Praxis Study Guide</a></li>
-            <li><a href="https://www.kaptest.com/praxis" target="_blank">Kaplan Praxis Prep</a></li>
-          </ul>
-          <h4>Background Checks</h4>
-          <ul>
-            <li><a href="https://www.rowan.edu/hr/background-checks" target="_blank">Rowan University Process</a></li>
-            <li><a href="https://www.identogo.com/" target="_blank">IdentoGO</a></li>
-            <li><a href="https://www.fieldprint.com/" target="_blank">Fieldprint</a></li>
-          </ul>
-        </div>
+          <!-- Academic Support -->
+          <article class="card">
+            <details>
+              <summary>
+                <div class="kicker">Academic Support</div>
+                <h3>Help &amp; Services</h3>
+              </summary>
+              <ul>
+                <li><a href="https://sites.rowan.edu/student-success/student-support-services/" target="_blank" rel="noopener">Rowan Academic Success Center</a></li>
+                <li><a href="https://sites.rowan.edu/student-success/tutoring/" target="_blank" rel="noopener">Tutoring Services</a></li>
+                <li>
+                  <strong>Advisor Contacts</strong>
+                  <ul>
+                    <li>Alexandria Funkhouser — Wilson Hall #241 — <a href="mailto:daniels@rowan.edu">daniels@rowan.edu</a> — <a href="tel:18562565183">856-256-5183</a></li>
+                    <li>Mary Bridget Downes Briscione — Wilson Hall #141 — <a href="mailto:briscione@rowan.edu">briscione@rowan.edu</a> — <a href="tel:18562565545">856-256-5545</a></li>
+                  </ul>
+                </li>
+                <li><a href="https://sites.rowan.edu/wellness/" target="_blank" rel="noopener">Wellness Center</a></li>
+                <li><a href="https://www.rowan.edu/studentaffairs/savitz/" target="_blank" rel="noopener">Savitz Hall Student Services</a></li>
+              </ul>
+            </details>
+          </article>
 
-        <button class="accordion-btn">Quick Links</button>
-        <div class="accordion-panel">
-          <p>Suggestions for music education tools, planning resources, and sheet music sites.</p>
-        </div>
+          <!-- Tools & Tutorials -->
+          <article class="card">
+            <details>
+              <summary>
+                <div class="kicker">Tools &amp; Tutorials</div>
+                <h3>Software, Praxis Prep &amp; Background Checks</h3>
+              </summary>
 
-        <button class="accordion-btn">Rowan NAfME Resources</button>
-        <div class="accordion-panel">
-          <ul>
-            <li><a href="#">Professional Development Resources</a></li>
-            <li><a href="#">Peer Tutoring & Study Groups</a></li>
-            <li><a href="#">Upperclassmen Advice</a></li>
-            <li><a href="#">FAQ</a></li>
-          </ul>
-        </div>
+              <h4>Software</h4>
+              <ul>
+                <li><a href="https://flat.io" target="_blank" rel="noopener">Flat.io — notation software</a></li>
+                <li><a href="https://www.musicca.com/" target="_blank" rel="noopener">Musicca — theory &amp; keyboard games</a></li>
+                <li><a href="https://soundtrap.com" target="_blank" rel="noopener">Soundtrap — collaborative DAW</a></li>
+                <li><a href="https://musescore.com" target="_blank" rel="noopener">MuseScore — free notation software</a></li>
+              </ul>
 
-        <button class="accordion-btn">NJMEA Resources</button>
-        <div class="accordion-panel">
-          <ul>
-            <li><a href="https://www.njmea.org/collegiate/" target="_blank">NJMEA Collegiate Webpage</a></li>
-            <li><a href="https://www.njmea.org/njmea-events" target="_blank">Events Calendar</a></li>
-            <li><a href="https://www.njmea.org/job-opportunities" target="_blank">Job Opportunities</a></li>
-            <li><a href="https://www.njmea.org/resource-personnel" target="_blank">Resource Personnel Contacts</a></li>
-            <li><a href="https://www.njmea.org/advocacy" target="_blank">Program Advocacy</a></li>
-          </ul>
-        </div>
+              <h4>Praxis Prep</h4>
+              <ul>
+                <li><a href="https://www.ets.org/praxis" target="_blank" rel="noopener">Praxis Website</a></li>
+                <li><a href="https://www.mometrix.com/academy/praxis-test/" target="_blank" rel="noopener">Mometrix Praxis Study Guide</a></li>
+                <li><a href="https://www.kaptest.com/praxis" target="_blank" rel="noopener">Kaplan Praxis Prep</a></li>
+              </ul>
 
-        <button class="accordion-btn">NAfME (National) Resources</button>
-        <div class="accordion-panel">
-          <ul>
-            <li><a href="https://nafme.org/publications-resources/resource-library/" target="_blank">Resource Library</a></li>
-            <li><a href="https://nafme.org/publications-resources/nafme-blog/" target="_blank">NAfME Blog</a></li>
-            <li><a href="https://nafme.org/professional-learning-events/event-calendar/" target="_blank">Events Calendar</a></li>
-            <li><a href="https://nafme.org/advocacy/" target="_blank">Advocacy</a></li>
-            <li><a href="https://nafme.org/student-opportunities/scholarships/" target="_blank">Scholarships</a></li>
-            <li><a href="https://nafme.org/publications-resources/standards/" target="_blank">Music Standards</a></li>
-          </ul>
+              <h4>Background Checks</h4>
+              <ul>
+                <li><a href="https://www.rowan.edu/hr/background-checks" target="_blank" rel="noopener">Rowan University Background Check Process</a></li>
+                <li><a href="https://www.identogo.com/" target="_blank" rel="noopener">IdentoGO</a></li>
+                <li><a href="https://www.fieldprint.com/" target="_blank" rel="noopener">Fieldprint</a></li>
+              </ul>
+            </details>
+          </article>
+
+          <!-- Quick Links -->
+          <article class="card">
+            <details>
+              <summary>
+                <div class="kicker">Quick Links</div>
+                <h3>Music Education Tools</h3>
+              </summary>
+              <p>Suggestions invited for planning tools, sheet music, and educational materials.</p>
+            </details>
+          </article>
+
+          <!-- Rowan NAfME Resources -->
+          <article class="card">
+            <details>
+              <summary>
+                <div class="kicker">Rowan NAfME</div>
+                <h3>Chapter Resources</h3>
+              </summary>
+              <ul>
+                <li><a href="#">Professional Development Resources</a></li>
+                <li><a href="#">Peer Tutoring &amp; Study Groups (interest form)</a></li>
+                <li><a href="#">Upperclassmen Advice (form/email)</a></li>
+                <li><a href="#">Frequently Asked Questions (form/email)</a></li>
+              </ul>
+            </details>
+          </article>
+
+          <!-- NJMEA Resources -->
+          <article class="card">
+            <details>
+              <summary>
+                <div class="kicker">NJMEA</div>
+                <h3>State Resources</h3>
+              </summary>
+              <ul>
+                <li>Collegiate Board — Clark Mitchell, Nikki Hayden, Kai Cleary, Min Hwang, Sean Masino</li>
+                <li><a href="https://www.njmea.org/collegiate/" target="_blank" rel="noopener">NJMEA Collegiate webpage</a></li>
+                <li><a href="https://www.njmea.org/njmea-events" target="_blank" rel="noopener">Events Calendar</a></li>
+                <li><a href="https://www.njmea.org/job-opportunities" target="_blank" rel="noopener">Job Opportunities</a></li>
+                <li><a href="https://www.njmea.org/resource-personnel" target="_blank" rel="noopener">Resource Personnel Contacts</a></li>
+                <li><a href="https://www.njmea.org/advocacy" target="_blank" rel="noopener">Program Advocacy</a></li>
+              </ul>
+            </details>
+          </article>
+
+          <!-- NAfME National Resources -->
+          <article class="card">
+            <details>
+              <summary>
+                <div class="kicker">NAfME</div>
+                <h3>National Resources</h3>
+              </summary>
+              <ul>
+                <li><a href="https://nafme.org/publications-resources/resource-library/" target="_blank" rel="noopener">Resource Library</a></li>
+                <li><a href="https://nafme.org/publications-resources/nafme-blog/" target="_blank" rel="noopener">NAfME Blog</a></li>
+                <li><a href="https://nafme.org/professional-learning-events/event-calendar/" target="_blank" rel="noopener">Events Calendar</a></li>
+                <li><a href="https://nafme.org/advocacy/" target="_blank" rel="noopener">Advocacy</a></li>
+                <li><a href="https://nafme.org/student-opportunities/scholarships/" target="_blank" rel="noopener">Scholarships</a></li>
+                <li><a href="https://nafme.org/publications-resources/standards/" target="_blank" rel="noopener">Music Standards</a></li>
+              </ul>
+            </details>
+          </article>
+
         </div>
       </div>
-    </main>
+    </section>
+  </main>
 
-    <footer>
-      <p>© Rowan NAfME Chapter</p>
-    </footer>
-  </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      document.querySelectorAll(".accordion-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-          btn.classList.toggle("active");
-          const panel = btn.nextElementSibling;
-          panel.style.display = panel.style.display === "block" ? "none" : "block";
-        });
-      });
-    });
-  </script>
+  <footer class="site-footer"></footer>
+  <script src="/assets/js/nav.js" defer></script>
 </body>
 </html>
