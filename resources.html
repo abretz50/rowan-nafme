@@ -10,100 +10,64 @@
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <style>
-    /* ===== Theme hooks (fallbacks respect your site palette) ===== */
-    :root{
-      --brand: var(--accent, #0033a0);
-      --brandGold: var(--kicker, #FFD700);
-      --surface: var(--card, #101828);
-      --surface-2: rgba(16,24,40,0.85);
-      --text: var(--text, #E6EEF9);
-      --muted: #A5B4CF;
-      --ring: rgba(93,168,255,0.5);
-      --border: rgba(255,255,255,0.10);
-    }
+  :root{
+    --brand: #4da6ff;          /* link blue */
+    --surface-2: rgba(16,24,40,0.90);
+    --text: #ffffff;           /* force all modal text white */
+    --border: rgba(255,255,255,0.12);
+    --ring: rgba(93,168,255,0.5);
+  }
 
-    /* Links look clearly clickable */
-    .modal-content a{
-      text-decoration: underline;
-      color: var(--brand);
-      font-weight: 600;
-    }
-    .modal-content a:hover{ opacity:.9; text-underline-offset: 3px; }
+  .modal-content{
+    width: min(900px, 94vw);
+    max-height: 85vh;
+    overflow: auto;
+    color: var(--text);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.35);
+    padding: 1.5rem;
+    animation: popIn .16s ease;
+  }
 
-    /* Cards act like buttons */
-    .card{ cursor:pointer; }
-    .card:hover{ transform: translateY(-2px); transition: transform .15s ease; }
-    .card *{ pointer-events: none; }         /* keep whole card clickable */
-    .card{ position:relative; }
-    .card[data-modal]::after{ content:""; position:absolute; inset:0; pointer-events:auto; }
+  .modal-header{
+    display:flex; align-items:center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom:.75rem; margin-bottom:.75rem;
+  }
+  .modal-kicker{
+    font-size:.8rem; letter-spacing:.05em;
+    text-transform:uppercase;
+    color: var(--text);       /* white, not yellow */
+    opacity:.8;
+  }
+  .modal-title{ margin:0; font-size:1.5rem; color:#fff; }
 
-    /* ===== Modal layout & animation ===== */
-    .modal{
-      position: fixed; inset: 0; display: none;
-      align-items: center; justify-content: center; z-index: 1000;
-    }
-    .modal.open{ display:flex; }
+  .modal-content h4{ margin:1rem 0 .4rem; color:#fff; }
+  .modal-content ul{ margin:.4rem 0 .9rem 1.1rem; }
+  .modal-content li{ margin:.3rem 0; color:#fff; }
+  .modal-content strong{ color:#fff; }
 
-    .modal-overlay{
-      position:absolute; inset:0;
-      background: radial-gradient(1200px 600px at 50% 20%, rgba(0,51,160,0.18), transparent 60%),
-                  rgba(0,0,0,.55);
-      backdrop-filter: blur(2px);
-      animation: fadeIn .18s ease;
-    }
+  /* links */
+  .modal-content a{
+    color: var(--brand);
+    text-decoration: underline;
+    font-weight: 500;
+  }
+  .modal-content a:hover{ opacity:.9; }
 
-    .modal-content{
-      position: relative;
-      width: min(900px, 94vw);        /* bigger modal */
-      max-height: 85vh;
-      overflow: auto;
+  .close-btn{
+    margin-left:auto; border:none; cursor:pointer;
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    border-radius: 12px; padding:.5rem .7rem; font-weight:700;
+  }
+  .close-btn:hover{ background: rgba(255,255,255,0.18); }
 
-      color: var(--text);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00)),
-        var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: 0 24px 60px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,0.02);
-      padding: 1.25rem 1.25rem 1rem 1.25rem;
-      animation: popIn .16s ease;
-    }
+  @keyframes popIn{ from{ transform: translateY(10px) scale(.985); opacity:.6 } to{ transform:none; opacity:1 } }
+</style>
 
-    .modal-header{
-      display:flex; align-items:center; gap:.75rem; margin-bottom:.5rem;
-      border-bottom: 1px solid var(--border); padding-bottom:.5rem;
-    }
-    .modal-kicker{
-      font-size:.78rem; letter-spacing:.06em; text-transform:uppercase;
-      color: var(--brandGold);
-    }
-    .modal-title{
-      margin:0; font-size:1.35rem; color: #fff;
-    }
-
-    .close-btn{
-      margin-left:auto; border:none; cursor:pointer;
-      background: rgba(255,255,255,0.06);
-      color: var(--text);
-      border-radius: 12px; padding:.5rem .7rem; font-weight:700;
-      outline: 2px solid transparent;
-    }
-    .close-btn:hover{ background: rgba(255,255,255,0.10); }
-    .close-btn:focus-visible{ outline-color: var(--ring); }
-
-    .modal-content h4{ margin:.9rem 0 .35rem; color:#fff; }
-    .modal-content ul{ margin:.35rem 0 .9rem 1.1rem; }
-    .modal-content li{ margin:.3rem 0; color: var(--text); }
-    .modal-content strong{ color:#fff; }
-
-    /* subtle bullets that fit the theme */
-    .modal-content ul > li{ list-style: disc; }
-    .modal-content ul ul > li{ list-style: circle; }
-
-    /* Animations */
-    @keyframes popIn{ from{ transform: translateY(10px) scale(.985); opacity:.6 } to{ transform:none; opacity:1 } }
-    @keyframes fadeIn{ from{ opacity:0 } to { opacity:1 } }
-  </style>
 </head>
 <body>
   <nav class="site-nav"></nav>
