@@ -22,20 +22,161 @@
   </div>
 </header>
 <main>
-  <section class="section">
-    <div class="container">
-      <div class="filters">
-        <div class="chips" role="toolbar" aria-label="Filter events by tag">
-          <button class="button" data-filter="meeting" aria-pressed="false">Meeting</button>
-          <button class="button" data-filter="professional-development" aria-pressed="false">Professional Dev</button>
-          <button class="button" data-filter="workshop" aria-pressed="false">Workshop</button>
-          <button class="button" data-filter="volunteer" aria-pressed="false">Volunteer</button>
-          <button class="button" data-filter="convention" aria-pressed="false">Convention</button>
+<section class="section">
+  <div class="container">
+    <div id="events-list" aria-live="polite"></div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script>
+const SHEET_CSV_URL =
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vQcgOeW0i-7EiDTkN_9rr6hXJSE0nFUsnpKXGSHyPUUudWnja7FQJ0vjvt9x7ktQciDGcZa8OD3VXip/pub?gid=0&single=true&output=csv";
+
+const listEl = document.getElementById("events-list");
+
+init();
+
+function init() {
+  listEl.innerHTML = `<p>Loading events…</p>`;
+  fetch(SHEET_CSV_URL, { cache: "no-store" })
+    .then(r => r.text())
+    .then(csv => Papa.parse(csv, { header: true, skipEmptyLines: true }))
+    .then(({ data }) => {
+      const events = normalizeAndSort(data).filter(onlyUpcoming);
+      render(events);
+    })
+    .catch(err => {
+      console.error(err);
+      listEl.innerHTML = `<p>Couldn’t load events right now.</p>`;
+    });
+}
+
+function normalizeAndSort(rows) {
+  const items = rows
+    .map(row => {
+      const title = (row.title || "").trim();
+      const dateStr = (row.date || "").trim();
+      const start = (row.start_time || "").trim();
+      const end = (row.end_time || "").trim();
+      const location = (row.location || "").trim();
+      const description = (row.description || "").trim();
+      const details = (row.details || "").trim();
+      const signin = (row.signin_link || "").trim();
+      const image = (row.image_url || "").trim();
+      const tags = (row.tags || "").split(/[;,]/).map(t => t.trim()).filter(Boolean);
+
+      const startDate = combineDateTime(dateStr, start);
+      const endDate = combineDateTime(dateStr, end) || startDate;
+
+      if (!title || !startDate) return null;
+
+      return { title, startDate, endDate, location, description, details, signin, image, tags };
+    })
+    .filter(Boolean);
+
+  items.sort((a, b) => a.startDate - b.startDate);
+  return items;
+}
+
+function onlyUpcoming(evt) {
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  return evt.endDate >= today;
+}
+
+function combineDateTime(dateStr, timeStr) {
+  if (!dateStr) return null;
+  const d = parseDate(dateStr);
+  if (!d) return null;
+  if (timeStr) {
+    const t = parseTime(timeStr);
+    if (t) { d.setHours(t.h, t.m, 0, 0); }
+  }
+  return d;
+}
+
+function parseDate(s) {
+  let m = /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(s);
+  if (m) return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+  m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(s);
+  if (m) return new Date(Number(m[3]), Number(m[1]) - 1, Number(m[2]));
+  const d = new Date(s);
+  return isNaN(d) ? null : d;
+}
+
+function parseTime(s) {
+  let m = /^(\d{1,2}):?(\d{2})?\s*([AP]M)?$/i.exec(s);
+  if (!m) return null;
+  let h = Number(m[1]);
+  let min = m[2] ? Number(m[2]) : 0;
+  const mer = m[3] ? m[3].toUpperCase() : "";
+  if (mer === "PM" && h < 12) h += 12;
+  if (mer === "AM" && h === 12) h = 0;
+  return { h, m: min };
+}
+
+function fmtDateTime(d) {
+  const date = d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+  const time = d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+  return { date, time };
+}
+
+function render(events) {
+  if (!events.length) {
+    listEl.innerHTML = `<p>No upcoming events yet—check back soon!</p>`;
+    return;
+  }
+
+  listEl.innerHTML = events.map(evt => {
+    const { date, time } = fmtDateTime(evt.startDate);
+    const endTime = evt.endDate ? evt.endDate.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" }) : "";
+    const timeRange = endTime && endTime !== time ? `${time}–${endTime}` : time;
+
+    const tagsHTML = evt.tags.map(t => `<span class="chip" data-tag="${t.toLowerCase()}">${t}</span>`).join(" ");
+    const img = evt.image ? `<img src="${evt.image}" alt="" loading="lazy" class="event-img">` : "";
+    const detailsLink = evt.details ? `<a class="btn" href="${evt.details}" target="_blank" rel="noopener">Details</a>` : "";
+    const signinLink  = evt.signin ? `<a class="btn outline" href="${evt.signin}" target="_blank" rel="noopener">Sign&nbsp;In</a>` : "";
+
+    return `
+      <article class="event-card">
+        <div class="event-main">
+          <header>
+            <h3 class="event-title">${escapeHTML(evt.title)}</h3>
+            <div class="event-meta">
+              <span>${date}</span>
+              <span aria-hidden="true">·</span>
+              <span>${timeRange}</span>
+              ${evt.location ? `<span aria-hidden="true">·</span><span>${escapeHTML(evt.location)}</span>` : ""}
+            </div>
+          </header>
+          ${evt.description ? `<p class="event-desc">${escapeHTML(evt.description)}</p>` : ""}
+          <div class="event-actions">${detailsLink} ${signinLink}</div>
+          ${tagsHTML ? `<div class="event-tags" aria-label="Tags">${tagsHTML}</div>` : ""}
         </div>
-      </div>
-      <div class="grid" id="eventsList" aria-live="polite"></div>
-    </div>
-  </section>
+        ${img}
+      </article>`;
+  }).join("");
+}
+
+function escapeHTML(s) {
+  return s.replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",""":"&quot;","'":"&#39;" }[c]));
+}
+</script>
+
+<style>
+.event-card { display:grid; grid-template-columns: 1fr auto; gap:1rem; padding:1rem; border:1px solid #e5e7eb; border-radius:12px; background:#fff; margin-bottom:1rem; }
+.event-img { width: 140px; height: 100px; object-fit: cover; border-radius: 8px; }
+.event-title { margin: 0 0 .25rem 0; }
+.event-meta { color:#555; font-size:.95rem; display:flex; gap:.5rem; flex-wrap:wrap; }
+.event-desc { margin:.5rem 0 0 0; }
+.event-actions { margin-top:.5rem; display:flex; gap:.5rem; flex-wrap:wrap; }
+.btn { display:inline-block; padding:.4rem .7rem; border-radius:8px; border:1px solid #1f6feb; text-decoration:none; }
+.btn:hover { background:#f3f6ff; }
+.btn.outline { background:transparent; }
+.chip { display:inline-block; padding:.15rem .5rem; border-radius:999px; font-size:.8rem; background:#eef2ff; border:1px solid #c7d2fe; }
+@media (max-width: 640px){ .event-card { grid-template-columns: 1fr; } .event-img { width:100%; height:160px; } }
+</style>
 </main>
 <script src="/assets/js/events.js"></script>
 
