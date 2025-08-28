@@ -8,28 +8,79 @@
   <link rel="preload" as="image" href="/images/background.png">
   <link rel="icon" href="/images/logo.png">
   <link rel="stylesheet" href="/assets/css/style.css">
+
   <style>
-    /* move disclosure arrow to the right */
-    details > summary {
-      list-style: none;
-      position: relative;
-      padding-right: 2rem;
-      cursor: pointer;
-      display: flex;
-      align-items: baseline;
-      gap: .5rem;
+    /* --- Link style (clearly clickable) --- */
+    .modal-content a {
+      text-decoration: underline;
+      color: #0033a0;
+      font-weight: 600;
     }
-    details > summary::-webkit-details-marker { display: none; }
-    details > summary::after {
-      content: "▸";
+    .modal-content a:hover { opacity:.8; }
+
+    /* --- Cards act like buttons --- */
+    .card { cursor: pointer; }
+    .card summary { list-style:none; } /* just in case */
+    .card .kicker { margin-bottom: .25rem; }
+    .card:hover { transform: translateY(-2px); transition: transform .15s ease; }
+
+    /* --- Modal base --- */
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal.open { display: flex; }
+
+    .modal-overlay {
       position: absolute;
-      right: .25rem;
-      top: 50%;
-      transform: translateY(-50%);
-      transition: transform .2s ease;
+      inset: 0;
+      background: rgba(0,0,0,.45);
+      backdrop-filter: blur(2px);
+      animation: fadeIn .2s ease;
     }
-    details[open] > summary::after {
-      transform: translateY(-50%) rotate(90deg);
+
+    .modal-content {
+      position: relative;
+      max-width: min(720px, 92vw);
+      max-height: 80vh;
+      overflow: auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.25rem 1.25rem 1rem 1.25rem;
+      box-shadow: 0 12px 40px rgba(0,0,0,.25);
+      animation: popIn .18s ease;
+    }
+    .modal-header {
+      display:flex; align-items:center; gap:.75rem; margin-bottom:.5rem;
+      border-bottom: 1px solid #eee; padding-bottom:.5rem;
+    }
+    .modal-kicker { font-size:.8rem; text-transform:uppercase; letter-spacing:.04em; color:#b08900; }
+    .modal-title { margin:0; font-size:1.25rem; }
+
+    .close-btn {
+      margin-left:auto;
+      border:none; background:#f5f5f5; border-radius:10px;
+      padding:.5rem .65rem; cursor:pointer; font-weight:700;
+    }
+    .close-btn:hover { background:#eee; }
+
+    .modal-content h4 { margin:.75rem 0 .25rem; }
+    .modal-content ul { margin:.25rem 0 .75rem 1rem; }
+    .modal-content li { margin:.25rem 0; }
+
+    @keyframes popIn { from{ transform: translateY(8px) scale(.98); opacity:.6 } to{ transform:none; opacity:1 } }
+    @keyframes fadeIn { from{ opacity:0 } to { opacity:1 } }
+
+    /* Optional: make whole card clickable without text selection weirdness */
+    .card * { pointer-events: none; }
+    .card { position: relative; }
+    .card[data-modal]::after {
+      content:"";
+      position:absolute; inset:0; pointer-events:auto;
     }
   </style>
 </head>
@@ -51,137 +102,52 @@
         <div class="grid">
 
           <!-- Rowan Music Education Curriculum -->
-          <article class="card">
-            <details>
-              <summary>
-                <div class="kicker">Curriculum</div>
-                <h3>Rowan Music Education</h3>
-              </summary>
-              <ul>
-                <li><a href="https://acrobat.adobe.com/link/review?uri=urn:aaid:scds:US:2a8c2ada-bc82-33d7-a6a7-807703e23b5d" target="_blank" rel="noopener">Instrumental Music Education (PDF)</a></li>
-                <li><a href="https://acrobat.adobe.com/link/review?uri=urn:aaid:scds:US:36e11886-8543-3ae7-8028-b63425ad7bc0" target="_blank" rel="noopener">Vocal Music Education (PDF)</a></li>
-                <li><a href="https://cpa.rowan.edu/music/divisions/musicEdu.html" target="_blank" rel="noopener">Rowan University Music Education webpage</a></li>
-                <li><a href="https://www.youtube.com/watch?v=8F1lkGQSI5s" target="_blank" rel="noopener">Intro to Program (YouTube)</a></li>
-              </ul>
-            </details>
+          <article class="card" data-modal="modal-curriculum">
+            <div class="kicker">Curriculum</div>
+            <h3>Rowan Music Education</h3>
+            <p>Program PDFs, site, and intro video.</p>
           </article>
 
           <!-- Academic Support -->
-          <article class="card">
-            <details>
-              <summary>
-                <div class="kicker">Academic Support</div>
-                <h3>Help &amp; Services</h3>
-              </summary>
-              <ul>
-                <li><a href="https://sites.rowan.edu/student-success/student-support-services/" target="_blank" rel="noopener">Rowan Academic Success Center</a></li>
-                <li><a href="https://sites.rowan.edu/student-success/tutoring/" target="_blank" rel="noopener">Tutoring Services</a></li>
-                <li>
-                  <strong>Advisor Contacts</strong>
-                  <ul>
-                    <li>Alexandria Funkhouser — Wilson Hall #241 — <a href="mailto:daniels@rowan.edu">daniels@rowan.edu</a> — <a href="tel:18562565183">856-256-5183</a></li>
-                    <li>Mary Bridget Downes Briscione — Wilson Hall #141 — <a href="mailto:briscione@rowan.edu">briscione@rowan.edu</a> — <a href="tel:18562565545">856-256-5545</a></li>
-                  </ul>
-                </li>
-                <li><a href="https://sites.rowan.edu/wellness/" target="_blank" rel="noopener">Wellness Center</a></li>
-                <li><a href="https://www.rowan.edu/studentaffairs/savitz/" target="_blank" rel="noopener">Savitz Hall Student Services</a></li>
-              </ul>
-            </details>
+          <article class="card" data-modal="modal-support">
+            <div class="kicker">Academic Support</div>
+            <h3>Help &amp; Services</h3>
+            <p>Success Center, tutoring, advisors, wellness, Savitz.</p>
           </article>
 
           <!-- Tools & Tutorials -->
-          <article class="card">
-            <details>
-              <summary>
-                <div class="kicker">Tools &amp; Tutorials</div>
-                <h3>Software, Praxis Prep &amp; Background Checks</h3>
-              </summary>
-
-              <h4>Software</h4>
-              <ul>
-                <li><a href="https://flat.io" target="_blank" rel="noopener">Flat.io — notation software</a></li>
-                <li><a href="https://www.musicca.com/" target="_blank" rel="noopener">Musicca — theory &amp; keyboard games</a></li>
-                <li><a href="https://soundtrap.com" target="_blank" rel="noopener">Soundtrap — collaborative DAW</a></li>
-                <li><a href="https://musescore.com" target="_blank" rel="noopener">MuseScore — free notation software</a></li>
-              </ul>
-
-              <h4>Praxis Prep</h4>
-              <ul>
-                <li><a href="https://www.ets.org/praxis" target="_blank" rel="noopener">Praxis Website</a></li>
-                <li><a href="https://www.mometrix.com/academy/praxis-test/" target="_blank" rel="noopener">Mometrix Praxis Study Guide</a></li>
-                <li><a href="https://www.kaptest.com/praxis" target="_blank" rel="noopener">Kaplan Praxis Prep</a></li>
-              </ul>
-
-              <h4>Background Checks</h4>
-              <ul>
-                <li><a href="https://www.rowan.edu/hr/background-checks" target="_blank" rel="noopener">Rowan University Background Check Process</a></li>
-                <li><a href="https://www.identogo.com/" target="_blank" rel="noopener">IdentoGO</a></li>
-                <li><a href="https://www.fieldprint.com/" target="_blank" rel="noopener">Fieldprint</a></li>
-              </ul>
-            </details>
+          <article class="card" data-modal="modal-tools">
+            <div class="kicker">Tools &amp; Tutorials</div>
+            <h3>Software, Praxis Prep &amp; Background Checks</h3>
+            <p>Flat.io, Musicca, Soundtrap, MuseScore, Praxis, background checks.</p>
           </article>
 
           <!-- Quick Links -->
-          <article class="card">
-            <details>
-              <summary>
-                <div class="kicker">Quick Links</div>
-                <h3>Music Education Tools</h3>
-              </summary>
-              <p>Suggestions invited for planning tools, sheet music, and educational materials.</p>
-            </details>
+          <article class="card" data-modal="modal-quicklinks">
+            <div class="kicker">Quick Links</div>
+            <h3>Music Education Tools</h3>
+            <p>Submit your favorite go-to links.</p>
           </article>
 
           <!-- Rowan NAfME Resources -->
-          <article class="card">
-            <details>
-              <summary>
-                <div class="kicker">Rowan NAfME</div>
-                <h3>Chapter Resources</h3>
-              </summary>
-              <ul>
-                <li><a href="#">Professional Development Resources</a></li>
-                <li><a href="#">Peer Tutoring &amp; Study Groups (interest form)</a></li>
-                <li><a href="#">Upperclassmen Advice (form/email)</a></li>
-                <li><a href="#">Frequently Asked Questions (form/email)</a></li>
-              </ul>
-            </details>
+          <article class="card" data-modal="modal-chapter">
+            <div class="kicker">Rowan NAfME</div>
+            <h3>Chapter Resources</h3>
+            <p>PD materials, tutoring, advice, FAQ.</p>
           </article>
 
           <!-- NJMEA Resources -->
-          <article class="card">
-            <details>
-              <summary>
-                <div class="kicker">NJMEA</div>
-                <h3>State Resources</h3>
-              </summary>
-              <ul>
-                <li>Collegiate Board — Clark Mitchell, Nikki Hayden, Kai Cleary, Min Hwang, Sean Masino</li>
-                <li><a href="https://www.njmea.org/collegiate/" target="_blank" rel="noopener">NJMEA Collegiate webpage</a></li>
-                <li><a href="https://www.njmea.org/njmea-events" target="_blank" rel="noopener">Events Calendar</a></li>
-                <li><a href="https://www.njmea.org/job-opportunities" target="_blank" rel="noopener">Job Opportunities</a></li>
-                <li><a href="https://www.njmea.org/resource-personnel" target="_blank" rel="noopener">Resource Personnel Contacts</a></li>
-                <li><a href="https://www.njmea.org/advocacy" target="_blank" rel="noopener">Program Advocacy</a></li>
-              </ul>
-            </details>
+          <article class="card" data-modal="modal-njmea">
+            <div class="kicker">NJMEA</div>
+            <h3>State Resources</h3>
+            <p>Collegiate page, events, jobs, contacts, advocacy.</p>
           </article>
 
           <!-- NAfME National Resources -->
-          <article class="card">
-            <details>
-              <summary>
-                <div class="kicker">NAfME</div>
-                <h3>National Resources</h3>
-              </summary>
-              <ul>
-                <li><a href="https://nafme.org/publications-resources/resource-library/" target="_blank" rel="noopener">Resource Library</a></li>
-                <li><a href="https://nafme.org/publications-resources/nafme-blog/" target="_blank" rel="noopener">NAfME Blog</a></li>
-                <li><a href="https://nafme.org/professional-learning-events/event-calendar/" target="_blank" rel="noopener">Events Calendar</a></li>
-                <li><a href="https://nafme.org/advocacy/" target="_blank" rel="noopener">Advocacy</a></li>
-                <li><a href="https://nafme.org/student-opportunities/scholarships/" target="_blank" rel="noopener">Scholarships</a></li>
-                <li><a href="https://nafme.org/publications-resources/standards/" target="_blank" rel="noopener">Music Standards</a></li>
-              </ul>
-            </details>
+          <article class="card" data-modal="modal-nafme">
+            <div class="kicker">NAfME</div>
+            <h3>National Resources</h3>
+            <p>Library, blog, events, advocacy, scholarships, standards.</p>
           </article>
 
         </div>
@@ -190,6 +156,208 @@
   </main>
 
   <footer class="site-footer"></footer>
+
+  <!-- ========= Modals ========= -->
+
+  <!-- CURRICULUM -->
+  <div class="modal" id="modal-curriculum" role="dialog" aria-modal="true" aria-labelledby="modal-curriculum-title" hidden>
+    <div class="modal-overlay" data-close></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <div class="modal-kicker">Curriculum</div>
+          <h3 class="modal-title" id="modal-curriculum-title">Rowan Music Education</h3>
+        </div>
+        <button class="close-btn" type="button" data-close aria-label="Close">✕</button>
+      </div>
+      <ul>
+        <li><a href="https://acrobat.adobe.com/link/review?uri=urn:aaid:scds:US:2a8c2ada-bc82-33d7-a6a7-807703e23b5d" target="_blank" rel="noopener">Instrumental Music Education (PDF)</a></li>
+        <li><a href="https://acrobat.adobe.com/link/review?uri=urn:aaid:scds:US:36e11886-8543-3ae7-8028-b63425ad7bc0" target="_blank" rel="noopener">Vocal Music Education (PDF)</a></li>
+        <li><a href="https://cpa.rowan.edu/music/divisions/musicEdu.html" target="_blank" rel="noopener">Rowan University Music Education webpage</a></li>
+        <li><a href="https://www.youtube.com/watch?v=8F1lkGQSI5s" target="_blank" rel="noopener">Intro to Program (YouTube)</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SUPPORT -->
+  <div class="modal" id="modal-support" role="dialog" aria-modal="true" aria-labelledby="modal-support-title" hidden>
+    <div class="modal-overlay" data-close></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <div class="modal-kicker">Academic Support</div>
+          <h3 class="modal-title" id="modal-support-title">Help &amp; Services</h3>
+        </div>
+        <button class="close-btn" type="button" data-close aria-label="Close">✕</button>
+      </div>
+      <ul>
+        <li><a href="https://sites.rowan.edu/student-success/student-support-services/" target="_blank" rel="noopener">Rowan Academic Success Center</a></li>
+        <li><a href="https://sites.rowan.edu/student-success/tutoring/" target="_blank" rel="noopener">Tutoring Services</a></li>
+        <li><strong>Advisor Contacts</strong>
+          <ul>
+            <li>Alexandria Funkhouser — <a href="mailto:daniels@rowan.edu">daniels@rowan.edu</a> — 856-256-5183</li>
+            <li>Mary Bridget Downes Briscione — <a href="mailto:briscione@rowan.edu">briscione@rowan.edu</a> — 856-256-5545</li>
+          </ul>
+        </li>
+        <li><a href="https://sites.rowan.edu/wellness/" target="_blank" rel="noopener">Wellness Center</a></li>
+        <li><a href="https://www.rowan.edu/studentaffairs/savitz/" target="_blank" rel="noopener">Savitz Hall Student Services</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="modal" id="modal-tools" role="dialog" aria-modal="true" aria-labelledby="modal-tools-title" hidden>
+    <div class="modal-overlay" data-close></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <div class="modal-kicker">Tools &amp; Tutorials</div>
+          <h3 class="modal-title" id="modal-tools-title">Software, Praxis Prep &amp; Background Checks</h3>
+        </div>
+        <button class="close-btn" type="button" data-close aria-label="Close">✕</button>
+      </div>
+
+      <h4>Software</h4>
+      <ul>
+        <li><a href="https://flat.io" target="_blank" rel="noopener">Flat.io — notation software</a></li>
+        <li><a href="https://www.musicca.com/" target="_blank" rel="noopener">Musicca — theory &amp; keyboard games</a></li>
+        <li><a href="https://soundtrap.com" target="_blank" rel="noopener">Soundtrap — collaborative DAW</a></li>
+        <li><a href="https://musescore.com" target="_blank" rel="noopener">MuseScore — free notation software</a></li>
+      </ul>
+
+      <h4>Praxis Prep</h4>
+      <ul>
+        <li><a href="https://www.ets.org/praxis" target="_blank" rel="noopener">Praxis Website</a></li>
+        <li><a href="https://www.mometrix.com/academy/praxis-test/" target="_blank" rel="noopener">Mometrix Praxis Study Guide</a></li>
+        <li><a href="https://www.kaptest.com/praxis" target="_blank" rel="noopener">Kaplan Praxis Prep</a></li>
+      </ul>
+
+      <h4>Background Checks</h4>
+      <ul>
+        <li><a href="https://www.rowan.edu/hr/background-checks" target="_blank" rel="noopener">Rowan University Background Check Process</a></li>
+        <li><a href="https://www.identogo.com/" target="_blank" rel="noopener">IdentoGO</a></li>
+        <li><a href="https://www.fieldprint.com/" target="_blank" rel="noopener">Fieldprint</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- QUICK LINKS -->
+  <div class="modal" id="modal-quicklinks" role="dialog" aria-modal="true" aria-labelledby="modal-quicklinks-title" hidden>
+    <div class="modal-overlay" data-close></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <div class="modal-kicker">Quick Links</div>
+          <h3 class="modal-title" id="modal-quicklinks-title">Music Education Tools</h3>
+        </div>
+        <button class="close-btn" type="button" data-close aria-label="Close">✕</button>
+      </div>
+      <p>Suggestions invited for planning tools, sheet music, and educational materials.</p>
+    </div>
+  </div>
+
+  <!-- CHAPTER -->
+  <div class="modal" id="modal-chapter" role="dialog" aria-modal="true" aria-labelledby="modal-chapter-title" hidden>
+    <div class="modal-overlay" data-close></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <div class="modal-kicker">Rowan NAfME</div>
+          <h3 class="modal-title" id="modal-chapter-title">Chapter Resources</h3>
+        </div>
+        <button class="close-btn" type="button" data-close aria-label="Close">✕</button>
+      </div>
+      <ul>
+        <li><a href="#">Professional Development Resources</a></li>
+        <li><a href="#">Peer Tutoring &amp; Study Groups (interest form)</a></li>
+        <li><a href="#">Upperclassmen Advice (form/email)</a></li>
+        <li><a href="#">Frequently Asked Questions (form/email)</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- NJMEA -->
+  <div class="modal" id="modal-njmea" role="dialog" aria-modal="true" aria-labelledby="modal-njmea-title" hidden>
+    <div class="modal-overlay" data-close></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <div class="modal-kicker">NJMEA</div>
+          <h3 class="modal-title" id="modal-njmea-title">State Resources</h3>
+        </div>
+        <button class="close-btn" type="button" data-close aria-label="Close">✕</button>
+      </div>
+      <ul>
+        <li>Collegiate Board — Clark Mitchell, Nikki Hayden, Kai Cleary, Min Hwang, Sean Masino</li>
+        <li><a href="https://www.njmea.org/collegiate/" target="_blank" rel="noopener">NJMEA Collegiate webpage</a></li>
+        <li><a href="https://www.njmea.org/njmea-events" target="_blank" rel="noopener">Events Calendar</a></li>
+        <li><a href="https://www.njmea.org/job-opportunities" target="_blank" rel="noopener">Job Opportunities</a></li>
+        <li><a href="https://www.njmea.org/resource-personnel" target="_blank" rel="noopener">Resource Personnel Contacts</a></li>
+        <li><a href="https://www.njmea.org/advocacy" target="_blank" rel="noopener">Program Advocacy</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- NAFME -->
+  <div class="modal" id="modal-nafme" role="dialog" aria-modal="true" aria-labelledby="modal-nafme-title" hidden>
+    <div class="modal-overlay" data-close></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <div class="modal-kicker">NAfME</div>
+          <h3 class="modal-title" id="modal-nafme-title">National Resources</h3>
+        </div>
+        <button class="close-btn" type="button" data-close aria-label="Close">✕</button>
+      </div>
+      <ul>
+        <li><a href="https://nafme.org/publications-resources/resource-library/" target="_blank" rel="noopener">Resource Library</a></li>
+        <li><a href="https://nafme.org/publications-resources/nafme-blog/" target="_blank" rel="noopener">NAfME Blog</a></li>
+        <li><a href="https://nafme.org/professional-learning-events/event-calendar/" target="_blank" rel="noopener">Events Calendar</a></li>
+        <li><a href="https://nafme.org/advocacy/" target="_blank" rel="noopener">Advocacy</a></li>
+        <li><a href="https://nafme.org/student-opportunities/scholarships/" target="_blank" rel="noopener">Scholarships</a></li>
+        <li><a href="https://nafme.org/publications-resources/standards/" target="_blank" rel="noopener">Music Standards</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Modal controller
+    (function () {
+      const openById = id => {
+        const m = document.getElementById(id);
+        if (!m) return;
+        m.classList.add('open');
+        m.removeAttribute('hidden');
+        document.body.style.overflow = 'hidden';
+        m.querySelector('.close-btn')?.focus();
+      };
+      const closeModal = m => {
+        m.classList.remove('open');
+        m.setAttribute('hidden', '');
+        document.body.style.overflow = '';
+      };
+
+      // Open on card click
+      document.querySelectorAll('[data-modal]').forEach(card => {
+        card.addEventListener('click', () => openById(card.getAttribute('data-modal')));
+      });
+
+      // Close on overlay or X
+      document.querySelectorAll('.modal').forEach(m => {
+        m.addEventListener('click', e => {
+          if (e.target.matches('[data-close], .modal-overlay')) closeModal(m);
+        });
+      });
+
+      // ESC to close
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+          document.querySelectorAll('.modal.open').forEach(closeModal);
+        }
+      });
+    })();
+  </script>
+
   <script src="/assets/js/nav.js" defer></script>
 </body>
 </html>
