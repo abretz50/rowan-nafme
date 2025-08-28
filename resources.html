@@ -9,65 +9,6 @@
   <link rel="icon" href="/images/logo.png">
   <link rel="stylesheet" href="/assets/css/style.css">
 
-  <style>
-  :root{
-    --brand: #4da6ff;          /* link blue */
-    --surface-2: rgba(16,24,40,0.90);
-    --text: #ffffff;           /* force all modal text white */
-    --border: rgba(255,255,255,0.12);
-    --ring: rgba(93,168,255,0.5);
-  }
-
-  .modal-content{
-    width: min(900px, 94vw);
-    max-height: 85vh;
-    overflow: auto;
-    color: var(--text);
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    box-shadow: 0 24px 60px rgba(0,0,0,.35);
-    padding: 1.5rem;
-    animation: popIn .16s ease;
-  }
-
-  .modal-header{
-    display:flex; align-items:center;
-    border-bottom: 1px solid var(--border);
-    padding-bottom:.75rem; margin-bottom:.75rem;
-  }
-  .modal-kicker{
-    font-size:.8rem; letter-spacing:.05em;
-    text-transform:uppercase;
-    color: var(--text);       /* white, not yellow */
-    opacity:.8;
-  }
-  .modal-title{ margin:0; font-size:1.5rem; color:#fff; }
-
-  .modal-content h4{ margin:1rem 0 .4rem; color:#fff; }
-  .modal-content ul{ margin:.4rem 0 .9rem 1.1rem; }
-  .modal-content li{ margin:.3rem 0; color:#fff; }
-  .modal-content strong{ color:#fff; }
-
-  /* links */
-  .modal-content a{
-    color: var(--brand);
-    text-decoration: underline;
-    font-weight: 500;
-  }
-  .modal-content a:hover{ opacity:.9; }
-
-  .close-btn{
-    margin-left:auto; border:none; cursor:pointer;
-    background: rgba(255,255,255,0.08);
-    color: #fff;
-    border-radius: 12px; padding:.5rem .7rem; font-weight:700;
-  }
-  .close-btn:hover{ background: rgba(255,255,255,0.18); }
-
-  @keyframes popIn{ from{ transform: translateY(10px) scale(.985); opacity:.6 } to{ transform:none; opacity:1 } }
-</style>
-
 </head>
 <body>
   <nav class="site-nav"></nav>
