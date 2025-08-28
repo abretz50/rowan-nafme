@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rowan NAfME — E-Board</title>
+  <meta name="color-scheme" content="light">
+  <link rel="preload" as="image" href="/images/background.png">
+  <link rel="icon" href="/images/logo.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  <!-- Page-local styles: equal card heights + modal (namespaced to avoid conflicts) -->
+  <style>
+    /* equalize people cards and tidy layout */
+    .grid.people-grid .card.people-card{ display:flex; flex-direction:column; height:100%; }
+    .card.people-card img{
+      display:block; width:100%; aspect-ratio:16/9; object-fit:cover;
+      border-radius:12px;
+    }
+    .card.people-card p:last-child{ margin-top:auto; } /* "Click to read bio." pinned */
+    .card.people-card{ cursor:pointer; transition:transform .15s ease; }
+    .card.people-card:hover{ transform:translateY(-2px); }
+    .section{ overflow:visible; }
+
+    /* modal styles (scoped) */
+    .nafme-modal-backdrop{
+      position:fixed; inset:0; background:rgba(0,0,0,.5);
+      display:none; align-items:flex-start; justify-content:center;
+      padding:6vh 1rem; z-index:9999;
+    }
+    .nafme-modal-backdrop[aria-hidden="false"]{ display:flex; }
+    .nafme-modal{
+      background:hsla(280,100%,20%,.98); color:#fff;
+      width:min(720px,100%); border-radius:16px;
+      box-shadow:0 10px 24px rgba(0,0,0,.25);
+      display:flex; gap:1rem; padding:1rem; position:relative;
+    }
+    .nafme-modal figure{ margin:0; width:200px; height:200px; border-radius:12px; overflow:hidden; flex:0 0 200px; background:#0002; }
+    .nafme-modal img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .nafme-modal .body{ flex:1; min-width:0; }
+    .nafme-modal h3{ margin:.25rem 0 .5rem 0; font-size:1.5rem; color:#fff; }
+    .nafme-modal .role{ font-weight:600; margin:.25rem 0 .5rem 0; opacity:.95; }
+    .nafme-modal p{ margin:.5rem 0; line-height:1.4; }
+    .nafme-modal .close{
+      position:absolute; top:.5rem; right:.5rem; border:1px solid #000; background:#7a288a;
+      color:#fff; border-radius:.75rem; padding:.5rem .75rem; cursor:pointer;
+    }
+    .people-card .subtle a{ color:inherit; text-decoration:underline; }
+  </style>
+</head>
+<body>
+  <nav class="site-nav"></nav>
+
+  <header class="hero">
+    <div class="hero-inner container">
+      <div>
+        <h1>E-Board</h1>
+        <p>Meet your officers and find the right contact for your questions.</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" aria-labelledby="officers-heading">
+      <div class="container">
+        <h2 id="officers-heading">2025–26 Officers</h2>
+
+        <div class="grid people-grid" style="--grid-min:260px">
+          <!-- President -->
+          <article class="card people-card" data-bio-id="min-hwang">
+            <div class="kicker">President</div>
+            <h3>Min Hwang</h3>
+            <p class="subtle">
+              <a href="mailto:email@rowan.edu?subject=NAfME%20President">email@rowan.edu</a>
+            </p>
+            <img src="/images/eboard/min-hwang.jpg" alt="Headshot of Min Hwang">
+            <p>Click to read bio.</p>
+          </article>
+
+          <!-- Vice President -->
+          <article class="card people-card" data-bio-id="cameron-hyson">
+            <div class="kicker">Vice President</div>
+            <h3>Cameron Hyson</h3>
+            <p class="subtle">
+              <a href="mailto:email@rowan.edu?subject=NAfME%20Vice%20President">email@rowan.edu</a>
+            </p>
+            <img src="/images/eboard/cameron-hyson.jpg" alt="Headshot of Cameron Hyson">
+            <p>Click to read bio.</p>
+          </article>
+
+          <!-- Treasurer -->
+          <article class="card people-card" data-bio-id="jessenia-zavala">
+            <div class="kicker">Treasurer</div>
+            <h3>Jessenia Zavala</h3>
+            <p class="subtle">
+              <a href="mailto:email@rowan.edu?subject=Treasurer">email@rowan.edu</a>
+            </p>
+            <img src="/images/eboard/jessenia-zavala.jpg" alt="Headshot of Jessenia Zavala">
+            <p>Click to read bio.</p>
+          </article>
+
+          <!-- Secretary -->
+          <article class="card people-card" data-bio-id="makayli-matias">
+            <div class="kicker">Secretary</div>
+            <h3>Makayli Matias</h3>
+            <p class="subtle">
+              <a href="mailto:email@rowan.edu?subject=Secretary">email@rowan.edu</a>
+            </p>
+            <img src="/images/eboard/makayli-matias.jpg" alt="Headshot of Makayli Matias">
+            <p>Click to read bio.</p>
+          </article>
+
+          <!-- Social Media Coordinator -->
+          <article class="card people-card" data-bio-id="emilee-townsley">
+            <div class="kicker">Social Media Coordinator</div>
+            <h3>Emilee Townsley</h3>
+            <p class="subtle">
+              <a href="mailto:email@rowan.edu?subject=Social%20Media">email@rowan.edu</a>
+            </p>
+            <img src="/images/eboard/emilee-townsley.jpg" alt="Headshot of Emilee Townsley">
+            <p>Click to read bio.</p>
+          </article>
+
+          <!-- Senator -->
+          <article class="card people-card" data-bio-id="adam-bretz">
+            <div class="kicker">Senator</div>
+            <h3>Adam Bretz</h3>
+            <p class="subtle">
+              <a href="mailto:email@rowan.edu?subject=Senator">email@rowan.edu</a>
+            </p>
+            <img src="/images/eboard/adam-bretz.jpg" alt="Headshot of Adam Bretz">
+            <p>Click to read bio.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Hidden bios (templates consumed by the modal) -->
+  <template id="bio-min-hwang">
+    <div class="role">President</div>
+    <p>Hi! My name is Min Hwang and I am your Rowan NAfME President. I am currently in my third year at Rowan and I double major in Music Education and Psychology. My primary instrument is the violin but I've marched 4 years of mellophone and am now one of the Rowan University Marching Band drum majors. In my free time I like to play volleyball or go running. This year, I'm excited to empower other music majors into becoming excellent educators.</p>
+  </template>
+
+  <template id="bio-cameron-hyson">
+    <div class="role">Vice President</div>
+    <p>Cameron Hyson is a tenor II from Millville, New Jersey. He is a Music Education major working to become a great educator. He has been teaching within church ministries his entire life, and is currently involved in the Rowan Concert Choir, the American Choral Directors Association, and much more. As NAfME vice president, Cameron is always free to talk about questions or concerns regarding events, PD’s, or general meetings.</p>
+  </template>
+
+  <template id="bio-jessenia-zavala">
+    <div class="role">Treasurer</div>
+    <p>Jessenia Zavala is a junior Vocal Music Education major at Rowan University and is excited to be serving as Treasurer for NAfME this year! In this role, she will oversee the club’s finances, help plan fundraisers and bake sales, and work with the e-board to lead engaging, interactive meetings for members. Jessenia also serves as Treasurer for ACDA, is a proud member of Tri Alpha, sings with Concert Choir, and studies voice with Professor Marian Stieber. She has previously performed with Rowan’s Opera Company, appearing as the Sandman in <em>Hansel and Gretel</em> and performing in the Fall Opera Scenes. Jessenia has also performed in several productions at Ocean County College, including <em>All Shook Up</em>, <em>Kiss Me, Kate</em>, and <em>Broadway for the Holidays 2 & 3</em>.</p>
+  </template>
+
+  <template id="bio-makayli-matias">
+    <div class="role">Secretary</div>
+    <p>Makayli Matias is a sophomore studying Vocal Music Education. She is thrilled to serve as Secretary for both Rowan’s NAfME and ACDA chapters this year, managing communication and tracking point totals for each organization. Makayli sings with both the Concert Choir and Voces ensemble and is also a member of Rowan’s Opera Company. Most recently, she was seen as the Dew Fairy in <em>Hansel and Gretel</em>. She looks forward to continuing to grow as a musician and leader through her involvement at Rowan.</p>
+  </template>
+
+  <template id="bio-emilee-townsley">
+    <div class="role">Social Media Coordinator</div>
+    <p>Emilee Townsley is a music education major with a concentration in voice. Going into her senior year, she is thrilled to fulfill her role as social media coordinator for NAfME. In this position, she will keep NAfME social platforms updated with the latest news on meetings and events, both inside the chapter and beyond. In addition, she will co-manage the chapter’s website and stay in communication with neighboring collegiate chapters. Emilee is also involved in Rowan’s Concert Choir, Voces ensemble, and ACDA chapter.</p>
+  </template>
+
+  <template id="bio-adam-bretz">
+    <div class="role">Senator</div>
+    <p>Adam is an Electrical &amp; Computer Engineering major with a minor in music (Organ Performance). In his role he attends Student Government meetings and represents the club's interests to the school. Aside from Adam's primary role, he also maintains the chapter's website.</p>
+  </template>
+
+  <!-- Modal -->
+  <div class="nafme-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="nafme-modal" role="document">
+      <button class="close" type="button" aria-label="Close">Close</button>
+      <figure><img alt=""></figure>
+      <div class="body">
+        <h3></h3>
+        <div class="role"></div>
+        <div class="bio"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer"></footer>
+  <script src="/assets/js/nav.js" defer></script>
+
+  <!-- Modal logic (scoped) -->
+  <script>
+    (function(){
+      const cards = document.querySelectorAll('.people-card');
+      const modal = document.querySelector('.nafme-modal-backdrop');
+      const img = modal.querySelector('img');
+      const nameEl = modal.querySelector('h3');
+      const roleEl = modal.querySelector('.role');
+      const bioEl = modal.querySelector('.bio');
+      const closeBtn = modal.querySelector('.close');
+
+      const bios = {
+        "min-hwang": { name: "Min Hwang", img: "/images/eboard/min-hwang.jpg", tmpl: "bio-min-hwang" },
+        "cameron-hyson": { name: "Cameron Hyson", img: "/images/eboard/cameron-hyson.jpg", tmpl: "bio-cameron-hyson" },
+        "jessenia-zavala": { name: "Jessenia Zavala", img: "/images/eboard/jessenia-zavala.jpg", tmpl: "bio-jessenia-zavala" },
+        "makayli-matias": { name: "Makayli Matias", img: "/images/eboard/makayli-matias.jpg", tmpl: "bio-makayli-matias" },
+        "emilee-townsley": { name: "Emilee Townsley", img: "/images/eboard/emilee-townsley.jpg", tmpl: "bio-emilee-townsley" },
+        "adam-bretz": { name: "Adam Bretz", img: "/images/eboard/adam-bretz.jpg", tmpl: "bio-adam-bretz" }
+      };
+
+      function openModal(id){
+        const entry = bios[id]; if(!entry) return;
+        const tpl = document.getElementById(entry.tmpl); if(!tpl) return;
+
+        img.src = entry.img;
+        img.alt = "Headshot of " + entry.name;
+        nameEl.textContent = entry.name;
+        roleEl.innerHTML = ''; bioEl.innerHTML = '';
+
+        const frag = tpl.content.cloneNode(true);
+        const role = frag.querySelector('.role');
+        if (role) roleEl.appendChild(role);
+        frag.querySelectorAll('p, em, strong, a, ul, li').forEach(el => bioEl.appendChild(el.cloneNode(true)));
+
+        modal.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal(){
+        modal.setAttribute('aria-hidden','true');
+        document.body.style.overflow = '';
+        img.src = ''; nameEl.textContent = '';
+        roleEl.innerHTML = ''; bioEl.innerHTML = '';
+      }
+
+      cards.forEach(card => {
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('a')) return; // allow mailto without modal
+          openModal(card.getAttribute('data-bio-id'));
+        });
+      });
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+      window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closeModal(); });
+    })();
+  </script>
+</body>
+</html>
