@@ -214,3 +214,21 @@ a{color:inherit;text-decoration:none}
 .form-embed { width: 100%; height: 900px; border: 0; border-radius: 12px; background: #fff; }
 @media (max-width: 768px) { .form-embed { height: 1200px; } }
 
+
+  .btn {
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:10px 14px; border-radius:10px; border:0; cursor:pointer;
+    background: var(--brand-gold, #f5c518); color:#111; font-weight:700;
+  }
+  .btn:hover { filter: brightness(0.95); }
+
+  .form-embed { width:100%; height:900px; border:0; border-radius:12px; background:#fff; }
+  @media (max-width: 768px) { .form-embed { height: 1200px; } }
+
+/* Buttons + form iframe */
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:10px;border:0;cursor:pointer;background:var(--brand-gold,#f5c518);color:#111;font-weight:700}
+.btn:hover{filter:brightness(.95)}
+.form-embed{width:100%;height:900px;border:0;border-radius:12px;background:#fff}
+@media (max-width:768px){.form-embed{height:1200px}}
+
+
