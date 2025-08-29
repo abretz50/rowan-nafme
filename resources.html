@@ -569,6 +569,28 @@ html{
   });
 })();
 </script>
+<script>
+window.addEventListener('load', () => {
+  // Grab a button/link from the nav to sample its styles
+  const navBtn = document.querySelector('.site-nav button, .site-nav a');
+  if (!navBtn) return;
+
+  const cs = getComputedStyle(navBtn);
+  const bgImage = cs.backgroundImage;
+  const bgColor = cs.backgroundColor;
+  const borderColor = cs.borderColor;
+
+  // If nav uses a gradient, prefer that; otherwise use the solid color
+  document.documentElement.style.setProperty(
+    '--nav-btn-background',
+    (bgImage && bgImage !== 'none') ? bgImage : bgColor
+  );
+  document.documentElement.style.setProperty('--nav-btn-fg', cs.color || '#111');
+  if (borderColor) {
+    document.documentElement.style.setProperty('--nav-btn-border', borderColor);
+  }
+});
+</script>
 
 <script>(() => {
   const body = document.body;
