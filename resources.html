@@ -77,8 +77,6 @@
 <div class="modal-overlay" data-close=""></div>
 <div class="modal-content">
 <div class="modal-header">
-
-
 </div><section>
 <h4>Student Services &amp; Wellness</h4>
 <ul>
@@ -107,23 +105,49 @@
 <li><a href="https://www.youtube.com/watch?v=8F1lkGQSI5s" rel="noopener" target="_blank">Intro to Program (YouTube)</a> — quick overview of the major and tracks.</li>
 </ul>
 </section>
-
 </div>
 </div>
 <!-- SUPPORT -->
-
 <!-- TOOLS -->
-
 <!-- QUICK LINKS -->
-
 <!-- CHAPTER -->
-
 <!-- NJMEA -->
-
 <!-- NAFME -->
-
 <!-- Modal controller -->
+<script>
+    (function () {
+      const openById = id => {
+        const m = document.getElementById(id);
+        if (!m) return;
+        m.classList.add('open');
+        m.removeAttribute('hidden');
+        document.body.style.overflow = 'hidden';
+        m.querySelector('.close-btn')?.focus();
+      };
+      const closeModal = m => {
+        m.classList.remove('open');
+        m.setAttribute('hidden', '');
+        document.body.style.overflow = '';
+      };
 
+      // Open on card click
+      document.querySelectorAll('[data-modal]').forEach(card => {
+        card.addEventListener('click', () => openById(card.getAttribute('data-modal')));
+      });
 
-</body>
+      // Close on overlay or X
+      document.querySelectorAll('.modal').forEach(m => {
+        m.addEventListener('click', e => {
+          if (e.target.matches('[data-close], .modal-overlay')) closeModal(m);
+        });
+      });
+
+      // ESC to close
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+          document.querySelectorAll('.modal.open').forEach(closeModal);
+        }
+      });
+    })();
+  </script><script defer="True" src="/assets/js/nav.js"></script></body>
 </html>
