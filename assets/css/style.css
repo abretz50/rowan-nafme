@@ -246,5 +246,35 @@ a{color:inherit;text-decoration:none}
 }
 .btn:hover{ filter: brightness(0.95); }
 
+/* Portrait-friendly headshots (cards + modals) */
+:root{
+  --headshot-ratio: 4 / 5;   /* try 3/4 or 1/1 if you prefer */
+  --headshot-focus: 25%;     /* push crop up a bit for faces */
+}
+
+/* Cards */
+.grid.people-grid .card.people-card img{
+  width: 100%;
+  height: auto;
+  aspect-ratio: var(--headshot-ratio);
+  object-fit: cover;
+  object-position: 50% var(--headshot-focus); /* center, slightly high */
+  border-radius: 12px;
+}
+
+/* Modals */
+.modal .headshot{
+  aspect-ratio: var(--headshot-ratio);
+  overflow: hidden;
+  border-radius: 12px;
+}
+.modal .headshot img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% var(--headshot-focus);
+}
+
+
 
 
