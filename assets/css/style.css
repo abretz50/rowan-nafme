@@ -206,3 +206,9 @@ a{color:inherit;text-decoration:none}
   .modal-content{ padding: 16px; }
   .close-btn{ width:38px; height:38px; }
 }
+
+.contact-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.contact { display: flex; gap: 12px; align-items: flex-start; }
+.contact-photo { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; }
+.meta { line-height: 1.4; }
+
