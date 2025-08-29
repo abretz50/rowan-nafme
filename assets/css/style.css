@@ -333,6 +333,49 @@ a{color:inherit;text-decoration:none}
   }
 }
 
+/* === E-Board modal: compact, left-anchored, portrait photo (overrides) === */
+.nafme-modal-backdrop[aria-hidden="false"]{
+  justify-content: flex-start !important;   /* left instead of centered */
+  align-items: flex-start !important;
+  padding-top: 6vh !important;
+  padding-left: clamp(16px, 4vw, 48px) !important; /* space from edge */
+  padding-right: 16px !important;
+}
+
+.nafme-modal{
+  width: 560px !important;                  /* make it smaller */
+  max-width: 92vw !important;
+  gap: .9rem !important;
+  padding: .9rem 1rem 1rem !important;
+}
+
+/* smaller portrait image column on the LEFT */
+.nafme-modal figure{
+  flex: 0 0 120px !important;
+  width: 120px !important;
+  height: auto !important;                   /* allow aspect-ratio to work */
+  aspect-ratio: 3 / 4 !important;            /* portrait crop */
+  border-radius: 12px !important;
+  overflow: hidden !important;
+}
+.nafme-modal img{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: 50% 25% !important;       /* bias toward faces */
+}
+
+/* tighter text */
+.nafme-modal h3{ font-size: 1.25rem !important; margin: .15rem 0 .35rem !important; }
+.nafme-modal .role{ margin: 0 0 .35rem !important; font-weight: 600 !important; }
+.nafme-modal p{ margin: .35rem 0 !important; line-height: 1.4 !important; }
+
+/* mobile: center it and let it grow */
+@media (max-width: 700px){
+  .nafme-modal-backdrop[aria-hidden="false"]{ justify-content: center !important; }
+  .nafme-modal{ width: min(95vw, 640px) !important; }
+  .nafme-modal figure{ flex-basis: 100px !important; width: 100px !important; }
+}
 
 
 
