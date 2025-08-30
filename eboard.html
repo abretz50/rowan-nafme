@@ -36,6 +36,38 @@
 /* E-Board ONLY: maintain card spacing after heading-type swap */
 .grid.people-grid .card.people-card h3.kicker{ margin: 0 0 4px 0; font-size: .95rem; font-weight: 600; }
 .grid.people-grid .card.people-card h4.person-name{ margin: 0 0 4px 0; font-size: 1.1rem; }
+
+/* Center all E-Board popup content */
+.modal .modal-content {
+  text-align: center;         /* center text */
+  display: flex;              /* use flexbox */
+  flex-direction: column;     /* stack items vertically */
+  align-items: center;        /* center items horizontally */
+}
+
+.modal .modal-header {
+  flex-direction: column;     /* photo above name */
+  align-items: center;
+  gap: 8px;
+}
+
+.modal .title-row {
+  flex-direction: column;     /* stack image + name */
+  align-items: center;
+  text-align: center;
+}
+
+.modal .title-row img.contact-photo {
+  width: 120px;               /* smaller, uniform size */
+  height: 120px;
+  border-radius: 50%;         /* make round */
+  object-fit: cover;
+}
+
+.modal .meta-line {
+  text-align: center;         /* role + email centered */
+}
+
 </style>
 </head>
 <body>
