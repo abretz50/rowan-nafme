@@ -127,6 +127,54 @@
     }
     .filters .switch[aria-pressed="true"] .knob{ background: rgba(255,255,255,.18); border-color: var(--border); }
     .filters .switch[aria-pressed="true"] .knob::after{ transform: translateX(14px); background: var(--brand-cyan); }
+
+    /* Events page: normalize button text sizes (cards, chips, switch) */
+    #eventsList .button,
+    .filters .chip,
+    .filters .switch{
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    /* Ensure card buttons have consistent height & alignment */
+    #eventsList .button{
+      display:inline-flex; align-items:center; justify-content:center;
+      height: var(--tap); padding: 0 18px;
+    }
+
+    /* Card images: fixed ratio + rounded corners */
+    #eventsList .event-photo{
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      border-radius: 14px;
+      background: rgba(0,0,0,.2);
+    }
+
+    /* Modal (events popups): center every element */
+    .modal .modal-header{
+      display:flex; align-items:center; justify-content:center; position:relative;
+      text-align:center;
+    }
+    .modal .modal-header .close-btn{ position:absolute; right:10px; top:10px; }
+    .modal .modal-content section{
+      text-align:center;
+    }
+    .modal .modal-content section > img.convention-thumb{
+      width: clamp(240px, 60vw, 560px);
+      aspect-ratio: 16 / 9;
+      height: auto;
+      display:block;
+      margin: 0 auto 12px auto;
+      object-fit: cover;
+      border-radius: 16px;
+    }
+    /* Center the buttons row inside the modal section */
+    .modal .modal-content section > div{
+      display:flex; gap:.5rem; flex-wrap:wrap; justify-content:center;
+    }
 </style>
 </head>
 <body>
