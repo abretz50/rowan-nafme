@@ -193,6 +193,29 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+/* Left-align meta (date • location) and tags inside centered cards */
+#eventsList .event-card .event-meta,
+#eventsList .event-card .event-badges{
+  align-self: stretch;   /* take full card width */
+  text-align: left;      /* left-align text */
+}
+
+/* (Optional) match this behavior in the popup too */
+.modal .event-meta,
+.modal .event-badges{
+  text-align: left;
+  align-self: stretch;
+}
+
+/* Add more breathing room above the buttons row */
+#eventsList .event-actions {
+  margin-top: 1rem; /* was .5rem → now doubled */
+}
+
+.modal .modal-content section > div {
+  margin-top: 1rem; /* was .5rem inline → override */
+}
+
 
   </style>
 </head>
