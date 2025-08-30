@@ -215,7 +215,33 @@
 .modal .modal-content section > div {
   margin-top: 1rem; /* was .5rem inline → override */
 }
+/* Left-align everything inside event cards */
+#eventsList .event-card .card-body{
+  text-align: left;
+  align-items: flex-start;   /* was center */
+}
 
+/* Keep buttons side-by-side (left-aligned) */
+#eventsList .event-actions{
+  justify-content: flex-start;   /* was center */
+}
+
+/* Force-wrap helper for chips */
+.filters .chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.filters .chips .chip-break{
+  flex-basis: 100%;   /* take full width => next items go to new row */
+  height: 0;          /* no visible height */
+}
+
+/* On small screens, let chips flow naturally (remove the forced break) */
+@media (max-width: 640px){
+  .filters .chips .chip-break{ display: none; }
+}
 
   </style>
 </head>
@@ -241,6 +267,8 @@
               <button class="button chip" data-filter="events" aria-pressed="false">Events</button>
               <button class="button chip" data-filter="meeting" aria-pressed="false">Meetings</button>
               <button class="button chip" data-filter="professional-development" aria-pressed="false">Professional Developments</button>
+	      <!-- force next chips onto a new row -->
+              <span class="chip-break" aria-hidden="true"></span>
               <button class="button chip" data-filter="workshop" aria-pressed="false">Workshop</button>
               <button class="button chip" data-filter="volunteer" aria-pressed="false">Volunteer</button>
 	      <button class="button chip" data-filter="performance" aria-pressed="false">Performances</button>
