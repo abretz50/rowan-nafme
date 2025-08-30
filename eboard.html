@@ -67,6 +67,46 @@
 .modal .meta-line {
   text-align: center;         /* role + email centered */
 }
+/* Center popup content, but keep the close button top-right */
+.modal .modal-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; /* needed for absolute positioning of ✕ */
+  padding-top: 2rem;  /* space so ✕ doesn’t overlap */
+}
+
+.modal .modal-header {
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+/* ✕ stays in the corner */
+.modal .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.modal .title-row {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.modal .title-row img.contact-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.modal .meta-line {
+  text-align: center;
+}
 
 </style>
 </head>
