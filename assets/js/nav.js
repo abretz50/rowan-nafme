@@ -1,54 +1,40 @@
+(function () {
+  const navRoot = document.querySelector('.site-nav');
+  if (!navRoot) return;
 
-(function(){
-  const SITE_BASE = (window.SITE_BASE || "").replace(/\/$/, "");
-  const resolve = (p) => SITE_BASE + p;
+  // Render the nav with clean, extensionless routes
+  navRoot.innerHTML = `
+    <div class="nav-inner">
+      <a class="brand" href="/home">
+        <img src="/images/logo.png" alt="Rowan NAfME" height="28">
+        <span>Rowan NAfME</span>
+      </a>
+      <div class="links">
+        <a href="/home"        data-slug="home">Home</a>
+        <a href="/events"      data-slug="events">Events</a>
+        <a href="/convention"  data-slug="convention">Convention</a>
+        <a href="/eboard"      data-slug="eboard">E-Board</a>
+        <a href="/resources"   data-slug="resources">Resources</a>
+        <a href="/gallery"     data-slug="gallery">Gallery</a>
+        <a href="/contact"     data-slug="contact">Contact</a>
+      </div>
+    </div>
+  `;
 
-  async function inject(selector, paths){
-    const host = document.querySelector(selector);
-    if (!host) return;
-    for (const p of paths){
-      try{
-        const r = await fetch(resolve(p), { cache: "no-cache" });
-        if (r.ok){
-          host.outerHTML = await r.text();
-          return;
-        }
-      }catch(e){/* try next */}
-    }
-    console.error("Failed to load partial", selector);
+  // Work out the slug from the current URL, tolerant of many forms
+  const path = window.location.pathname;               // e.g., /events, /events.html, /events/index.html, /
+  const parts = path.split('/').filter(Boolean);       // ["events"] or ["events","index.html"] or []
+  let slug = (parts[0] || 'home').toLowerCase();       // default to 'home' when at '/'
+  if (slug.endsWith('.html')) slug = slug.replace(/\.html$/, '');
+  if (slug === 'index') slug = 'home';                 // handle '/index.html'
+  if (parts.length >= 2 && (parts[1] === 'index' || parts[1] === 'index.html')) {
+    slug = parts[0].toLowerCase();                     // '/X/index(.html)?' → slug = X
   }
 
-  function setLinksAndActive(){
-    const here = (location.pathname.replace(/\/$/, "") || "/");
-    document.querySelectorAll("a[data-href]").forEach(a => {
-      const target = a.getAttribute("data-href");
-      const href = resolve(target);
-      a.setAttribute("href", href);
-
-      const normTarget = (target.replace(/\/$/, "") || "/");
-      if (here === normTarget || (normTarget !== "/" && here.startsWith(normTarget))) {
-        a.classList.add("active");
-        a.setAttribute("aria-current","page");
-      }
-    });
+  // Mark the matching link as active & accessible
+  const active = navRoot.querySelector(`a[data-slug="${slug}"]`);
+  if (active) {
+    active.classList.add('active');
+    active.setAttribute('aria-current', 'page');
   }
-
-  function wireMenu(){
-    const btn = document.getElementById("navToggle");
-    const links = document.getElementById("navLinks");
-    if(!btn || !links) return;
-    btn.addEventListener("click", () => {
-      const showing = links.classList.toggle("show");
-      btn.setAttribute("aria-expanded", showing ? "true" : "false");
-    });
-  }
-
-  async function boot(){
-    await inject("nav.site-nav", ["/partials/nav.html","partials/nav.html"]);
-    setLinksAndActive();
-    wireMenu();
-    await inject("footer.site-footer", ["/partials/footer.html","partials/footer.html"]);
-    setLinksAndActive();
-  }
-  document.addEventListener("DOMContentLoaded", boot);
 })();

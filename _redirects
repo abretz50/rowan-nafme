@@ -1,0 +1,20 @@
+# Make / the canonical /home
+/               /home           301!
+
+# Clean URLs served by existing HTML (internal rewrite)
+/home           /index.html      200
+/events         /events.html     200
+/convention     /convention.html 200
+/eboard         /eboard.html     200
+/resources      /resources.html  200
+/contact        /contact.html    200
+/gallery        /gallery.html    200
+
+# Redirect old .html to clean URLs
+/index.html      /home         301!
+/events.html     /events       301!
+/convention.html /convention   301!
+/eboard.html     /eboard       301!
+/resources.html  /resources    301!
+/contact.html    /contact      301!
+/gallery.html    /gallery      301!
