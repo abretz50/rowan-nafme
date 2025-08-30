@@ -11,18 +11,6 @@
 
   <style>
     /* Convention page-only refinements */
-    .local-nav{
-      position: sticky; top: 8px; z-index: 5;
-      background: rgba(15,34,57,.65);
-      backdrop-filter: blur(6px);
-      border:1px solid var(--border);
-      border-radius: 12px;
-      box-shadow: var(--shadow);
-      padding: 8px 12px; margin-top: 12px;
-    }
-    .local-nav a{ text-decoration: none; color: var(--text); font-weight: 700; }
-    .local-nav .sep{ opacity:.5; padding:0 8px; }
-
     /* Equalize card heights in grids on this page */
     .section .grid > .card,
     .section .grid > article.card{ display:flex; flex-direction:column; height:100%; }
@@ -44,7 +32,11 @@
     .faq summary{ cursor:pointer; font-weight:700; }
     .faq summary::-webkit-details-marker{ display:none; }
     .faq details[open]{ background: rgba(255,255,255,.06); }
-  </style>
+  
+    /* Convention page only: size brand logo (NJMEA) for nav */
+    .site-nav .brand img{ height: 36px; width: auto; }
+    @media (min-width: 900px){ .site-nav .brand img{ height: 40px; } }
+    </style>
 </head>
 <body>
   <!-- Shared navbar populated by /assets/js/nav.js -->
@@ -64,17 +56,6 @@
       </div>
     </div>
   </header>
-
-    <nav class="local-nav container" aria-label="Page">
-      <a href="#dates">Dates</a><span class="sep">•</span>
-      <a href="#register">Register</a><span class="sep">•</span>
-      <a href="#travel">Travel & Housing</a><span class="sep">•</span>
-      <a href="#overview">Overview</a><span class="sep">•</span>
-      <a href="#gallery">Gallery</a><span class="sep">•</span>
-      <a href="#faq">FAQ</a>
-    </nav>
-
-
   <main>
     <!-- Cover image -->
     <section class="section" id="dates">
@@ -234,5 +215,22 @@
 
   <!-- Shared nav/foot loader -->
   <script src="/assets/js/nav.js" defer></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      // Try common brand containers
+      var brand = document.querySelector('.site-nav .brand') || document.querySelector('.site-nav a[href="/"]');
+      if(brand){
+        var img = brand.querySelector('img');
+        if(!img){
+          img = document.createElement('img');
+          brand.prepend(img);
+        }
+        img.src = '/images/njmea-logo.png';
+        img.alt = 'NJMEA';
+      }
+    });
+  </script>
+
 </body>
 </html>
