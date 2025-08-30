@@ -8,53 +8,137 @@
   <link rel="preload" as="image" href="/images/background.png">
   <link rel="icon" href="/images/logo.png">
   <link rel="stylesheet" href="/assets/css/style.css">
+
+  <!-- Home-only styles for Connect/Gallery buttons and minor hero tweaks -->
+  <style>
+    /* Home-only: logo/partner buttons layout */
+    .logo-strip{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .button.icon{
+      display: inline-flex; align-items: center; gap: 10px;
+      padding-left: 14px; padding-right: 16px;
+    }
+    .button.icon img{
+      width: 20px; height: 20px; object-fit: contain; filter: drop-shadow(0 0 0 transparent);
+    }
+
+    /* Keep hero CTAs from wrapping mid-word on narrow widths */
+    .hero .hero-inner .button{ white-space: nowrap; }
+  </style>
 </head>
 <body>
   <nav class="site-nav"></nav>
 
-  
-<header class="hero">
-  <div class="hero-inner container">
-    <div>
-      <h1>Rowan NAfME</h1>
-      <p>Future music educators, building community through professional development, service, and performance. Join us for workshops, volunteering, and the state convention.</p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
-        <a class="button primary" href="/events.html">See Upcoming Events</a>
-        <a class="button" href="/resources.html">Member Resources</a>
+  <header class="hero">
+    <div class="hero-inner container">
+      <div>
+        <h1>Rowan NAfME</h1>
+        <p>Future music educators, building community through professional development, service, and performance. Join us for workshops, volunteering, and the state convention.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+          <a class="button primary" href="/events.html">See Upcoming Events</a>
+          <a class="button" href="/resources.html">Member Resources</a>
+        </div>
+      </div>
+      <div>
+        <!-- Bigger hero logo -->
+        <img src="/images/logo.png" alt="Rowan NAfME logo"
+             style="width: clamp(200px, 28vw, 360px); height:auto; margin-inline:auto;
+                    filter:drop-shadow(0 10px 24px rgba(0,0,0,.25));">
       </div>
     </div>
-    <div>
-      <img src="/images/logo.png" alt="Rowan NAfME logo" style="width: clamp(160px, 22vw, 280px);height:auto;margin-inline:auto;filter:drop-shadow(0 10px 24px rgba(0,0,0,.25));">
-    </div>
-  </div>
-</header>
+  </header>
 
-<main>
-  <section class="section">
-    <div class="container">
-      <h2>What we do</h2>
-      <p class="subtle">Professional growth, service, and community — with opportunities for every music ed track.</p>
-      <div class="grid">
-        <article class="card">
-          <div class="kicker">Professional Development</div>
-          <h3>Clinics &amp; Workshops</h3>
-          <p>Hands-on sessions led by faculty and visiting educators: rehearsal strategies, tech in the classroom, lesson design, and more.</p>
-        </article>
-        <article class="card">
-          <div class="kicker">Service</div>
-          <h3>Volunteer &amp; Outreach</h3>
-          <p>Give back through events like the Instrument Petting Zoo and regional festivals. Earn volunteer hours and real-world experience.</p>
-        </article>
-        <article class="card">
-          <div class="kicker">Community</div>
-          <h3>Convention &amp; Networking</h3>
-          <p>Travel together to the state conference. Learn, connect, and bring ideas back to campus.</p>
-        </article>
+  <main>
+    <section class="section">
+      <div class="container">
+        <h2>What we do</h2>
+        <p class="subtle">Professional growth, service, and community — with opportunities for every music ed track.</p>
+        <div class="grid">
+          <article class="card">
+            <div class="kicker">Professional Development</div>
+            <h3>Clinics &amp; Workshops</h3>
+            <p>Hands-on sessions led by faculty and visiting educators: rehearsal strategies, tech in the classroom, lesson design, and more.</p>
+          </article>
+          <article class="card">
+            <div class="kicker">Service</div>
+            <h3>Volunteer &amp; Outreach</h3>
+            <p>Give back through events like the Instrument Petting Zoo and regional festivals. Earn volunteer hours and real-world experience.</p>
+          </article>
+          <article class="card">
+            <div class="kicker">Community</div>
+            <h3>Convention &amp; Networking</h3>
+            <p>Travel together to the state conference. Learn, connect, and bring ideas back to campus.</p>
+          </article>
+        </div>
       </div>
-    </div>
-  </section>
-</main>
+    </section>
 
+    <!-- Connect & Gallery -->
+    <section class="section">
+      <div class="container">
+        <h2>Connect &amp; Gallery</h2>
+        <p class="subtle">Follow us, explore partner orgs, and browse chapter photos.</p>
+
+        <div class="logo-strip">
+          <a class="button icon" href="https://instagram.com/rowannafme" target="_blank" rel="noopener">
+            <img src="/images/social/instagram.svg" alt="" aria-hidden="true">
+            <span>@rowannafme</span>
+          </a>
+
+          <a class="button icon" href="https://nafme.org" target="_blank" rel="noopener">
+            <img src="/images/partners/nafme.svg" alt="" aria-hidden="true">
+            <span>NAfME</span>
+          </a>
+
+          <a class="button icon" href="https://www.njmea.org" target="_blank" rel="noopener">
+            <img src="/images/partners/njmea.svg" alt="" aria-hidden="true">
+            <span>NJMEA</span>
+          </a>
+
+          <!-- Gallery buttons (match Resources look using .button / .primary) -->
+          <a class="button primary" href="/gallery.html">Photo Gallery</a>
+          <a class="button" href="https://forms.gle/your-form" target="_blank" rel="noopener">Submit Photos</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Points System -->
+    <section class="section">
+      <div class="container">
+        <h2>Points System</h2>
+        <p class="subtle">Earn points for meetings, professional development, service, and performances. Points help with priority for funding and leadership opportunities.</p>
+
+        <div class="grid" style="--grid-min:220px">
+          <article class="card">
+            <h3>Meetings</h3>
+            <p><strong>1 point</strong> per general meeting.</p>
+          </article>
+          <article class="card">
+            <h3>Professional Development</h3>
+            <p><strong>2 points</strong> per workshop/clinic.</p>
+          </article>
+          <article class="card">
+            <h3>Volunteer / Service</h3>
+            <p><strong>2–3 points</strong> depending on duration.</p>
+          </article>
+          <article class="card">
+            <h3>Performances</h3>
+            <p><strong>1 point</strong> for chapter-sponsored performances.</p>
+          </article>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px">
+          <!-- Link these to your actual sheets/forms when ready -->
+          <a class="button primary" href="https://docs.google.com/spreadsheets/d/your-points-sheet" target="_blank" rel="noopener">Check Your Points</a>
+          <a class="button" href="https://docs.google.com/forms/d/your-correction-form" target="_blank" rel="noopener">Report a Correction</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <footer class="site-footer"></footer>
   <script src="/assets/js/nav.js" defer></script>
