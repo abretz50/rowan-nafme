@@ -99,78 +99,102 @@
   <script src="/assets/js/nav.js" defer></script>
 
   <script>
-  (function(){
-    // Where we’ll look for your file list
-    const MANIFEST_URL = "/images/gallery/manifest.json";
+(function(){
+  // Use a RELATIVE path (works from subfolders too)
+  const MANIFEST_URL = "images/gallery/manifest.json";
+  // Build absolute URLs from the manifest location
+  const BASE = new URL(MANIFEST_URL, window.location.href);
+  const SUPPORTED_RE = /\.(jpe?g|png|webp|gif)$/i;
 
-    // Optional fallback: paste filenames here if you don’t want a manifest.json yet.
-    // Example: [ "workshop-01.jpg", "zoo-violin.png", "pd-guest.webp" ]
-    const IMAGES_FALLBACK = []; // fill like ["a.jpg","b.png"]
+  const gallery  = document.getElementById("gallery");
+  const statusEl = document.getElementById("status");
+  const countEl  = document.getElementById("count");
 
-    const gallery  = document.getElementById("gallery");
-    const statusEl = document.getElementById("status");
-    const countEl  = document.getElementById("count");
+  function toTitle(src){
+    const name = (src||"").split("/").pop().replace(/\.[^.]+$/,"");
+    return name.replace(/[_-]+/g," ").replace(/\s+/g," ").trim();
+  }
 
-    function toTitle(src){
-      const name = (src||"").split("/").pop().replace(/\.[^.]+$/,"");
-      return name.replace(/[_-]+/g," ").replace(/\s+/g," ").trim();
+  // Accept ["a.jpg", ...] or [{src, title, caption}, ...]
+  function normalizeList(list){
+    const out = [];
+    for (const x of (list||[])) {
+      const raw = (typeof x === "string") ? x : (x?.src || "");
+      // Resolve paths relative to the manifest location
+      const url = /^(https?:|data:|\/)/i.test(raw) ? raw : new URL(raw, BASE).href;
+      const item = {
+        src: url,
+        title: (typeof x === "string" ? toTitle(raw) : (x.title || toTitle(raw))),
+        caption: (typeof x === "string" ? "" : (x.caption || ""))
+      };
+      out.push(item);
+    }
+    return out;
+  }
+
+  async function loadManifest(){
+    try{
+      const res = await fetch(MANIFEST_URL, { cache: "no-store" });
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+      const data = await res.json();
+      return normalizeList(data);
+    }catch(err){
+      statusEl.innerHTML =
+        `<p class="error">Could not load <code>${MANIFEST_URL}</code> (${err.message}). ` +
+        `Make sure the file is at <code>images/gallery/manifest.json</code>.</p>`;
+      return [];
+    }
+  }
+
+  function render(items){
+    if(!items.length){
+      gallery.innerHTML =
+        `<p class='empty'>No photos yet. Add images to <code>images/gallery/</code> ` +
+        `and list them in <code>manifest.json</code>.</p>`;
+      countEl.textContent = "";
+      return;
     }
 
-    function normalizeList(list){
-      // Accept ["a.jpg", ...] or [{src, title, caption}, ...]
-      return (list||[]).map(x => {
-        if (typeof x === "string") return { src: "/images/gallery/" + x, title: toTitle(x) };
-        const src = x.src.startsWith("/") ? x.src : "/images/gallery/" + x.src;
-        return { src, title: x.title || toTitle(src), caption: x.caption || "" };
-      });
-    }
-
-    async function loadManifest(){
-      try{
-        const res = await fetch(MANIFEST_URL, {cache:"no-store"});
-        if (!res.ok) throw new Error("manifest missing");
-        const data = await res.json();
-        return normalizeList(data);
-      }catch(_){
-        return normalizeList(IMAGES_FALLBACK);
-      }
-    }
-
-    function render(items){
-      if(!items.length){
-        gallery.innerHTML = "<p class='empty'>No photos yet. Add images to <code>/images/gallery</code> and list them in <code>manifest.json</code>.</p>";
-        return;
-      }
-      // newest-first if filenames contain dates; otherwise just render order
-      const html = items.map(it => `
-        <a class="item" href="${it.src}" data-full="${it.src}" data-title="${it.title}">
-          <img loading="lazy" src="${it.src}" alt="${it.title}">
-        </a>
-      `).join("");
-      gallery.innerHTML = html;
-      countEl.textContent = items.length + " photos";
-
-      // lightbox
-      const lb = document.getElementById("lightbox");
-      const lbImg = document.getElementById("lbImg");
-      const lbClose = document.getElementById("lbClose");
-      function open(full, title){ lbImg.src = full; lbImg.alt = title || ""; lb.classList.add("open"); lb.removeAttribute("hidden"); }
-      function close(){ lb.classList.remove("open"); lb.setAttribute("hidden",""); lbImg.src = ""; }
-      gallery.querySelectorAll(".item").forEach(a => {
-        a.addEventListener("click", (e) => { e.preventDefault(); open(a.dataset.full, a.dataset.title); });
-      });
-      lb.addEventListener("click", (e) => { if(e.target === lb) close(); });
-      lbClose.addEventListener("click", close);
-      document.addEventListener("keydown", (e) => { if(e.key === "Escape") close(); });
-    }
-
-    (async function init(){
-      statusEl.textContent = "Loading photos…";
-      const items = await loadManifest();
+    // Filter out unsupported types (e.g., HEIC won’t render in most browsers)
+    const supported = items.filter(it => SUPPORTED_RE.test(it.src));
+    const skipped = items.length - supported.length;
+    if (skipped > 0) {
+      statusEl.innerHTML =
+        `<p class="subtle">Skipped ${skipped} unsupported file(s) (e.g., HEIC). ` +
+        `Convert to JPG/PNG/WebP and update the manifest.</p>`;
+    } else {
       statusEl.textContent = "";
-      render(items);
-    })();
+    }
+
+    const html = supported.map(it => `
+      <a class="item" href="${it.src}" data-full="${it.src}" data-title="${it.title}">
+        <img loading="lazy" src="${it.src}" alt="${it.title}">
+      </a>
+    `).join("");
+    gallery.innerHTML = html;
+    countEl.textContent = `${supported.length} photos`;
+
+    // Lightbox
+    const lb = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lbImg");
+    const lbClose = document.getElementById("lbClose");
+    function open(full, title){ lbImg.src = full; lbImg.alt = title || ""; lb.classList.add("open"); lb.removeAttribute("hidden"); }
+    function close(){ lb.classList.remove("open"); lb.setAttribute("hidden",""); lbImg.src = ""; }
+    gallery.querySelectorAll(".item").forEach(a => {
+      a.addEventListener("click", (e) => { e.preventDefault(); open(a.dataset.full, a.dataset.title); });
+    });
+    lb.addEventListener("click", (e) => { if(e.target === lb) close(); });
+    lbClose.addEventListener("click", close);
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+  }
+
+  (async function init(){
+    statusEl.textContent = "Loading photos…";
+    const items = await loadManifest();
+    render(items);
   })();
-  </script>
+})();
+</script>
+
 </body>
 </html>
