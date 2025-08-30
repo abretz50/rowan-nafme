@@ -28,6 +28,14 @@
 .modal .title-row{
   display:flex; align-items:center; gap:12px;
 }
+
+/* E-Board ONLY: meta line under title */
+.modal .meta-line{ color: var(--muted); margin: 0 0 .5rem; }
+.modal .meta-line a{ color: inherit; text-decoration: underline; }
+
+/* E-Board ONLY: maintain card spacing after heading-type swap */
+.grid.people-grid .card.people-card h3.kicker{ margin: 0 0 4px 0; font-size: .95rem; font-weight: 600; }
+.grid.people-grid .card.people-card h4.person-name{ margin: 0 0 4px 0; font-size: 1.1rem; }
 </style>
 </head>
 <body>
@@ -51,8 +59,8 @@
           <!-- President -->
           <article class="card people-card" data-modal="modal-min-hwang">
             <img src="/images/eboard/min-hwang.jpg" alt="Headshot of Min Hwang" loading="lazy" />
-            <div class="kicker">President</div>
-            <h3>Min Hwang</h3>
+            <h3 class="kicker">President</h3>
+            <h4 class="person-name">Min Hwang</h4>
             <p class="subtle">
               <a href="mailto:hwangm14@students.rowan.edu?subject=NAfME%20President">hwangm14@students.rowan.edu</a>
             </p>
@@ -62,8 +70,8 @@
           <!-- Vice President -->
           <article class="card people-card" data-modal="modal-cameron-hyson">
             <img src="/images/eboard/cameron-hyson.jpg" alt="Headshot of Cameron Hyson" loading="lazy" />
-            <div class="kicker">Vice President</div>
-            <h3>Cameron Hyson</h3>
+            <h3 class="kicker">Vice President</h3>
+            <h4 class="person-name">Cameron Hyson</h4>
             <p class="subtle">
               <a href="mailto:hysonc84@rowan.edu?subject=NAfME%20Vice%20President">hysonc84@rowan.edu</a>
             </p>
@@ -73,8 +81,8 @@
           <!-- Treasurer -->
           <article class="card people-card" data-modal="modal-jessenia-zavala">
             <img src="/images/eboard/jessenia-zavala.jpg" alt="Headshot of Jessenia Zavala" loading="lazy" />
-            <div class="kicker">Treasurer</div>
-            <h3>Jessenia Zavala</h3>
+            <h3 class="kicker">Treasurer</h3>
+            <h4 class="person-name">Jessenia Zavala</h4>
             <p class="subtle">
               <a href="mailto:zavala34@students.rowan.edu?subject=Treasurer">zavala34@students.rowan.edu</a>
             </p>
@@ -84,8 +92,8 @@
           <!-- Secretary -->
           <article class="card people-card" data-modal="modal-makayli-matias">
             <img src="/images/eboard/makayli-matias.jpg" alt="Headshot of Makayli Matias" loading="lazy" />
-            <div class="kicker">Secretary</div>
-            <h3>Makayli Matias</h3>
+            <h3 class="kicker">Secretary</h3>
+            <h4 class="person-name">Makayli Matias</h4>
             <p class="subtle">
               <a href="mailto:matias85@rowan.edu?subject=Secretary">matias85@rowan.edu</a>
             </p>
@@ -95,8 +103,8 @@
           <!-- Social Media Coordinator -->
           <article class="card people-card" data-modal="modal-emilee-townsley">
             <img src="/images/eboard/emilee-townsley.jpg" alt="Headshot of Emilee Townsley" loading="lazy" />
-            <div class="kicker">Social Media Coordinator</div>
-            <h3>Emilee Townsley</h3>
+            <h3 class="kicker">Social Media Coordinator</h3>
+            <h4 class="person-name">Emilee Townsley</h4>
             <p class="subtle">
               <a href="mailto:townsl72@students.rowan.edu?subject=Social%20Media">townsl72@students.rowan.edu</a>
             </p>
@@ -106,8 +114,8 @@
           <!-- Senator -->
           <article class="card people-card" data-modal="modal-adam-bretz">
             <img src="/images/eboard/adam-bretz.jpg" alt="Headshot of Adam Bretz" loading="lazy" />
-            <div class="kicker">Senator</div>
-            <h3>Adam Bretz</h3>
+            <h3 class="kicker">Senator</h3>
+            <h4 class="person-name">Adam Bretz</h4>
             <p class="subtle">
               <a href="mailto:bretza67@students.rowan.edu?subject=Senator">bretza67@students.rowan.edu</a>
             </p>
@@ -129,6 +137,7 @@
 <button class="close-btn" data-close="True" aria-label="Close">✕</button>
 </div>
       <section>
+        <p class="meta-line"><span class="role">President</span> <span aria-hidden="true">|</span> <a href="mailto:hwangm14@students.rowan.edu">hwangm14@students.rowan.edu</a></p>
 <p>Hi! My name is Min Hwang and I am your Rowan NAfME President. I am currently in my third year at Rowan and I double major in Music Education and Psychology. My primary instrument is the violin but I've marched 4 years of mellophone and am now one of the Rowan University Marching Band drum majors. In my free time I like to play volleyball or go running. This year, I'm excited to empower other music majors into becoming excellent educators.</p>
       </section>
     </div>
@@ -143,6 +152,7 @@
 <button class="close-btn" data-close="True" aria-label="Close">✕</button>
 </div>
       <section>
+        <p class="meta-line"><span class="role">Vice President</span> <span aria-hidden="true">|</span> <a href="mailto:hysonc84@rowan.edu">hysonc84@rowan.edu</a></p>
 <p>Cameron Hyson is a tenor II from Millville, New Jersey. He is a Music Education major working to become a great educator. He has been teaching within church ministries his entire life, and is currently involved in the Rowan Concert Choir, the American Choral Directors Association, and much more. As NAfME vice president, Cameron is always free to talk about questions or concerns regarding events, PD’s, or general meetings.</p>
       </section>
     </div>
@@ -157,6 +167,7 @@
 <button class="close-btn" data-close="True" aria-label="Close">✕</button>
 </div>
       <section>
+        <p class="meta-line"><span class="role">Treasurer</span> <span aria-hidden="true">|</span> <a href="mailto:zavala34@students.rowan.edu">zavala34@students.rowan.edu</a></p>
 <p>Jessenia Zavala is a junior Vocal Music Education major at Rowan University and is excited to be serving as Treasurer for NAfME this year! In this role, she will oversee the club’s finances, help plan fundraisers and bake sales, and work with the e-board to lead engaging, interactive meetings for members. Jessenia also serves as Treasurer for ACDA, is a proud member of Tri Alpha, sings with Concert Choir, and studies voice with Professor Marian Stieber. She has previously performed with Rowan’s Opera Company, appearing as the Sandman in <em>Hansel and Gretel</em> and performing in the Fall Opera Scenes. Jessenia has also performed in several productions at Ocean County College, including <em>All Shook Up</em>, <em>Kiss Me, Kate</em>, and <em>Broadway for the Holidays 2 &amp; 3</em>.</p>
       </section>
     </div>
@@ -171,6 +182,7 @@
 <button class="close-btn" data-close="True" aria-label="Close">✕</button>
 </div>
       <section>
+        <p class="meta-line"><span class="role">Secretary</span> <span aria-hidden="true">|</span> <a href="mailto:matias85@rowan.edu">matias85@rowan.edu</a></p>
 <p>Makayli Matias is a sophomore studying Vocal Music Education. She is thrilled to serve as Secretary for both Rowan’s NAfME and ACDA chapters this year, managing communication and tracking point totals for each organization. Makayli sings with both the Concert Choir and Voces ensemble and is also a member of Rowan’s Opera Company. Most recently, she was seen as the Dew Fairy in <em>Hansel and Gretel</em>. She looks forward to continuing to grow as a musician and leader through her involvement at Rowan.</p>
       </section>
     </div>
@@ -185,6 +197,7 @@
 <button class="close-btn" data-close="True" aria-label="Close">✕</button>
 </div>
       <section>
+        <p class="meta-line"><span class="role">Social Media Coordinator</span> <span aria-hidden="true">|</span> <a href="mailto:townsl72@students.rowan.edu">townsl72@students.rowan.edu</a></p>
 <p>Emilee Townsley is a music education major with a concentration in voice. Going into her senior year, she is thrilled to fulfill her role as social media coordinator for NAfME. In this position, she will keep NAfME social platforms updated with the latest news on meetings and events, both inside the chapter and beyond. In addition, she will co-manage the chapter’s website and stay in communication with neighboring collegiate chapters. Emilee is also involved in Rowan’s Concert Choir, Voces ensemble, and ACDA chapter.</p>
       </section>
     </div>
@@ -199,6 +212,7 @@
 <button class="close-btn" data-close="True" aria-label="Close">✕</button>
 </div>
       <section>
+        <p class="meta-line"><span class="role">Senator</span> <span aria-hidden="true">|</span> <a href="mailto:bretza67@students.rowan.edu">bretza67@students.rowan.edu</a></p>
 <p>Adam is an Electrical &amp; Computer Engineering major with a minor in music (Organ Performance). In his role he attends Student Government meetings and represents the club's interests to the school. Aside from Adam's primary role, he also maintains the chapter's website.</p>
       </section>
     </div>
