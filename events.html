@@ -92,6 +92,41 @@
       background: var(--brand-gold, #f5c518); color:#111; border-color:transparent; box-shadow: var(--shadow);
     }
     #eventsList .button:hover, #eventsList .btn:hover{ transform: translateY(-1px); filter: brightness(.95); }
+
+    /* Distinct look for "Include past events" switch */
+    .filters .switch{
+      position: relative;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding-right: 52px; /* room for knob */
+      background: transparent;
+      color: var(--brand-gold, #f5c518);
+      border: 1.6px solid var(--brand-gold, #f5c518);
+      border-radius: 999px;
+      height: var(--tap);
+      font-weight: 800;
+    }
+    .filters .switch svg{ width: 18px; height: 18px; }
+    .filters .switch .knob{
+      position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+      width: 34px; height: 18px; border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid var(--border);
+      transition: background .2s ease;
+    }
+    .filters .switch .knob::after{
+      content:""; position:absolute; top:2px; left:2px;
+      width: 12px; height: 12px; border-radius: 999px;
+      background: var(--brand-gold, #f5c518);
+      transition: transform .2s ease, background .2s ease;
+    }
+    .filters .switch:hover{ transform: translateY(-1px); background: rgba(255,255,255,.05); }
+    .filters .switch[aria-pressed="true"]{
+      background: var(--brand-gold, #f5c518);
+      color:#111;
+      border-color: transparent;
+    }
+    .filters .switch[aria-pressed="true"] .knob{ background: rgba(0,0,0,.15); border-color: transparent; }
+    .filters .switch[aria-pressed="true"] .knob::after{ transform: translateX(14px); background:#111; }
 </style>
 </head>
 <body>
@@ -118,7 +153,11 @@
           <button class="button chip" data-filter="volunteer" aria-pressed="false">Volunteer</button>
         </div>
         <div class="filters-right">
-          <button id="togglePast" class="button chip" aria-pressed="false" title="Show past events">Include past events</button>
+          <button id="togglePast" class="button switch" aria-pressed="false" title="Show past events">
+            <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><path fill="currentColor" d="M12 1.5a10.5 10.5 0 1 0 0 21 10.5 10.5 0 0 0 0-21Zm0 1.8a8.7 8.7 0 1 1 0 17.4 8.7 8.7 0 0 1 0-17.4Zm-.9 3.9a.9.9 0 0 1 1.8 0v4.56l3.22 1.86a.9.9 0 1 1-.9 1.56l-3.6-2.07a.9.9 0 0 1-.46-.78V7.2Z"/></svg>
+            <span>Include past events</span>
+            <span class="knob" aria-hidden="true"></span>
+          </button>
         </div>
       </div>
       </div>
