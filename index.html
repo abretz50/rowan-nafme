@@ -83,6 +83,47 @@
     grid-template-columns: 1fr 1fr;  /* 2-up on small screens */
   }
 }
+/* Connect: clickable logo tiles – cleaner look */
+.connect-tiles{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.connect-tiles .tile{
+  display: grid;               /* center the image */
+  place-items: center;
+  aspect-ratio: 16 / 9;        /* consistent tile height */
+  padding: 16px;               /* breathing room around logos */
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  border: 1.6px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: transform .15s ease, filter .2s ease, background .2s ease;
+}
+
+.connect-tiles .tile:hover{
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+}
+
+.connect-tiles .tile img{
+  width: 80%;                  /* scale logo inside the tile */
+  max-width: 320px;
+  max-height: 80%;
+  height: auto;
+  object-fit: contain;         /* keep logos uncropped */
+  background: transparent;     /* remove dark box behind logo */
+  padding: 0;                  /* no inner padding on the image */
+}
+
+/* 2-up on small screens */
+@media (max-width: 720px){
+  .connect-tiles{
+    grid-template-columns: 1fr 1fr;
+  }
+}
 
 
   </style>
