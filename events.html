@@ -329,31 +329,34 @@
     function getBtnLabel(ev){
       const tags = new Set((ev.tagSlugs || []).map(String));
       if (tags.has('volunteer')) return 'Sign up';
-      if (tags.has('event') || tags.has('events') || tags.has('professional-development')) return 'Sign in';
+      if (tags.has('event') || tags.has('events') || tags.has('professional-development')) return 'Check in';
       return 'Attendance';
     }
 
-    function cardHTML(ev){
-      const badges = ev.tags.map(t => '<span class="badge" data-tag="'+tagSlug(t)+'">'+t+'</span>').join(' ');
-      const btnLabel = getBtnLabel(ev); /* changed */
-      const signinHref = ev.signin_link || '#';
-      return (
-        '<article class="card" data-tags="' + ev.tagSlugs.join(' ') + '" data-when="' + ev.when + '">' +
-          '<img src="' + (ev.image_url||'') + '" alt="' + (ev.title||'') + ' photo" class="event-photo convention-thumb" onerror="this.onerror=null;this.src=\'/images/placeholder.png\'">' +
-          '<div style="padding:16px">' +
-            '<div style="margin-bottom:6px">' + badges + '</div>' +
-            '<h3>' + (ev.title||'') + '</h3>' +
-            '<p class="kicker">' + (ev.datePretty||'') + '</p>' +
-            '<p>' + (ev.location||'') + '</p>' +
-            '<p>' + (ev.description||'') + '</p>' +
-            '<div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem">' +
-              '<button class="button" data-modal="modal-' + ev.id + '">Details</button>' +
-              '<a class="button" href="' + signinHref + '" target="_blank" rel="noopener">' + btnLabel + '</a>' +
-            '</div>' +
-          '</div>' +
-        '</article>'
-      );
-    }
+   function cardHTML(ev){
+  const badges = ev.tags.map(t => '<span class="badge" data-tag="'+tagSlug(t)+'">'+t+'</span>').join(' ');
+  const btnLabel = getBtnLabel(ev);
+  const signinHref = ev.signin_link || '#';
+
+  return (
+    '<article class="card" data-tags="' + ev.tagSlugs.join(' ') + '" data-when="' + ev.when + '">' +
+      '<img src="' + (ev.image_url||'') + '" alt="' + (ev.title||'') + ' photo" class="event-photo convention-thumb" onerror="this.onerror=null;this.src=\'/images/placeholder.png\'">' +
+      '<div style="padding:16px">' +
+        '<h3>' + (ev.title||'') + '</h3>' +
+        // DATE + LOCATION on one line with a bullet
+        '<p class="kicker event-meta"><strong>' + (ev.datePretty||'') + '</strong>' + (ev.location ? ' • ' + ev.location : '') + '</p>' +
+        // TAGS directly under meta line
+        (badges ? '<div class="event-badges" style="margin:6px 0 8px 0">' + badges + '</div>' : '') +
+        (ev.description ? '<p>' + ev.description + '</p>' : '') +
+        '<div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem">' +
+          '<button class="button" data-modal="modal-' + ev.id + '">Details</button>' +
+          '<a class="button" href="' + signinHref + '" target="_blank" rel="noopener">' + btnLabel + '</a>' +
+        '</div>' +
+      '</div>' +
+    '</article>'
+  );
+}
+
 
     function modalHTML(ev){
       const btnLabel = getBtnLabel(ev); /* changed */
