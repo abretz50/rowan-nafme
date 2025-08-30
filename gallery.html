@@ -100,105 +100,78 @@
 
 <script>
 (function(){
-  const MANIFEST_URL = "images/gallery/manifest.json";
-  const BASE = new URL(MANIFEST_URL, window.location.href);
-  const SUPPORTED_RE = /\.(jpe?g|png|webp|gif)$/i;
+  // 1) Put your exact filenames here (add/remove lines as needed)
+  const FILES = [
+    "IMG_1246.JPG",
+    "IMG_1247.JPG",
+    "IMG_1248.JPG",
+    "IMG_1249.JPG",
+    "IMG_2103_Original.JPG",
+    "IMG_3417_Original.JPG",
+    "IMG_6135_Original.JPG",
+    "IMG_9802_Original.JPG"
+  ];
+
+  // 2) Folder holding the images (relative to gallery.html)
+  const BASE = new URL("images/gallery/", window.location.href);
 
   const gallery  = document.getElementById("gallery");
   const statusEl = document.getElementById("status");
   const countEl  = document.getElementById("count");
 
-  function toTitle(src){
-    const name = (src||"").split("/").pop().replace(/\.[^.]+$/,"");
-    return name.replace(/[_-]+/g," ").replace(/\s+/g," ").trim();
+  function toAbs(urlOrName){
+    return /^(https?:|data:|\/)/i.test(urlOrName)
+      ? urlOrName
+      : new URL(urlOrName, BASE).href;
   }
 
-  function normalizeList(list){
-    const out = [];
-    for (const x of (list||[])) {
-      const raw = (typeof x === "string") ? x : (x?.src || "");
-      const url = /^(https?:|data:|\/)/i.test(raw) ? raw : new URL(raw, BASE).href;
-      out.push({
-        src: url,
-        title: (typeof x === "string" ? toTitle(raw) : (x.title || toTitle(raw))),
-        caption: (typeof x === "string" ? "" : (x.caption || ""))
-      });
-    }
-    return out;
+  function variants(name){
+    const m = name.match(/\.[^.]+$/);
+    const root = m ? name.slice(0, -m[0].length) : name;
+    const ext  = m ? m[0] : ".JPG";
+    const uniq = (arr) => [...new Set(arr)];
+    return uniq([
+      root + ext,
+      root + ".jpg",
+      root + ".JPG",
+      root + ".jpeg",
+      root + ".JPEG"
+    ].map(toAbs));
   }
 
-  // Build a list of fallbacks for common extension/case differences
-  function candidatesFor(urlStr){
-    const u = new URL(urlStr, window.location.href);
-    const m = u.pathname.match(/\.[^.]+$/);
-    const ext = m ? m[0] : "";
-    const base = u.href.slice(0, u.href.length - ext.length);
-    const lower = ext.toLowerCase();
-    let exts = [];
-    if (lower === ".jpg") exts = [".JPG", ".jpeg", ".JPEG"];
-    else if (lower === ".jpeg") exts = [".jpg", ".JPG"];
-    else if (lower === ".png") exts = [".PNG"];
-    else if (lower === ".webp") exts = [".WEBP", ".jpg", ".JPG"];
-    else exts = [".jpg", ".JPG", ".png"]; // generic
-    return [u.href, ...exts.map(e => base + e)];
-  }
-
-  async function loadManifest(){
-    try{
-      const res = await fetch(MANIFEST_URL, { cache: "no-store" });
-      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-      const data = await res.json();
-      return normalizeList(data);
-    }catch(err){
-      statusEl.innerHTML =
-        `<p class="error">Could not load <code>${MANIFEST_URL}</code> (${err.message}). ` +
-        `Make sure the file is at <code>images/gallery/manifest.json</code>.</p>`;
-      return [];
-    }
-  }
-
-  function render(items){
-    if(!items.length){
-      gallery.innerHTML =
-        `<p class='empty'>No photos yet. Add images to <code>images/gallery/</code> ` +
-        `and list them in <code>manifest.json</code>.</p>`;
+  function render(){
+    if(!FILES.length){
+      gallery.innerHTML = "<p class='empty'>No photos listed in FILES.</p>";
       countEl.textContent = "";
       return;
     }
 
-    // Skip unsupported types (HEIC, etc.)
-    const supported = items.filter(it => SUPPORTED_RE.test(it.src));
-    const skipped = items.length - supported.length;
-    statusEl.innerHTML = skipped > 0
-      ? `<p class="subtle">Skipped ${skipped} unsupported file(s) (e.g., HEIC). Convert to JPG/PNG/WebP and update the manifest.</p>`
-      : "";
-
-    const html = supported.map(it => {
-      const cands = candidatesFor(it.src).join("|");
-      // First candidate goes in src; others stored for onerror fallback
+    const html = FILES.map(name => {
+      const cands = variants(name).join("|");
+      const first = cands.split("|")[0];
+      const title = name.replace(/\.[^.]+$/, "").replace(/[_-]+/g," ");
       return `
-        <a class="item" href="${it.src}" data-full="${it.src}" data-title="${it.title}">
-          <img loading="lazy" src="${cands.split("|")[0]}" data-candidates="${cands}" alt="${it.title}">
+        <a class="item" href="${first}" data-full="${first}" data-title="${title}">
+          <img loading="lazy" src="${first}" data-candidates="${cands}" alt="${title}">
         </a>`;
     }).join("");
     gallery.innerHTML = html;
-    countEl.textContent = `${supported.length} photos`;
+    countEl.textContent = `${FILES.length} photos`;
+    statusEl.textContent = "";
 
-    // Fallback loader: try next candidate if current 404s
+    // Fallback: if the current src 404s, try the next variant
     gallery.querySelectorAll('img[data-candidates]').forEach(img => {
       img.addEventListener('error', () => {
         const list = img.dataset.candidates.split("|");
-        const current = img.src;
-        const i = list.indexOf(current);
+        const i = list.indexOf(img.src);
         const next = list[i + 1];
         if (next) {
-          // cache-bust to avoid sticky 404s
           img.src = next + (next.includes("?") ? "&" : "?") + "v=" + Date.now();
         } else {
           img.alt = (img.alt || "Photo") + " (not found)";
           img.closest(".item")?.classList.add("broken");
         }
-      }, { once:false });
+      });
     });
 
     // Lightbox
@@ -215,13 +188,8 @@
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
   }
 
-  (async function init(){
-    const items = await loadManifest();
-    render(items);
-  })();
+  render();
 })();
 </script>
-
-
 </body>
 </html>
