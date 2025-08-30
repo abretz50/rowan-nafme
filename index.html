@@ -45,6 +45,46 @@
     @media (max-width: 720px){
       .gallery-preview{ grid-template-columns: 1fr 1fr; }
     }
+    /* Connect: clickable photo tiles */
+.connect-tiles{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px,1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.connect-tiles .tile{
+  display: block;
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(255,255,255,.06);
+  border: 1.6px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: transform .15s ease, filter .2s ease;
+}
+
+.connect-tiles .tile:hover{
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+}
+
+.connect-tiles .tile img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;      /* show full logo/image */
+  background: rgba(0,0,0,.14);
+  padding: 18px;            /* breathing room around logos */
+}
+
+@media (max-width: 720px){
+  .connect-tiles{
+    grid-template-columns: 1fr 1fr;  /* 2-up on small screens */
+  }
+}
+
+
   </style>
 </head>
 <body>
@@ -102,22 +142,20 @@
         <h2>Connect</h2>
         <p class="subtle">Follow us and explore our partner organizations.</p>
 
-        <div class="logo-strip">
-          <a class="btn icon" href="https://instagram.com/rowannafme" target="_blank" rel="noopener">
-            <img src="/images/social/instagram.png" alt="" aria-hidden="true">
-            <span>@rowannafme</span>
-          </a>
+        <div class="connect-tiles">
+  <a class="tile" href="https://instagram.com/rowannafme" target="_blank" rel="noopener">
+    <img src="/images/social/instagram.png" alt="Instagram @rowannafme">
+  </a>
 
-          <a class="btn icon" href="https://nafme.org" target="_blank" rel="noopener">
-            <img src="/images/partners/nafme.png" alt="" aria-hidden="true">
-            <span>NAfME</span>
-          </a>
+  <a class="tile" href="https://nafme.org" target="_blank" rel="noopener">
+    <img src="/images/partners/nafme.png" alt="NAfME">
+  </a>
 
-          <a class="btn icon" href="https://www.njmea.org" target="_blank" rel="noopener">
-            <img src="/images/partners/njmea.png" alt="" aria-hidden="true">
-            <span>NJMEA</span>
-          </a>
-        </div>
+  <a class="tile" href="https://www.njmea.org" target="_blank" rel="noopener">
+    <img src="/images/partners/njmea.png" alt="NJMEA">
+  </a>
+</div>
+
 
         <!-- 3-up photo preview (appears under Connect) -->
         <div class="gallery-preview">
