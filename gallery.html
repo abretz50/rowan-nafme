@@ -98,11 +98,9 @@
   <footer class="site-footer"></footer>
   <script src="/assets/js/nav.js" defer></script>
 
-  <script>
+<script>
 (function(){
-  // Use a RELATIVE path (works from subfolders too)
   const MANIFEST_URL = "images/gallery/manifest.json";
-  // Build absolute URLs from the manifest location
   const BASE = new URL(MANIFEST_URL, window.location.href);
   const SUPPORTED_RE = /\.(jpe?g|png|webp|gif)$/i;
 
@@ -115,21 +113,34 @@
     return name.replace(/[_-]+/g," ").replace(/\s+/g," ").trim();
   }
 
-  // Accept ["a.jpg", ...] or [{src, title, caption}, ...]
   function normalizeList(list){
     const out = [];
     for (const x of (list||[])) {
       const raw = (typeof x === "string") ? x : (x?.src || "");
-      // Resolve paths relative to the manifest location
       const url = /^(https?:|data:|\/)/i.test(raw) ? raw : new URL(raw, BASE).href;
-      const item = {
+      out.push({
         src: url,
         title: (typeof x === "string" ? toTitle(raw) : (x.title || toTitle(raw))),
         caption: (typeof x === "string" ? "" : (x.caption || ""))
-      };
-      out.push(item);
+      });
     }
     return out;
+  }
+
+  // Build a list of fallbacks for common extension/case differences
+  function candidatesFor(urlStr){
+    const u = new URL(urlStr, window.location.href);
+    const m = u.pathname.match(/\.[^.]+$/);
+    const ext = m ? m[0] : "";
+    const base = u.href.slice(0, u.href.length - ext.length);
+    const lower = ext.toLowerCase();
+    let exts = [];
+    if (lower === ".jpg") exts = [".JPG", ".jpeg", ".JPEG"];
+    else if (lower === ".jpeg") exts = [".jpg", ".JPG"];
+    else if (lower === ".png") exts = [".PNG"];
+    else if (lower === ".webp") exts = [".WEBP", ".jpg", ".JPG"];
+    else exts = [".jpg", ".JPG", ".png"]; // generic
+    return [u.href, ...exts.map(e => base + e)];
   }
 
   async function loadManifest(){
@@ -155,24 +166,40 @@
       return;
     }
 
-    // Filter out unsupported types (e.g., HEIC won’t render in most browsers)
+    // Skip unsupported types (HEIC, etc.)
     const supported = items.filter(it => SUPPORTED_RE.test(it.src));
     const skipped = items.length - supported.length;
-    if (skipped > 0) {
-      statusEl.innerHTML =
-        `<p class="subtle">Skipped ${skipped} unsupported file(s) (e.g., HEIC). ` +
-        `Convert to JPG/PNG/WebP and update the manifest.</p>`;
-    } else {
-      statusEl.textContent = "";
-    }
+    statusEl.innerHTML = skipped > 0
+      ? `<p class="subtle">Skipped ${skipped} unsupported file(s) (e.g., HEIC). Convert to JPG/PNG/WebP and update the manifest.</p>`
+      : "";
 
-    const html = supported.map(it => `
-      <a class="item" href="${it.src}" data-full="${it.src}" data-title="${it.title}">
-        <img loading="lazy" src="${it.src}" alt="${it.title}">
-      </a>
-    `).join("");
+    const html = supported.map(it => {
+      const cands = candidatesFor(it.src).join("|");
+      // First candidate goes in src; others stored for onerror fallback
+      return `
+        <a class="item" href="${it.src}" data-full="${it.src}" data-title="${it.title}">
+          <img loading="lazy" src="${cands.split("|")[0]}" data-candidates="${cands}" alt="${it.title}">
+        </a>`;
+    }).join("");
     gallery.innerHTML = html;
     countEl.textContent = `${supported.length} photos`;
+
+    // Fallback loader: try next candidate if current 404s
+    gallery.querySelectorAll('img[data-candidates]').forEach(img => {
+      img.addEventListener('error', () => {
+        const list = img.dataset.candidates.split("|");
+        const current = img.src;
+        const i = list.indexOf(current);
+        const next = list[i + 1];
+        if (next) {
+          // cache-bust to avoid sticky 404s
+          img.src = next + (next.includes("?") ? "&" : "?") + "v=" + Date.now();
+        } else {
+          img.alt = (img.alt || "Photo") + " (not found)";
+          img.closest(".item")?.classList.add("broken");
+        }
+      }, { once:false });
+    });
 
     // Lightbox
     const lb = document.getElementById("lightbox");
@@ -183,18 +210,18 @@
     gallery.querySelectorAll(".item").forEach(a => {
       a.addEventListener("click", (e) => { e.preventDefault(); open(a.dataset.full, a.dataset.title); });
     });
-    lb.addEventListener("click", (e) => { if(e.target === lb) close(); });
+    lb.addEventListener("click", (e) => { if (e.target === lb) close(); });
     lbClose.addEventListener("click", close);
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
   }
 
   (async function init(){
-    statusEl.textContent = "Loading photos…";
     const items = await loadManifest();
     render(items);
   })();
 })();
 </script>
+
 
 </body>
 </html>
