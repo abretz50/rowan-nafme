@@ -37,23 +37,35 @@
     }
   
     /* Make in-page buttons gold (exclude nav) */
-    .section .button,
-    .section .btn{
+    #eventsList .button,
+    #eventsList .btn{
       background: var(--brand-gold, #f5c518);
       color: #111;
       border-color: transparent;
       box-shadow: var(--shadow);
     }
-    .section .button:hover,
-    .section .btn:hover{ transform: translateY(-1px); filter: brightness(.95); }
+    #eventsList .button:hover,
+    #eventsList .btn:hover{ transform: translateY(-1px); filter: brightness(.95); }
 
-    /* Gold filter chips (pressed + unpressed) */
-    .filters .chips .btn{
-      background: var(--brand-gold, #f5c518);
-      color:#111;
-      border-color: transparent;
-    }
     .filters .chips .btn[aria-pressed="true"]{ filter: brightness(.92); }
+
+    /* Neutral filter chips (not gold) */
+    .filters .chips .button,
+    .filters .chips .btn{
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      border:1.6px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    .filters .chips .button:hover,
+    .filters .chips .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); }
+    .filters .chips .button[aria-pressed="true"],
+    .filters .chips .btn[aria-pressed="true"]{
+      background: rgba(255,255,255,.14);
+      color: var(--text);
+      border-color: var(--border);
+      filter: none;
+    }
 </style>
 </head>
 <body>
@@ -73,11 +85,11 @@
     <div class="container">
       <div class="filters">
         <div class="chips" role="toolbar" aria-label="Filter events by tag">
-          <button class="button btn" data-filter="meeting" aria-pressed="false">Meeting</button>
-          <button class="button btn" data-filter="professional-development" aria-pressed="false">Professional Dev</button>
-          <button class="button btn" data-filter="workshop" aria-pressed="false">Workshop</button>
-          <button class="button btn" data-filter="volunteer" aria-pressed="false">Volunteer</button>
-          <button class="button btn" data-filter="convention" aria-pressed="false">Convention</button>
+          <button class="button chip" data-filter="meeting" aria-pressed="false">Meeting</button>
+          <button class="button chip" data-filter="professional-development" aria-pressed="false">Professional Dev</button>
+          <button class="button chip" data-filter="workshop" aria-pressed="false">Workshop</button>
+          <button class="button chip" data-filter="volunteer" aria-pressed="false">Volunteer</button>
+          <button class="button chip" data-filter="convention" aria-pressed="false">Convention</button>
         </div>
       </div>
       <div class="grid" id="eventsList" aria-live="polite"></div>
