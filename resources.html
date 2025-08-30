@@ -47,7 +47,38 @@ html{
   scrollbar-gutter: stable;
   max-height: min(80vh, 900px);
   overflow: auto;
-}</style></head>
+}</style><style id="scrollbar-theme">
+/* --- Invisible scrollbars (page-only) --- */
+
+/* Page scrollbars */
+html, body {
+  -ms-overflow-style: none;   /* IE/old Edge */
+  scrollbar-width: none;      /* Firefox */
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0; height: 0;        /* Chrome/Edge/Safari */
+}
+
+/* Any inner scrollable element (cards, modals, etc.) */
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  width: 0; height: 0;
+}
+
+/* Keep modals scrollable but barless */
+.modal-content{
+  max-height: min(80vh, 900px);
+  overflow: auto;             /* scrolling works; bar hidden */
+}
+</style>
+
+
+</head>
+
 <body>
 <nav class="site-nav"></nav>
 <header class="hero">
