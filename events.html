@@ -8,6 +8,34 @@
   <link rel="preload" as="image" href="/images/background.png">
   <link rel="icon" href="/images/logo.png">
   <link rel="stylesheet" href="/assets/css/style.css">
+
+  <style>
+    /* Events page ONLY: use convention .btn styling for filter chips */
+    .filters .chips{ display:flex; flex-wrap:wrap; gap:.5rem; }
+    .filters .chips .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      height: var(--tap);
+      padding: 0 18px;
+      border:1.6px solid var(--border);
+      border-radius:999px;
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight:700;
+      box-shadow: var(--shadow);
+      cursor:pointer;
+      transition: transform .06s ease, background .2s ease, border-color .2s ease, filter .2s ease;
+    }
+    .filters .chips .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); }
+    .filters .chips .btn:focus-visible{ outline: 2px solid var(--brand-cyan); outline-offset: 2px; }
+
+    /* Toggle state driven by aria-pressed */
+    .filters .chips .btn[aria-pressed="true"]{
+      background: var(--brand-gold, #f5c518);
+      color: #111;
+      border-color: transparent;
+      filter: brightness(0.98);
+    }
+  </style>
 </head>
 <body>
   <nav class="site-nav"></nav>
@@ -26,11 +54,11 @@
     <div class="container">
       <div class="filters">
         <div class="chips" role="toolbar" aria-label="Filter events by tag">
-          <button class="button" data-filter="meeting" aria-pressed="false">Meeting</button>
-          <button class="button" data-filter="professional-development" aria-pressed="false">Professional Dev</button>
-          <button class="button" data-filter="workshop" aria-pressed="false">Workshop</button>
-          <button class="button" data-filter="volunteer" aria-pressed="false">Volunteer</button>
-          <button class="button" data-filter="convention" aria-pressed="false">Convention</button>
+          <button class="button btn" data-filter="meeting" aria-pressed="false">Meeting</button>
+          <button class="button btn" data-filter="professional-development" aria-pressed="false">Professional Dev</button>
+          <button class="button btn" data-filter="workshop" aria-pressed="false">Workshop</button>
+          <button class="button btn" data-filter="volunteer" aria-pressed="false">Volunteer</button>
+          <button class="button btn" data-filter="convention" aria-pressed="false">Convention</button>
         </div>
       </div>
       <div class="grid" id="eventsList" aria-live="polite"></div>
