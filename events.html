@@ -176,15 +176,9 @@
       display:flex; gap:.5rem; flex-wrap:wrap; justify-content:center;
     }
 
-    /* Disabled action button + helper note */
-    #eventsList .button[aria-disabled="true"]{ opacity:.55; pointer-events:none; }
-    #eventsList .not-open{ color: var(--muted); margin-top:.25rem; font-size:.9rem; }
-
-    /* Switch 'on' helper class for reliability */
-    .filters .switch.on .knob{ background: rgba(255,255,255,.18); border-color: var(--border); }
-    .filters .switch.on .knob::after{ transform: translateX(14px); background: var(--brand-cyan); }
-    .filters .switch.on{ background: rgba(255,255,255,.14); color: var(--text); border-color: var(--border); }
-</style>
+    /* Multi-select pressed emphasize */
+    .filters .chip[aria-pressed="true"]{ border-width:2px; }
+    </style>
 </head>
 <body>
   <nav class="site-nav"></nav>
@@ -208,6 +202,7 @@
           <button class="button chip" data-filter="events" aria-pressed="false">Events</button>
           <button class="button chip" data-filter="meeting" aria-pressed="false">Meetings</button>
           <button class="button chip" data-filter="professional-development" aria-pressed="false">Professional Developments</button>
+          <button class="button chip" data-filter="workshop" aria-pressed="false">Workshop</button>
           <button class="button chip" data-filter="volunteer" aria-pressed="false">Volunteer</button>
         </div>
         <div class="filters-right">
@@ -274,52 +269,7 @@
 </script>
 
 
-<script>
-  (function(){
-    const list = document.getElementById('eventsList');
-    const chips = document.querySelector('.filters .chips');
-    if(!list || !chips) return;
 
-    const evBtn = chips.querySelector('button[data-filter="events"]');
-    if(!evBtn) return;
-
-    // Helper: get tags from a card by reading badge-like elements or data attributes
-    function getTags(card){
-      const tags = new Set();
-      // Read data-tags attr if present
-      const dt = card.getAttribute('data-tags');
-      if (dt) dt.split(/[\s,]+/).forEach(t => t && tags.add(t.toLowerCase()));
-      // Read visible badges
-      card.querySelectorAll('.badge, .tag, [data-tag]').forEach(el => {
-        const t = (el.getAttribute('data-tag') || el.textContent || '').trim().toLowerCase();
-        if (t) tags.add(t);
-      });
-      return tags;
-    }
-
-    // Show/hide cards based on predicate
-    function filterCards(predicate){
-      const cards = list.querySelectorAll('.card, article');
-      cards.forEach(card => {
-        card.style.display = predicate(card) ? '' : 'none';
-      });
-    }
-
-    // When clicking "Events", filter for workshop OR convention (including 'event' if present)
-    evBtn.addEventListener('click', function(e){
-      e.preventDefault();
-      e.stopImmediatePropagation();
-
-      // Set pressed states to mimic other chips
-      chips.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b === evBtn)));
-      // Apply custom filter
-      filterCards(card => {
-        const t = getTags(card);
-        return t.has('workshop') || t.has('convention') || t.has('event') || t.has('events');
-      });
-    }, true);
-  })();
-</script>
 
 
 <script>
@@ -428,8 +378,7 @@
   function cardHTML(ev){
     const badges = ev.tags.map(t => '<span class="badge" data-tag="'+tagSlug(t)+'">'+t+'</span>').join(' ');
     const btnLabel = ev.primaryTag === 'volunteer' ? 'Sign up' : 'Attendance';
-    const hasLink = !!(ev.signin_link && ev.signin_link.trim());
-    const signinHref = hasLink ? ev.signin_link : '#';
+    const signinHref = ev.signin_link || '#';
     return (
       '<article class="card" data-tags="' + ev.tagSlugs.join(' ') + '" data-when="' + ev.when + '">' +
         '<img src="' + (ev.image_url||'') + '" alt="' + (ev.title||'') + ' photo" class="event-photo convention-thumb" onerror="this.onerror=null;this.src=\'/images/placeholder.png\'">' +
@@ -441,7 +390,7 @@
           '<p>' + (ev.description||'') + '</p>' +
           '<div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem">' +
             '<button class="button" data-modal="modal-' + ev.id + '">Details</button>' +
-            ' + (hasLink ? ('<a class=\"button\" href=\"' + signinHref + '\" target=\"_blank\" rel=\"noopener\">' + btnLabel + '</a>') : ('<a class=\"button\" aria-disabled=\"true\">' + btnLabel + '</a>')) + '</div>' + (hasLink ? '' : '<p class=\"not-open\">Link not yet open — check closer to the event.</p>') +
+            '<a class="button" href="' + signinHref + '" target="_blank" rel="noopener">' + btnLabel + '</a>' +
           '</div>' +
         '</div>' +
       '</article>'
@@ -450,7 +399,6 @@
 
   function modalHTML(ev){
     const btnLabel = ev.primaryTag === 'volunteer' ? 'Sign up' : 'Attendance';
-    const hasLink = !!(ev.signin_link && ev.signin_link.trim());
     return (
       '<div class="modal" id="modal-' + ev.id + '" role="dialog" aria-modal="true" aria-labelledby="modal-' + ev.id + '-title" hidden>' +
         '<div class="modal-overlay" data-close="True"></div>' +
@@ -465,8 +413,8 @@
             (ev.details ? ('<p>' + ev.details + '</p>') : '') +
             '<div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem">' +
               '<a class="button" href="' + gcalLink(ev) + '" target="_blank" rel="noopener">Add to Calendar</a>' +
-              ' + (hasLink ? ('<a class=\"button\" href=\"' + ev.signin_link + '\" target=\"_blank\" rel=\"noopener\">' + btnLabel + '</a>') : ('<a class=\"button\" aria-disabled=\"true\">' + btnLabel + '</a>')) +
-            '</div>' + (hasLink ? '' : '<p class=\"not-open\">Link not yet open — check closer to the event.</p>') +
+              '<a class="button" href="' + (ev.signin_link || '#') + '" target="_blank" rel="noopener">' + btnLabel + '</a>' +
+            '</div>' +
           '</section>' +
         '</div>' +
       '</div>'
@@ -496,7 +444,6 @@
     const cards = events.map(cardHTML).join('\n');
     listEl.innerHTML = cards + '\n' + events.map(modalHTML).join('\n');
     attachModalHandlers();
-    pastToggle && pastToggle.classList.toggle('on', pastToggle.getAttribute('aria-pressed')==='true');
     applyPastVisibility();
     applyFilters();
   }
@@ -546,7 +493,6 @@
   pastToggle?.addEventListener('click', () => {
     const pressed = pastToggle.getAttribute('aria-pressed') === 'true';
     pastToggle.setAttribute('aria-pressed', String(!pressed));
-    pastToggle && pastToggle.classList.toggle('on', pastToggle.getAttribute('aria-pressed')==='true');
     applyPastVisibility();
     applyFilters();
   });
