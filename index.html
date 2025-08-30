@@ -9,25 +9,42 @@
   <link rel="icon" href="/images/logo.png">
   <link rel="stylesheet" href="/assets/css/style.css">
 
-  <!-- Home-only styles for Connect/Gallery buttons and minor hero tweaks -->
+  <!-- Home-only styles for Connect/Gallery and hero tweaks -->
   <style>
-    /* Home-only: logo/partner buttons layout */
+    /* Keep hero CTAs tidy on small screens */
+    .hero .hero-inner .btn{ white-space: nowrap; }
+
+    /* Connect: logo buttons layout */
     .logo-strip{
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
       gap: 12px;
       margin-top: 12px;
     }
-    .button.icon{
+    .btn.icon{
       display: inline-flex; align-items: center; gap: 10px;
       padding-left: 14px; padding-right: 16px;
     }
-    .button.icon img{
-      width: 20px; height: 20px; object-fit: contain; filter: drop-shadow(0 0 0 transparent);
+    .btn.icon img{
+      width: 20px; height: 20px; object-fit: contain;
+      filter: drop-shadow(0 0 0 transparent);
     }
 
-    /* Keep hero CTAs from wrapping mid-word on narrow widths */
-    .hero .hero-inner .button{ white-space: nowrap; }
+    /* 3-up photo preview under Connect */
+    .gallery-preview{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .gallery-preview img{
+      width: 100%; height: auto; display: block; object-fit: cover;
+      aspect-ratio: 16 / 9; border-radius: 14px;
+      background: rgba(0,0,0,.2);
+    }
+    @media (max-width: 720px){
+      .gallery-preview{ grid-template-columns: 1fr 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -39,8 +56,10 @@
         <h1>Rowan NAfME</h1>
         <p>Future music educators, building community through professional development, service, and performance. Join us for workshops, volunteering, and the state convention.</p>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
-          <a class="button primary" href="/events.html">See Upcoming Events</a>
-          <a class="button" href="/resources.html">Member Resources</a>
+          <a class="btn" href="/events.html">See Upcoming Events</a>
+          <a class="btn" href="/resources.html">Member Resources</a>
+          <!-- NEW: Photo Gallery button appears after Member Resources -->
+          <a class="btn" href="/gallery.html">Photo Gallery</a>
         </div>
       </div>
       <div>
@@ -77,36 +96,39 @@
       </div>
     </section>
 
-    <!-- Connect & Gallery -->
+    <!-- Connect (logos now .png) + 3 photo thumbnails -->
     <section class="section">
       <div class="container">
-        <h2>Connect &amp; Gallery</h2>
-        <p class="subtle">Follow us, explore partner orgs, and browse chapter photos.</p>
+        <h2>Connect</h2>
+        <p class="subtle">Follow us and explore our partner organizations.</p>
 
         <div class="logo-strip">
-          <a class="button icon" href="https://instagram.com/rowannafme" target="_blank" rel="noopener">
-            <img src="/images/social/instagram.svg" alt="" aria-hidden="true">
+          <a class="btn icon" href="https://instagram.com/rowannafme" target="_blank" rel="noopener">
+            <img src="/images/social/instagram.png" alt="" aria-hidden="true">
             <span>@rowannafme</span>
           </a>
 
-          <a class="button icon" href="https://nafme.org" target="_blank" rel="noopener">
-            <img src="/images/partners/nafme.svg" alt="" aria-hidden="true">
+          <a class="btn icon" href="https://nafme.org" target="_blank" rel="noopener">
+            <img src="/images/partners/nafme.png" alt="" aria-hidden="true">
             <span>NAfME</span>
           </a>
 
-          <a class="button icon" href="https://www.njmea.org" target="_blank" rel="noopener">
-            <img src="/images/partners/njmea.svg" alt="" aria-hidden="true">
+          <a class="btn icon" href="https://www.njmea.org" target="_blank" rel="noopener">
+            <img src="/images/partners/njmea.png" alt="" aria-hidden="true">
             <span>NJMEA</span>
           </a>
+        </div>
 
-          <!-- Gallery buttons (match Resources look using .button / .primary) -->
-          <a class="button primary" href="/gallery.html">Photo Gallery</a>
-          <a class="button" href="https://forms.gle/your-form" target="_blank" rel="noopener">Submit Photos</a>
+        <!-- 3-up photo preview (appears under Connect) -->
+        <div class="gallery-preview">
+          <img src="/images/gallery/preview-1.jpg" alt="Chapter event photo 1">
+          <img src="/images/gallery/preview-2.jpg" alt="Chapter event photo 2">
+          <img src="/images/gallery/preview-3.jpg" alt="Chapter event photo 3">
         </div>
       </div>
     </section>
 
-    <!-- Points System -->
+    <!-- Points System (buttons removed) -->
     <section class="section">
       <div class="container">
         <h2>Points System</h2>
@@ -129,12 +151,6 @@
             <h3>Performances</h3>
             <p><strong>1 point</strong> for chapter-sponsored performances.</p>
           </article>
-        </div>
-
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px">
-          <!-- Link these to your actual sheets/forms when ready -->
-          <a class="button primary" href="https://docs.google.com/spreadsheets/d/your-points-sheet" target="_blank" rel="noopener">Check Your Points</a>
-          <a class="button" href="https://docs.google.com/forms/d/your-correction-form" target="_blank" rel="noopener">Report a Correction</a>
         </div>
       </div>
     </section>
