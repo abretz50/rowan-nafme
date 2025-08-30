@@ -124,6 +124,15 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+/* Tighten bullets only in the Points section */
+#points .card ul{
+  margin: .25rem 0 0;         /* shrink the list’s outside spacing */
+  padding-left: 1.1rem;       /* keep bullets aligned nicely */
+}
+#points .card li{
+  margin: 0;                  /* kill the global li margins */
+  line-height: 1.35;          /* (optional) slightly tighter lines */
+}
 
 
   </style>
@@ -226,7 +235,7 @@
               </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="points">
   <div class="container">
     <h2>Points System</h2>
     <p class="subtle">Rowan NAfME Points System</p>
