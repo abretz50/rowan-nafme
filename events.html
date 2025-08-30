@@ -35,7 +35,26 @@
       border-color: transparent;
       filter: brightness(0.98);
     }
-  </style>
+  
+    /* Make in-page buttons gold (exclude nav) */
+    .section .button,
+    .section .btn{
+      background: var(--brand-gold, #f5c518);
+      color: #111;
+      border-color: transparent;
+      box-shadow: var(--shadow);
+    }
+    .section .button:hover,
+    .section .btn:hover{ transform: translateY(-1px); filter: brightness(.95); }
+
+    /* Gold filter chips (pressed + unpressed) */
+    .filters .chips .btn{
+      background: var(--brand-gold, #f5c518);
+      color:#111;
+      border-color: transparent;
+    }
+    .filters .chips .btn[aria-pressed="true"]{ filter: brightness(.92); }
+</style>
 </head>
 <body>
   <nav class="site-nav"></nav>
