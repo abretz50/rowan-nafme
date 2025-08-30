@@ -377,5 +377,37 @@ a{color:inherit;text-decoration:none}
   .nafme-modal figure{ flex-basis: 100px !important; width: 100px !important; }
 }
 
+/* E-Board popup: smaller headshot on desktop */
+@media (min-width: 900px){
+  /* Make the modal body a tidy two-column layout: photo | text */
+  .modal .modal-content > section{
+    display: grid;
+    grid-template-columns: 260px 1fr;  /* adjust 220–300px to taste */
+    gap: 16px;
+    align-items: start;
+  }
+
+  /* Constrain the headshot size and neutralize the page-local max-width */
+  .modal .modal-content > section .headshot{
+    max-width: none !important;   /* beats the 780px cap in eboard.html */
+    margin: 0 !important;
+  }
+
+  .modal .modal-content > section .headshot img{
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: 50% 25%;
+    border-radius: 12px;
+  }
+}
+
+/* Optional: slightly larger photo on very wide screens */
+@media (min-width: 1200px){
+  .modal .modal-content > section{
+    grid-template-columns: 300px 1fr;
+  }
+}
 
 
