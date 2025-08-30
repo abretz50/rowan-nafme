@@ -36,7 +36,25 @@
     /* Convention page only: size brand logo (NJMEA) for nav */
     .site-nav .brand img{ height: 36px; width: auto; }
     @media (min-width: 900px){ .site-nav .brand img{ height: 40px; } }
-    </style>
+    
+    /* Convention page only: circular crop for NJMEA logo in hero */
+    .logo-avatar{
+      width: clamp(140px, 20vw, 220px);
+      aspect-ratio: 1 / 1;
+      border-radius: 999px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-inline: auto;
+      background: #fff; /* helps if logo has transparency */
+    }
+    .logo-avatar img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;   /* true circular crop */
+      object-position: center;
+      display: block;
+    }
+</style>
 </head>
 <body>
   <!-- Shared navbar populated by /assets/js/nav.js -->
@@ -50,14 +68,12 @@
         <p>Atlantic City Convention Center • February 19–21, 2026 • Sheraton hotel connected by enclosed walkway.</p>
         <div class="actions" style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem">
           <a class="btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=2026%20NJMEA%20State%20Conference&dates=20260219T070000/20260221T190000&ctz=America/New_York&details=NJMEA%20State%20Conference%20in%20Atlantic%20City.%20Registration%3A%20https%3A//www.eventcreate.com/e/njmeaconference2026&location=Atlantic%20City%20Convention%20Center%2C%20Atlantic%20City%2C%20NJ" target="_blank" rel="noopener">Add to Calendar</a>
-          <a class="btn" href="https://www.eventcreate.com/e/njmeaconference2026" target="_blank" rel="noopener">Register</a>
           <a class="btn" href="https://static1.squarespace.com/static/636a8183960a58397c1b0fa5/t/689cd0c75951b3585eba08d9/1755107527755/Justification+Toolkit+2026.pdf" target="_blank" rel="noopener">Why Attend?</a>
           <a class="btn" href="https://nafme.my.site.com/joinapi__login?id=a201U000000NoT4QAK&order=2" target="_blank" rel="noopener">NAfME Membership</a>
+          <a class="btn" href="https://www.eventcreate.com/e/njmeaconference2026" target="_blank" rel="noopener">Register</a>
         </div>
       </div>
-      <div>
-        <img src="/images/njmea-logo.png" alt="NJMEA logo" style="width:220px;height:auto;margin-inline:auto;filter:drop-shadow(0 10px 24px rgba(0,0,0,.25));">
-      </div>
+      <div><div class="logo-avatar"><img src="/images/njmea-logo.png" alt="NJMEA logo"></div></div>
     </div>
   </header>
   <main>
