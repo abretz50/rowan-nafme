@@ -8,6 +8,43 @@
   <link rel="preload" as="image" href="/images/background.png">
   <link rel="icon" href="/images/logo.png">
   <link rel="stylesheet" href="/assets/css/style.css">
+
+  <style>
+    /* Convention page-only refinements */
+    .local-nav{
+      position: sticky; top: 8px; z-index: 5;
+      background: rgba(15,34,57,.65);
+      backdrop-filter: blur(6px);
+      border:1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 8px 12px; margin-top: 12px;
+    }
+    .local-nav a{ text-decoration: none; color: var(--text); font-weight: 700; }
+    .local-nav .sep{ opacity:.5; padding:0 8px; }
+
+    /* Equalize card heights in grids on this page */
+    .section .grid > .card,
+    .section .grid > article.card{ display:flex; flex-direction:column; height:100%; }
+    .section .grid > .card p:last-child,
+    .section .grid > article.card p:last-child{ margin-top:auto; }
+
+    /* Tighten hero paragraph spacing */
+    .hero .actions{ margin-top: .75rem !important; }
+
+    /* Gallery images: consistent ratio */
+    .convention-thumb{ width:100%; height:260px; object-fit:cover; border-radius:12px; margin:.5rem 0; display:block; }
+
+    /* FAQ details styling */
+    .faq details{
+      border:1px solid var(--border);
+      border-radius: 12px; padding: 10px 14px; margin-bottom: 10px;
+      background: rgba(255,255,255,.04);
+    }
+    .faq summary{ cursor:pointer; font-weight:700; }
+    .faq summary::-webkit-details-marker{ display:none; }
+    .faq details[open]{ background: rgba(255,255,255,.06); }
+  </style>
 </head>
 <body>
   <!-- Shared navbar populated by /assets/js/nav.js -->
@@ -28,9 +65,19 @@
     </div>
   </header>
 
+    <nav class="local-nav container" aria-label="Page">
+      <a href="#dates">Dates</a><span class="sep">•</span>
+      <a href="#register">Register</a><span class="sep">•</span>
+      <a href="#travel">Travel & Housing</a><span class="sep">•</span>
+      <a href="#overview">Overview</a><span class="sep">•</span>
+      <a href="#gallery">Gallery</a><span class="sep">•</span>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+
   <main>
     <!-- Cover image -->
-    <section class="section">
+    <section class="section" id="dates">
       <div class="container">
         <figure class="card" style="padding:0;overflow:hidden">
           <img src="/images/convention/convention-center-exterior-1.jpg" alt="Atlantic City Convention Center exterior" style="width:100%;max-height:540px;object-fit:cover;display:block">
@@ -39,7 +86,7 @@
     </section>
 
     <!-- Top cards: Key Dates / Funding / Logistics -->
-    <section class="section">
+    <section class="section" id="overview">
       <div class="container">
         <div class="grid">
           <article class="card">
@@ -59,7 +106,7 @@
           </article>
 
           <article class="card">
-            <div class="kicker">Logistics</div>
+            <a id="travel"></a><div class="kicker">Logistics</div>
             <h2>Travel &amp; Housing</h2>
             <p>We coordinate carpools and room shares at the Sheraton Atlantic City Convention Center Hotel. Standard plan is up to four per room; target share is <strong>$50/person</strong> for hotel costs.</p>
           </article>
@@ -67,64 +114,7 @@
       </div>
     </section>
 
-    <!-- What to Expect -->
-    <section class="section">
-      <div class="container">
-        <article class="card">
-          <div class="kicker">Overview</div>
-          <h2>What to Expect</h2>
-          <p>Join us for a weekend of more than <strong>200 professional development workshops and performances</strong>. Students attend PD sessions, lectures from leaders in our field, statewide ensemble performances, and networking events that build practical career skills.</p>
-          <p><a class="btn" href="#" onclick="alert('When the official schedule is released, it will appear here.');return false;">Conference Schedule</a></p>
-        </article>
-      </div>
-    </section>
-
-    <!-- Gallery: Events & Experiences -->
-    <section class="section">
-      <div class="container">
-        <h2 style="margin:0 0 1rem 0">Events &amp; Experiences</h2>
-        <div class="grid">
-          <article class="card">
-            <h3>Convention Center</h3>
-            <img src="/images/convention/convention-center-interior-1.jpg" alt="Convention Center interior" style="width:100%;height:260px;object-fit:cover;border-radius:12px;margin:.5rem 0">
-            <p>The venue offers flexible rooms, on-site parking, and a secure, attendee-friendly layout with a direct connection to the Sheraton.</p>
-          </article>
-
-          <article class="card">
-            <h3>Accommodations</h3>
-            <img src="/images/convention/sheraton-exterior.jpg" alt="Sheraton exterior" style="width:100%;height:260px;object-fit:cover;border-radius:12px;margin:.5rem 0">
-            <p>We’ll stay at the Sheraton (attached to the convention center). Amenities include a 24-hour fitness center, gift shops, and a ballroom. Rooms sleep up to four; we’ll group assignments and collect preferences.</p>
-          </article>
-
-          <article class="card">
-            <h3>Vendor Expo</h3>
-            <img src="/images/convention/rowan-expo.jpg" alt="Vendor expo hall" style="width:100%;height:260px;object-fit:cover;border-radius:12px;margin:.5rem 0">
-            <p>Explore new resources, technologies, and instrument care—with chances to learn about summer development programs and network with educators and vendors.</p>
-          </article>
-
-          <article class="card">
-            <h3>Professional Developments</h3>
-            <img src="/images/convention/professional-developments.jpg" alt="Professional development session" style="width:100%;height:260px;object-fit:cover;border-radius:12px;margin:.5rem 0">
-            <p>Choose from a vast catalog spanning early childhood through collegiate topics—led by new teachers, veteran educators, and professors across specialties.</p>
-          </article>
-
-          <article class="card">
-            <h3>Reading Sessions</h3>
-            <img src="/images/convention/choral-reading.jpg" alt="Choral reading session" style="width:100%;height:260px;object-fit:cover;border-radius:12px;margin:.5rem 0">
-            <p>Participate in score reading sessions (instrumental and vocal), discover emerging repertoire, and take home free copies of the music you read.</p>
-          </article>
-
-          <article class="card">
-            <h3>Performances</h3>
-            <img src="/images/convention/performance-1.jpg" alt="Conference performance" style="width:100%;height:260px;object-fit:cover;border-radius:12px;margin:.5rem 0">
-            <p>Enjoy scheduled performances by high schools, colleges, and professional ensembles throughout the event—watch the schedule for details.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Registration Information -->
-    <section class="section">
+    <section class="section" id="register">
       <div class="container">
         <article class="card">
           <div class="kicker">Registration</div>
@@ -151,7 +141,93 @@
         </article>
       </div>
     </section>
+
+    <section class="section" id="gallery">
+      <div class="container">
+        <h2 style="margin:0 0 1rem 0">Events &amp; Experiences</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>Convention Center</h3>
+            <img src="/images/convention/convention-center-interior-1.jpg" alt="Convention Center interior" class="convention-thumb">
+            <p>The venue offers flexible rooms, on-site parking, and a secure, attendee-friendly layout with a direct connection to the Sheraton.</p>
+          </article>
+
+          <article class="card">
+            <h3>Accommodations</h3>
+            <img src="/images/convention/sheraton-exterior.jpg" alt="Sheraton exterior" class="convention-thumb">
+            <p>We’ll stay at the Sheraton (attached to the convention center). Amenities include a 24-hour fitness center, gift shops, and a ballroom. Rooms sleep up to four; we’ll group assignments and collect preferences.</p>
+          </article>
+
+          <article class="card">
+            <h3>Vendor Expo</h3>
+            <img src="/images/convention/rowan-expo.jpg" alt="Vendor expo hall" class="convention-thumb">
+            <p>Explore new resources, technologies, and instrument care—with chances to learn about summer development programs and network with educators and vendors.</p>
+          </article>
+
+          <article class="card">
+            <h3>Professional Developments</h3>
+            <img src="/images/convention/professional-developments.jpg" alt="Professional development session" class="convention-thumb">
+            <p>Choose from a vast catalog spanning early childhood through collegiate topics—led by new teachers, veteran educators, and professors across specialties.</p>
+          </article>
+
+          <article class="card">
+            <h3>Reading Sessions</h3>
+            <img src="/images/convention/choral-reading.jpg" alt="Choral reading session" class="convention-thumb">
+            <p>Participate in score reading sessions (instrumental and vocal), discover emerging repertoire, and take home free copies of the music you read.</p>
+          </article>
+
+          <article class="card">
+            <h3>Performances</h3>
+            <img src="/images/convention/performance-1.jpg" alt="Conference performance" class="convention-thumb">
+            <p>Enjoy scheduled performances by high schools, colleges, and professional ensembles throughout the event—watch the schedule for details.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- What to Expect -->
+    <section class="section">
+      <div class="container">
+        <article class="card">
+          <div class="kicker">Overview</div>
+          <h2>What to Expect</h2>
+          <p>Join us for a weekend of more than <strong>200 professional development workshops and performances</strong>. Students attend PD sessions, lectures from leaders in our field, statewide ensemble performances, and networking events that build practical career skills.</p>
+          <p><a class="btn" href="#" onclick="alert('When the official schedule is released, it will appear here.');return false;">Conference Schedule</a></p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Gallery: Events & Experiences -->
+
+    <!-- Registration Information -->
   </main>
+
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="container faq">
+        <h2>Frequently Asked Questions</h2>
+        <details>
+          <summary>Who can attend the NJMEA conference?</summary>
+          <p>Any Rowan student can attend. If you’re not in the points cohort, you’re still welcome—just plan to cover your own registration and membership fees.</p>
+        </details>
+        <details>
+          <summary>How do carpools and room shares work?</summary>
+          <p>We’ll collect preferences and group students into carpools and hotel rooms (up to four per room) ahead of the conference.</p>
+        </details>
+        <details>
+          <summary>What should I budget?</summary>
+          <p>Top points earners receive free registration and NAfME membership. Everyone splits the hotel cost (target <strong>$50/person</strong>) and handles meals on their own.</p>
+        </details>
+        <details>
+          <summary>When will the detailed schedule be available?</summary>
+          <p>The official schedule usually posts closer to the event. We’ll link it on this page as soon as it’s live and highlight recommended sessions.</p>
+        </details>
+      </div>
+    </section>
+
 
   <!-- Shared footer -->
   <footer class="site-footer"></footer>
