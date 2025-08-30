@@ -527,7 +527,12 @@
   }
 
   function updatePressedStates(){
-    chipButtons.forEach(b => b.setAttribute('aria-pressed', activeFilters.size === 0 ? (b.dataset.filter==='all') : activeFilters.has(b.dataset.filter)));
+    chipButtons.forEach(b => {
+      const isAll = (b.dataset.filter === 'all');
+      const pressed = (activeFilters.size === 0) ? isAll : activeFilters.has(b.dataset.filter);
+      b.setAttribute('aria-pressed', pressed);
+    });
+  
   }
 
   function onChipClick(e){
