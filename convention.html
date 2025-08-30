@@ -54,6 +54,9 @@
           <a class="btn" href="https://nafme.my.site.com/joinapi__login?id=a201U000000NoT4QAK&order=2" target="_blank" rel="noopener">NAfME Membership</a>
         </div>
       </div>
+      <div>
+        <img src="/images/njmea-logo.png" alt="NJMEA logo" style="width:220px;height:auto;margin-inline:auto;filter:drop-shadow(0 10px 24px rgba(0,0,0,.25));">
+      </div>
     </div>
   </header>
   <main>
@@ -215,22 +218,5 @@
 
   <!-- Shared nav/foot loader -->
   <script src="/assets/js/nav.js" defer></script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function(){
-      // Try common brand containers
-      var brand = document.querySelector('.site-nav .brand') || document.querySelector('.site-nav a[href="/"]');
-      if(brand){
-        var img = brand.querySelector('img');
-        if(!img){
-          img = document.createElement('img');
-          brand.prepend(img);
-        }
-        img.src = '/images/njmea-logo.png';
-        img.alt = 'NJMEA';
-      }
-    });
-  </script>
-
 </body>
 </html>
