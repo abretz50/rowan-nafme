@@ -35,7 +35,7 @@
       border-color: transparent;
       filter: brightness(0.98);
     }
-  
+
     /* Make in-page buttons gold (exclude nav) */
     #eventsList .button,
     #eventsList .btn{
@@ -178,366 +178,323 @@
 
     /* Multi-select pressed emphasize */
     .filters .chip[aria-pressed="true"]{ border-width:2px; }
-    </style>
+  </style>
 </head>
 <body>
   <nav class="site-nav"></nav>
 
-  
-<header class="hero">
-  <div class="hero-inner container">
-    <div>
-      <h1>Events</h1>
-      <p>Workshops, meetings, volunteering, and convention prep. Filters below help you explore.</p>
-    </div>
-  </div>
-</header>
-<main>
-  <section class="section">
-    <div class="container">
-      <div class="filters">
-        <div class="filters-bar">
-        <div class="chips" role="toolbar" aria-label="Filter events by category">
-          <button class="button chip" data-filter="all" aria-pressed="true">All</button>
-          <button class="button chip" data-filter="events" aria-pressed="false">Events</button>
-          <button class="button chip" data-filter="meeting" aria-pressed="false">Meetings</button>
-          <button class="button chip" data-filter="professional-development" aria-pressed="false">Professional Developments</button>
-          <button class="button chip" data-filter="workshop" aria-pressed="false">Workshop</button>
-          <button class="button chip" data-filter="volunteer" aria-pressed="false">Volunteer</button>
-        </div>
-        <div class="filters-right">
-          <button id="togglePast" class="button switch" aria-pressed="false" title="Show past events">
-            <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><path fill="currentColor" d="M12 1.5a10.5 10.5 0 1 0 0 21 10.5 10.5 0 0 0 0-21Zm0 1.8a8.7 8.7 0 1 1 0 17.4 8.7 8.7 0 0 1 0-17.4Zm-.9 3.9a.9.9 0 0 1 1.8 0v4.56l3.22 1.86a.9.9 0 1 1-.9 1.56l-3.6-2.07a.9.9 0 0 1-.46-.78V7.2Z"/></svg>
-            <span>Include past events</span>
-            <span class="knob" aria-hidden="true"></span>
-          </button>
-        </div>
+  <header class="hero">
+    <div class="hero-inner container">
+      <div>
+        <h1>Events</h1>
+        <p>Workshops, meetings, volunteering, and convention prep. Filters below help you explore.</p>
       </div>
-      </div>
-      <div class="grid" id="eventsList" aria-live="polite"></div>
     </div>
-  </section>
-</main>
+  </header>
 
-
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="filters">
+          <div class="filters-bar">
+            <div class="chips" role="toolbar" aria-label="Filter events by category">
+              <button class="button chip" data-filter="all" aria-pressed="true">All</button>
+              <button class="button chip" data-filter="events" aria-pressed="false">Events</button>
+              <button class="button chip" data-filter="meeting" aria-pressed="false">Meetings</button>
+              <button class="button chip" data-filter="professional-development" aria-pressed="false">Professional Developments</button>
+              <button class="button chip" data-filter="workshop" aria-pressed="false">Workshop</button>
+              <button class="button chip" data-filter="volunteer" aria-pressed="false">Volunteer</button>
+            </div>
+            <div class="filters-right">
+              <button id="togglePast" class="button switch" aria-pressed="false" title="Show past events">
+                <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><path fill="currentColor" d="M12 1.5a10.5 10.5 0 1 0 0 21 10.5 10.5 0 0 0 0-21Zm0 1.8a8.7 8.7 0 1 1 0 17.4 8.7 8.7 0 0 1 0-17.4Zm-.9 3.9a.9.9 0 0 1 1.8 0v4.56l3.22 1.86a.9.9 0 1 1-.9 1.56l-3.6-2.07a.9.9 0 0 1-.46-.78V7.2Z"/></svg>
+                <span>Include past events</span>
+                <span class="knob" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="grid" id="eventsList" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
 
   <footer class="site-footer"></footer>
   <script src="/assets/js/nav.js" defer></script>
 
-<script>
+  <!-- Removed the small "past events" script block -->
+
+  <script>
   (function(){
-    const list = document.getElementById('eventsList');
-    const pastBtn = document.getElementById('togglePast');
-    if(!list || !pastBtn) return;
+    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQcgOeW0i-7EiDTkN_9rr6hXJSE0nFUsnpKXGSHyPUUudWnja7FQJ0vjvt9x7ktQciDGcZa8OD3VXip/pub?output=csv";
+    const listEl = document.getElementById('eventsList');
+    const chipsBar = document.querySelector('.filters .chips');
+    const chipAll = chipsBar?.querySelector('button[data-filter="all"]');
+    const chipButtons = Array.from(chipsBar?.querySelectorAll('button[data-filter]') || []);
+    const pastToggle = document.getElementById('togglePast');
+    const activeFilters = new Set(); // empty means 'all'
 
-    function updatePastVisibility(){
-      const showPast = pastBtn.getAttribute('aria-pressed') === 'true';
-      const cards = list.querySelectorAll('[data-when="past"], .is-past');
-      cards.forEach(card => {
-        card.style.display = showPast ? '' : 'none';
-      });
-    }
-
-    // If events.js marks past items, great; if not, attempt a lightweight detection from <time datetime>
-    function markPastFromTime(){
-      const now = new Date();
-      list.querySelectorAll('time[datetime]').forEach(t => {
-        const d = new Date(t.getAttribute('datetime'));
-        const card = t.closest('.card') || t.closest('article');
-        if(card && !card.hasAttribute('data-when')){
-          if(!isNaN(d) && d < now){ card.setAttribute('data-when','past'); }
-          else if(!isNaN(d)){ card.setAttribute('data-when','upcoming'); }
+    function parseCSV(text){
+      const rows = [];
+      let i=0, field='', row=[], inQuotes=false;
+      while(i < text.length){
+        const c = text[i];
+        if(inQuotes){
+          if(c === '"'){
+            if(text[i+1] === '"'){ field += '"'; i++; }
+            else { inQuotes = false; }
+          } else { field += c; }
+        } else {
+          if(c === '"') inQuotes = true;
+          else if(c === ','){ row.push(field); field=''; }
+          else if(c === '\n'){ row.push(field); field=''; rows.push(row); row=[]; }
+          else if(c === '\r'){ /* ignore */ }
+          else { field += c; }
         }
-      });
-    }
-
-    // Toggle button
-    pastBtn.addEventListener('click', () => {
-      const pressed = pastBtn.getAttribute('aria-pressed') === 'true';
-      pastBtn.setAttribute('aria-pressed', String(!pressed));
-      updatePastVisibility();
-    });
-
-    // Observe when events are populated (in case events.js renders asynchronously)
-    const obs = new MutationObserver(() => { markPastFromTime(); updatePastVisibility(); });
-    obs.observe(list, { childList:true, subtree:true });
-
-    // Initial pass
-    markPastFromTime();
-    updatePastVisibility();
-  })();
-</script>
-
-
-
-
-
-<script>
-(function(){
-  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQcgOeW0i-7EiDTkN_9rr6hXJSE0nFUsnpKXGSHyPUUudWnja7FQJ0vjvt9x7ktQciDGcZa8OD3VXip/pub?output=csv";
-  const listEl = document.getElementById('eventsList');
-  const chipsBar = document.querySelector('.filters .chips');
-  const chipAll = chipsBar?.querySelector('button[data-filter="all"]');
-  const chipButtons = Array.from(chipsBar?.querySelectorAll('button[data-filter]') || []);
-  const pastToggle = document.getElementById('togglePast');
-  const activeFilters = new Set(); // empty means 'all'
-
-  function parseCSV(text){
-    const rows = [];
-    let i=0, field='', row=[], inQuotes=false;
-    while(i < text.length){
-      const c = text[i];
-      if(inQuotes){
-        if(c === '"'){
-          if(text[i+1] === '"'){ field += '"'; i++; }
-          else { inQuotes = false; }
-        } else { field += c; }
-      } else {
-        if(c === '"') inQuotes = true;
-        else if(c === ','){ row.push(field); field=''; }
-        else if(c === '\n'){ row.push(field); field=''; rows.push(row); row=[]; }
-        else if(c === '\r'){ /* ignore */ }
-        else { field += c; }
+        i++;
       }
-      i++;
+      if(field.length || row.length){ row.push(field); rows.push(row); }
+      return rows;
     }
-    if(field.length || row.length){ row.push(field); rows.push(row); }
-    return rows;
-  }
 
-  function toRecords(rows){
-    const header = rows.shift().map(h => h.trim().toLowerCase());
-    return rows.map(r => {
-      const obj = { };
-      header.forEach((h, idx) => obj[h] = (r[idx] ?? '').trim());
-      return obj;
-    });
-  }
-
-  function pad2(n){ return String(n).padStart(2,'0'); }
-
-  function parseDate(dStr){
-    if(!dStr) return null;
-    const parts = dStr.split(/[\/.-]/).map(s => s.trim());
-    if(parts.length < 3) return null;
-    let [m,d,y] = parts;
-    m = parseInt(m,10); d = parseInt(d,10);
-    y = parseInt(y,10);
-    if(y < 100) y = 2000 + y;
-    return new Date(y, m-1, d);
-  }
-
-  function parseTime(tStr){
-    if(!tStr) return {h:0,m:0};
-    tStr = tStr.trim();
-    let m = tStr.match(/^(\d{1,2}):(\d{2})\s*([AP]M)?$/i);
-    if(!m) return {h:0,m:0};
-    let h = parseInt(m[1],10), mm = parseInt(m[2],10);
-    const ampm = (m[3]||'').toUpperCase();
-    if(ampm === 'PM' && h<12) h += 12;
-    if(ampm === 'AM' && h===12) h = 0;
-    return {h, m:mm};
-  }
-
-  function combineDateTime(d, t){ const dt = new Date(d); dt.setHours(t.h, t.m, 0, 0); return dt; }
-
-  function formatDateRange(start, end){
-    const optsDate = { month:'long', day:'numeric', year:'numeric' };
-    const optsTime = { hour:'numeric', minute:'2-digit' };
-    const sameDay = start.toDateString() === end.toDateString();
-    if(sameDay) return new Intl.DateTimeFormat('en-US', optsDate).format(start) + ' • ' +
-                     new Intl.DateTimeFormat('en-US', optsTime).format(start) + '–' +
-                     new Intl.DateTimeFormat('en-US', optsTime).format(end);
-    return new Intl.DateTimeFormat('en-US', optsDate).format(start) + ' ' +
-           new Intl.DateTimeFormat('en-US', optsTime).format(start) + ' → ' +
-           new Intl.DateTimeFormat('en-US', optsDate).format(end) + ' ' +
-           new Intl.DateTimeFormat('en-US', optsTime).format(end);
-  }
-
-  function gcalLink(ev){
-    const text = encodeURIComponent(ev.title || 'NAfME Event');
-    const details = encodeURIComponent((ev.details || ev.description || '') + (ev.signin_link ? '\n\nSign-in: ' + ev.signin_link : ''));
-    const location = encodeURIComponent(ev.location || '');
-    const tz = 'America/New_York';
-    const start = ev.startDateTime;
-    const end = ev.endDateTime;
-    const dates = start.getFullYear() + String(start.getMonth()+1).padStart(2,'0') + String(start.getDate()).padStart(2,'0') + 'T' +
-                  String(start.getHours()).padStart(2,'0') + String(start.getMinutes()).padStart(2,'0') + '00/' +
-                  end.getFullYear() + String(end.getMonth()+1).padStart(2,'0') + String(end.getDate()).padStart(2,'0') + 'T' +
-                  String(end.getHours()).padStart(2,'0') + String(end.getMinutes()).padStart(2,'0') + '00';
-    return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + text +
-           '&dates=' + dates + '&ctz=' + tz + '&details=' + details + '&location=' + location;
-  }
-
-  function tagSlug(s){ return (s||'').toLowerCase().replace(/\s+/g,'-'); }
-  function normalizeTags(s){
-    if(!s) return [];
-    return s.split(/[,;/]+/).map(v => v.trim()).filter(Boolean);
-  }
-
-  function cardHTML(ev){
-    const badges = ev.tags.map(t => '<span class="badge" data-tag="'+tagSlug(t)+'">'+t+'</span>').join(' ');
-    const btnLabel = ev.primaryTag === 'volunteer' ? 'Sign up' : 'Attendance';
-    const signinHref = ev.signin_link || '#';
-    return (
-      '<article class="card" data-tags="' + ev.tagSlugs.join(' ') + '" data-when="' + ev.when + '">' +
-        '<img src="' + (ev.image_url||'') + '" alt="' + (ev.title||'') + ' photo" class="event-photo convention-thumb" onerror="this.onerror=null;this.src=\'/images/placeholder.png\'">' +
-        '<div style="padding:16px">' +
-          '<div style="margin-bottom:6px">' + badges + '</div>' +
-          '<h3>' + (ev.title||'') + '</h3>' +
-          '<p class="kicker">' + (ev.datePretty||'') + '</p>' +
-          '<p>' + (ev.location||'') + '</p>' +
-          '<p>' + (ev.description||'') + '</p>' +
-          '<div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem">' +
-            '<button class="button" data-modal="modal-' + ev.id + '">Details</button>' +
-            '<a class="button" href="' + signinHref + '" target="_blank" rel="noopener">' + btnLabel + '</a>' +
-          '</div>' +
-        '</div>' +
-      '</article>'
-    );
-  }
-
-  function modalHTML(ev){
-    const btnLabel = ev.primaryTag === 'volunteer' ? 'Sign up' : 'Attendance';
-    return (
-      '<div class="modal" id="modal-' + ev.id + '" role="dialog" aria-modal="true" aria-labelledby="modal-' + ev.id + '-title" hidden>' +
-        '<div class="modal-overlay" data-close="True"></div>' +
-        '<div class="modal-content">' +
-          '<div class="modal-header">' +
-            '<h3 class="modal-title" id="modal-' + ev.id + '-title">' + (ev.title||'') + '</h3>' +
-            '<button class="close-btn" data-close="True" aria-label="Close">✕</button>' +
-          '</div>' +
-          '<section>' +
-            '<img src="' + (ev.image_url||'') + '" alt="' + (ev.title||'') + ' photo" class="convention-thumb" onerror="this.onerror=null;this.src=\'/images/placeholder.png\'">' +
-            '<p class=\"kicker\"><strong>' + (ev.datePretty||'') + '</strong>' + (ev.location ? ' • ' + ev.location : '') + '</p>' +
-            (ev.details ? ('<p>' + ev.details + '</p>') : '') +
-            '<div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem">' +
-              '<a class="button" href="' + gcalLink(ev) + '" target="_blank" rel="noopener">Add to Calendar</a>' +
-              '<a class="button" href="' + (ev.signin_link || '#') + '" target="_blank" rel="noopener">' + btnLabel + '</a>' +
-            '</div>' +
-          '</section>' +
-        '</div>' +
-      '</div>'
-    );
-  }
-
-  function openModal(m){ m?.classList.add('open'); m?.removeAttribute('hidden'); }
-  function closeModal(m){ m?.classList.remove('open'); m?.setAttribute('hidden',''); }
-
-  function attachModalHandlers(){
-    document.querySelectorAll('[data-modal]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = btn.getAttribute('data-modal');
-        const m = document.getElementById(id);
-        openModal(m);
+    function toRecords(rows){
+      const header = rows.shift().map(h => h.trim().toLowerCase());
+      return rows.map(r => {
+        const obj = { };
+        header.forEach((h, idx) => obj[h] = (r[idx] ?? '').trim());
+        return obj;
       });
-    });
-    document.querySelectorAll('.modal').forEach(m => {
-      m.addEventListener('click', (e) => { if (e.target.classList.contains('modal-overlay')) closeModal(m); });
-      m.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => closeModal(m)));
-    });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.querySelectorAll('.modal.open').forEach(closeModal); });
-  }
-
-  function render(events){
-    events.sort((a,b) => a.startDateTime - b.startDateTime);
-    const cards = events.map(cardHTML).join('\n');
-    listEl.innerHTML = cards + '\n' + events.map(modalHTML).join('\n');
-    attachModalHandlers();
-    applyPastVisibility();
-    applyFilters();
-  }
-
-  function applyPastVisibility(){
-    const showPast = pastToggle?.getAttribute('aria-pressed') === 'true';
-    listEl.querySelectorAll('[data-when="past"]').forEach(el => el.style.display = showPast ? '' : 'none');
-  }
-
-  function matchesFilters(card){
-    if(activeFilters.size === 0) return true;
-    const tags = (card.getAttribute('data-tags')||'').split(/\s+/);
-    function tagMatches(filter){
-      if(filter === 'events') return tags.includes('workshop') || tags.includes('convention') || tags.includes('event') || tags.includes('events');
-      return tags.includes(filter);
     }
-    for(const f of activeFilters) if(tagMatches(f)) return true;
-    return false;
-  }
 
-  function applyFilters(){
-    const cards = Array.from(listEl.querySelectorAll('.card'));
-    cards.forEach(card => {
-      const match = matchesFilters(card);
-      const pastOk = pastToggle?.getAttribute('aria-pressed') === 'true' || card.getAttribute('data-when') !== 'past';
-      card.style.display = (match && pastOk) ? '' : 'none';
-    });
-  }
-
-  function updatePressedStates(){
-    chipButtons.forEach(b => b.setAttribute('aria-pressed', activeFilters.size === 0 ? (b.dataset.filter==='all') : activeFilters.has(b.dataset.filter)));
-  }
-
-  function onChipClick(e){
-    const f = e.currentTarget.dataset.filter;
-    if(f === 'all'){
-      activeFilters.clear();
-    } else {
-      if(activeFilters.has(f)) activeFilters.delete(f); else activeFilters.add(f);
+    function parseDate(dStr){
+      if(!dStr) return null;
+      const parts = dStr.split(/[\/.-]/).map(s => s.trim());
+      if(parts.length < 3) return null;
+      let [m,d,y] = parts;
+      m = parseInt(m,10); d = parseInt(d,10);
+      y = parseInt(y,10);
+      if(y < 100) y = 2000 + y;
+      return new Date(y, m-1, d);
     }
-    updatePressedStates();
-    applyFilters();
-  }
 
-  chipButtons.forEach(b => b.addEventListener('click', onChipClick));
+    function parseTime(tStr){
+      if(!tStr) return {h:0,m:0};
+      tStr = tStr.trim();
+      let m = tStr.match(/^(\d{1,2}):(\d{2})\s*([AP]M)?$/i);
+      if(!m) return {h:0,m:0};
+      let h = parseInt(m[1],10), mm = parseInt(m[2],10);
+      const ampm = (m[3]||'').toUpperCase();
+      if(ampm === 'PM' && h<12) h += 12;
+      if(ampm === 'AM' && h===12) h = 0;
+      return {h, m:mm};
+    }
 
-  pastToggle?.addEventListener('click', () => {
-    const pressed = pastToggle.getAttribute('aria-pressed') === 'true';
-    pastToggle.setAttribute('aria-pressed', String(!pressed));
-    applyPastVisibility();
-    applyFilters();
-  });
+    function combineDateTime(d, t){ const dt = new Date(d); dt.setHours(t.h, t.m, 0, 0); return dt; }
 
-  fetch(CSV_URL, {cache:'no-store'}).then(r => r.text()).then(t => {
-    const rows = parseCSV(t);
-    const recs = toRecords(rows);
+    function formatDateRange(start, end){
+      const optsDate = { month:'long', day:'numeric', year:'numeric' };
+      const optsTime = { hour:'numeric', minute:'2-digit' };
+      const sameDay = start.toDateString() === end.toDateString();
+      if(sameDay) return new Intl.DateTimeFormat('en-US', optsDate).format(start) + ' • ' +
+                       new Intl.DateTimeFormat('en-US', optsTime).format(start) + '–' +
+                       new Intl.DateTimeFormat('en-US', optsTime).format(end);
+      return new Intl.DateTimeFormat('en-US', optsDate).format(start) + ' ' +
+             new Intl.DateTimeFormat('en-US', optsTime).format(start) + ' → ' +
+             new Intl.DateTimeFormat('en-US', optsDate).format(end) + ' ' +
+             new Intl.DateTimeFormat('en-US', optsTime).format(end);
+    }
 
-    const events = recs.map(r => {
-      const date = parseDate(r.date);
-      const st = parseTime(r.start_time);
-      const et = parseTime(r.end_time);
-      const start = date ? combineDateTime(date, st) : new Date();
-      const end = date ? combineDateTime(date, et.h ? et : st) : new Date(start.getTime()+60*60*1000);
-      const now = new Date();
-      const when = end < now ? 'past' : 'upcoming';
-      const tags = normalizeTags(r.tags);
-      const slugs = tags.map(tagSlug);
-      return {
-        id: Math.random().toString(36).slice(2),
-        title: r.title,
-        date: r.date,
-        start_time: r.start_time,
-        end_time: r.end_time,
-        startDateTime: start,
-        endDateTime: end,
-        datePretty: formatDateRange(start, end),
-        location: r.location,
-        tags,
-        tagSlugs: slugs,
-        primaryTag: tagSlug(tags[0]||''),
-        description: r.description,
-        details: r.details,
-        signin_link: r.signin_link,
-        image_url: r.image_url || '/images/placeholder.png',
-        when
-      };
+    function gcalLink(ev){
+      const text = encodeURIComponent(ev.title || 'NAfME Event');
+      const details = encodeURIComponent((ev.details || ev.description || '') + (ev.signin_link ? '\n\nSign-in: ' + ev.signin_link : ''));
+      const location = encodeURIComponent(ev.location || '');
+      const tz = 'America/New_York';
+      const start = ev.startDateTime;
+      const end = ev.endDateTime;
+      const dates = start.getFullYear() + String(start.getMonth()+1).padStart(2,'0') + String(start.getDate()).padStart(2,'0') + 'T' +
+                    String(start.getHours()).padStart(2,'0') + String(start.getMinutes()).padStart(2,'0') + '00/' +
+                    end.getFullYear() + String(end.getMonth()+1).padStart(2,'0') + String(end.getDate()).padStart(2,'0') + 'T' +
+                    String(end.getHours()).padStart(2,'0') + String(end.getMinutes()).padStart(2,'0') + '00';
+      return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + text +
+             '&dates=' + dates + '&ctz=' + tz + '&details=' + details + '&location=' + location;
+    }
+
+    function tagSlug(s){ return (s||'').toLowerCase().replace(/\s+/g,'-'); }
+    function normalizeTags(s){
+      if(!s) return [];
+      return s.split(/[,;/]+/).map(v => v.trim()).filter(Boolean);
+    }
+
+    /* === NEW: unified RSVP label helper === */
+    function getBtnLabel(ev){
+      const tags = new Set((ev.tagSlugs || []).map(String));
+      if (tags.has('volunteer')) return 'Sign up';
+      if (tags.has('event') || tags.has('events') || tags.has('professional-development')) return 'Sign in';
+      return 'Attendance';
+    }
+
+    function cardHTML(ev){
+      const badges = ev.tags.map(t => '<span class="badge" data-tag="'+tagSlug(t)+'">'+t+'</span>').join(' ');
+      const btnLabel = getBtnLabel(ev); /* changed */
+      const signinHref = ev.signin_link || '#';
+      return (
+        '<article class="card" data-tags="' + ev.tagSlugs.join(' ') + '" data-when="' + ev.when + '">' +
+          '<img src="' + (ev.image_url||'') + '" alt="' + (ev.title||'') + ' photo" class="event-photo convention-thumb" onerror="this.onerror=null;this.src=\'/images/placeholder.png\'">' +
+          '<div style="padding:16px">' +
+            '<div style="margin-bottom:6px">' + badges + '</div>' +
+            '<h3>' + (ev.title||'') + '</h3>' +
+            '<p class="kicker">' + (ev.datePretty||'') + '</p>' +
+            '<p>' + (ev.location||'') + '</p>' +
+            '<p>' + (ev.description||'') + '</p>' +
+            '<div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem">' +
+              '<button class="button" data-modal="modal-' + ev.id + '">Details</button>' +
+              '<a class="button" href="' + signinHref + '" target="_blank" rel="noopener">' + btnLabel + '</a>' +
+            '</div>' +
+          '</div>' +
+        '</article>'
+      );
+    }
+
+    function modalHTML(ev){
+      const btnLabel = getBtnLabel(ev); /* changed */
+      return (
+        '<div class="modal" id="modal-' + ev.id + '" role="dialog" aria-modal="true" aria-labelledby="modal-' + ev.id + '-title" hidden>' +
+          '<div class="modal-overlay" data-close="True"></div>' +
+          '<div class="modal-content">' +
+            '<div class="modal-header">' +
+              '<h3 class="modal-title" id="modal-' + ev.id + '-title">' + (ev.title||'') + '</h3>' +
+              '<button class="close-btn" data-close="True" aria-label="Close">✕</button>' +
+            '</div>' +
+            '<section>' +
+              '<img src="' + (ev.image_url||'') + '" alt="' + (ev.title||'') + ' photo" class="convention-thumb" onerror="this.onerror=null;this.src=\'/images/placeholder.png\'">' +
+              '<p class="kicker"><strong>' + (ev.datePretty||'') + '</strong>' + (ev.location ? ' • ' + ev.location : '') + '</p>' +
+              (ev.details ? ('<p>' + ev.details + '</p>') : '') +
+              '<div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem">' +
+                '<a class="button" href="' + gcalLink(ev) + '" target="_blank" rel="noopener">Add to Calendar</a>' +
+                '<a class="button" href="' + (ev.signin_link || '#') + '" target="_blank" rel="noopener">' + btnLabel + '</a>' +
+              '</div>' +
+            '</section>' +
+          '</div>' +
+        '</div>'
+      );
+    }
+
+    function openModal(m){ m?.classList.add('open'); m?.removeAttribute('hidden'); }
+    function closeModal(m){ m?.classList.remove('open'); m?.setAttribute('hidden',''); }
+
+    function attachModalHandlers(){
+      document.querySelectorAll('[data-modal]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-modal');
+          const m = document.getElementById(id);
+          openModal(m);
+        });
+      });
+      document.querySelectorAll('.modal').forEach(m => {
+        m.addEventListener('click', (e) => { if (e.target.classList.contains('modal-overlay')) closeModal(m); });
+        m.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => closeModal(m)));
+      });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.querySelectorAll('.modal.open').forEach(closeModal); });
+    }
+
+    function render(events){
+      events.sort((a,b) => a.startDateTime - b.startDateTime);
+      const cards = events.map(cardHTML).join('\n');
+      listEl.innerHTML = cards + '\n' + events.map(modalHTML).join('\n');
+      attachModalHandlers();
+      applyPastVisibility();
+      applyFilters();
+    }
+
+    function applyPastVisibility(){
+      const showPast = pastToggle?.getAttribute('aria-pressed') === 'true';
+      listEl.querySelectorAll('[data-when="past"]').forEach(el => el.style.display = showPast ? '' : 'none');
+    }
+
+    function matchesFilters(card){
+      if(activeFilters.size === 0) return true;
+      const tags = (card.getAttribute('data-tags')||'').split(/\s+/);
+      function tagMatches(filter){
+        if(filter === 'events') return tags.includes('workshop') || tags.includes('convention') || tags.includes('event') || tags.includes('events');
+        return tags.includes(filter);
+      }
+      for(const f of activeFilters) if(tagMatches(f)) return true;
+      return false;
+    }
+
+    function applyFilters(){
+      const cards = Array.from(listEl.querySelectorAll('.card'));
+      cards.forEach(card => {
+        const match = matchesFilters(card);
+        const pastOk = pastToggle?.getAttribute('aria-pressed') === 'true' || card.getAttribute('data-when') !== 'past';
+        card.style.display = (match && pastOk) ? '' : 'none';
+      });
+    }
+
+    function updatePressedStates(){
+      chipButtons.forEach(b => b.setAttribute('aria-pressed', activeFilters.size === 0 ? (b.dataset.filter==='all') : activeFilters.has(b.dataset.filter)));
+    }
+
+    function onChipClick(e){
+      const f = e.currentTarget.dataset.filter;
+      if(f === 'all'){
+        activeFilters.clear();
+      } else {
+        if(activeFilters.has(f)) activeFilters.delete(f); else activeFilters.add(f);
+      }
+      updatePressedStates();
+      applyFilters();
+    }
+
+    chipButtons.forEach(b => b.addEventListener('click', onChipClick));
+
+    pastToggle?.addEventListener('click', () => {
+      const pressed = pastToggle.getAttribute('aria-pressed') === 'true';
+      pastToggle.setAttribute('aria-pressed', String(!pressed));
+      applyPastVisibility();
+      applyFilters();
     });
-    render(events);
-  }).catch(err => {
-    console.error('CSV load failed', err);
-    listEl.innerHTML = '<p class="kicker">Could not load events. Please try again later.</p>';
-  });
-})();
-</script>
 
+    fetch(CSV_URL, {cache:'no-store'}).then(r => r.text()).then(t => {
+      const rows = parseCSV(t);
+      const recs = toRecords(rows);
+
+      const events = recs.map(r => {
+        const date = parseDate(r.date);
+        const st = parseTime(r.start_time);
+        const et = parseTime(r.end_time);
+        const start = date ? combineDateTime(date, st) : new Date();
+        const end = date ? combineDateTime(date, et.h ? et : st) : new Date(start.getTime()+60*60*1000);
+        const now = new Date();
+        const when = end < now ? 'past' : 'upcoming';
+        const tags = normalizeTags(r.tags);
+        const slugs = tags.map(tagSlug);
+        return {
+          id: Math.random().toString(36).slice(2),
+          title: r.title,
+          date: r.date,
+          start_time: r.start_time,
+          end_time: r.end_time,
+          startDateTime: start,
+          endDateTime: end,
+          datePretty: formatDateRange(start, end),
+          location: r.location,
+          tags,
+          tagSlugs: slugs,
+          primaryTag: tagSlug(tags[0]||''),
+          description: r.description,
+          details: r.details,
+          signin_link: r.signin_link,
+          image_url: r.image_url || '/images/placeholder.png',
+          when
+        };
+      });
+      render(events);
+    }).catch(err => {
+      console.error('CSV load failed', err);
+      listEl.innerHTML = '<p class="kicker">Could not load events. Please try again later.</p>';
+    });
+  })();
+  </script>
 </body>
 </html>

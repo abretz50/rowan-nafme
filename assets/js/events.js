@@ -1,4 +1,3 @@
-
 const EVENTS = [
   {
     id: "pd-001",
@@ -34,9 +33,22 @@ const EVENTS = [
   }
 ];
 
+// ---- Helpers ----
+function getBtnLabel(ev){
+  const tags = new Set((ev.tags || []).map(t => t.toLowerCase()));
+  if (tags.has("volunteer")) return "Sign up";
+  // Per your requirement: event OR professional-development => "Sign in"
+  if (tags.has("event") || tags.has("professional-development")) return "Sign in";
+  return "Attendance";
+}
+
 function formatDate(iso){
   const d = new Date(iso);
   return d.toLocaleString([], { dateStyle: "full", timeStyle: "short" });
+}
+
+function isPast(iso){
+  return new Date(iso).getTime() < Date.now();
 }
 
 function renderEvents(list){
@@ -47,6 +59,7 @@ function renderEvents(list){
     return;
   }
   list.forEach(ev => {
+    const btnLabel = getBtnLabel(ev);
     const card = document.createElement("article");
     card.className = "card event-card";
     card.innerHTML = `
@@ -59,18 +72,34 @@ function renderEvents(list){
       </div>
       <p>${ev.description || ""}</p>
       <div class="event-actions">
-        <a class="button" href="#"
-           aria-disabled="true">Details</a>
-        <a class="button primary" href="#" aria-disabled="true">RSVP (soon)</a>
+        <a class="button" href="#" aria-disabled="true">Details</a>
+        <a class="button primary" href="#" aria-disabled="true">${btnLabel}</a>
       </div>
     `;
     wrap.appendChild(card);
   });
 }
 
+// ---- Filters (chips + past toggle) ----
 document.addEventListener("DOMContentLoaded", () => {
   const chips = document.querySelectorAll("[data-filter]");
+  const pastToggle = document.getElementById("includePast"); // <input type="checkbox" id="includePast">
   let active = new Set();
+
+  function applyFilters(){
+    const includePast = pastToggle ? pastToggle.checked : false;
+    // First, tag filtering
+    let filtered = !active.size
+      ? EVENTS.slice()
+      : EVENTS.filter(ev => ev.tags.some(t => active.has(t)));
+
+    // Then, past filter
+    if (!includePast){
+      filtered = filtered.filter(ev => !isPast(ev.dt));
+    }
+    renderEvents(filtered);
+  }
+
   chips.forEach(btn => {
     btn.addEventListener("click", () => {
       const tag = btn.dataset.filter;
@@ -81,10 +110,13 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.setAttribute("aria-pressed","true");
         active.add(tag);
       }
-      const filtered = !active.size ? EVENTS :
-        EVENTS.filter(ev => ev.tags.some(t => active.has(t)));
-      renderEvents(filtered);
+      applyFilters();
     });
   });
-  renderEvents(EVENTS);
+
+  if (pastToggle){
+    pastToggle.addEventListener("change", applyFilters);
+  }
+
+  applyFilters();
 });
