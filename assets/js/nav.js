@@ -1,4 +1,3 @@
-
 (function(){
   const SITE_BASE = (window.SITE_BASE || "").replace(/\/$/, "");
   const resolve = (p) => SITE_BASE + p;
@@ -15,40 +14,49 @@
         }
       }catch(e){/* try next */}
     }
-    console.error("Failed to load partial", selector);
+  }
+
+  function canonPath(p){
+    try{
+      p = (p || "/").split("#")[0].split("?")[0];
+      if (p === "/" || p === "") return "/home";           // treat root as /home
+      if (/\/index(\.html)?$/i.test(p)) return "/home";    // /index or /index.html → /home
+      return p.replace(/\.html$/i,"").replace(/\/$/,"");
+    }catch(e){ return p || "/home"; }
   }
 
   function setLinksAndActive(){
-    const here = (location.pathname.replace(/\/$/, "") || "/");
-    document.querySelectorAll("a[data-href]").forEach(a => {
-      const target = a.getAttribute("data-href");
-      const href = resolve(target);
-      a.setAttribute("href", href);
+    const here = canonPath(location.pathname);
 
-      const normTarget = (target.replace(/\/$/, "") || "/");
-      if (here === normTarget || (normTarget !== "/" && here.startsWith(normTarget))) {
-        a.classList.add("active");
-        a.setAttribute("aria-current","page");
+    document.querySelectorAll('nav.site-nav [data-href]').forEach(a => {
+      const target = a.getAttribute('data-href');
+      if (!target) return;
+      const clean = canonPath(target);
+      a.setAttribute('href', clean);
+      if (canonPath(clean) === here){
+        a.classList.add('active');
+        a.setAttribute('aria-current','page');
       }
     });
   }
 
   function wireMenu(){
-    const btn = document.getElementById("navToggle");
-    const links = document.getElementById("navLinks");
-    if(!btn || !links) return;
-    btn.addEventListener("click", () => {
-      const showing = links.classList.toggle("show");
-      btn.setAttribute("aria-expanded", showing ? "true" : "false");
+    const btn = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+    if (!btn || !links) return;
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const showing = links.classList.toggle('show');
+      btn.setAttribute('aria-expanded', showing ? 'true' : 'false');
     });
   }
 
   async function boot(){
-    await inject("nav.site-nav", ["/partials/nav.html","partials/nav.html"]);
+    await inject('nav.site-nav', ['/partials/nav.html','partials/nav.html']);
     setLinksAndActive();
     wireMenu();
-    await inject("footer.site-footer", ["/partials/footer.html","partials/footer.html"]);
+    await inject('footer.site-footer', ['/partials/footer.html','partials/footer.html']);
     setLinksAndActive();
   }
-  document.addEventListener("DOMContentLoaded", boot);
+  document.addEventListener('DOMContentLoaded', boot);
 })();
