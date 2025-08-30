@@ -379,12 +379,3 @@ a{color:inherit;text-decoration:none}
 
 
 
-
-
-/* --- Clean URL active link styling (added by ChatGPT) --- */
-.site-nav .links a.active,
-.site-nav .links a[aria-current="page"]{
-  font-weight: 600;
-  border-bottom: 2px solid currentColor;
-}
-
