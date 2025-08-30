@@ -99,8 +99,8 @@
       display: inline-flex; align-items: center; gap: 8px;
       padding-right: 52px; /* room for knob */
       background: transparent;
-      color: var(--brand-gold, #f5c518);
-      border: 1.6px solid var(--brand-gold, #f5c518);
+      color: var(--text);
+      border: 1.6px solid var(--border);
       border-radius: 999px;
       height: var(--tap);
       font-weight: 800;
@@ -109,24 +109,24 @@
     .filters .switch .knob{
       position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
       width: 34px; height: 18px; border-radius: 999px;
-      background: rgba(255,255,255,.12);
+      background: rgba(255,255,255,.10);
       border: 1px solid var(--border);
       transition: background .2s ease;
     }
     .filters .switch .knob::after{
       content:""; position:absolute; top:2px; left:2px;
       width: 12px; height: 12px; border-radius: 999px;
-      background: var(--brand-gold, #f5c518);
+      background: var(--muted);
       transition: transform .2s ease, background .2s ease;
     }
     .filters .switch:hover{ transform: translateY(-1px); background: rgba(255,255,255,.05); }
     .filters .switch[aria-pressed="true"]{
-      background: var(--brand-gold, #f5c518);
-      color:#111;
-      border-color: transparent;
+      background: rgba(255,255,255,.14);
+      color: var(--text);
+      border-color: var(--border);
     }
-    .filters .switch[aria-pressed="true"] .knob{ background: rgba(0,0,0,.15); border-color: transparent; }
-    .filters .switch[aria-pressed="true"] .knob::after{ transform: translateX(14px); background:#111; }
+    .filters .switch[aria-pressed="true"] .knob{ background: rgba(255,255,255,.18); border-color: var(--border); }
+    .filters .switch[aria-pressed="true"] .knob::after{ transform: translateX(14px); background: var(--brand-cyan); }
 </style>
 </head>
 <body>
@@ -148,6 +148,7 @@
         <div class="filters-bar">
         <div class="chips" role="toolbar" aria-label="Filter events by category">
           <button class="button chip" data-filter="all" aria-pressed="true">All</button>
+          <button class="button chip" data-filter="events" aria-pressed="false">Events</button>
           <button class="button chip" data-filter="meeting" aria-pressed="false">Meetings</button>
           <button class="button chip" data-filter="professional-development" aria-pressed="false">Professional Developments</button>
           <button class="button chip" data-filter="volunteer" aria-pressed="false">Volunteer</button>
@@ -212,6 +213,54 @@
     // Initial pass
     markPastFromTime();
     updatePastVisibility();
+  })();
+</script>
+
+
+<script>
+  (function(){
+    const list = document.getElementById('eventsList');
+    const chips = document.querySelector('.filters .chips');
+    if(!list || !chips) return;
+
+    const evBtn = chips.querySelector('button[data-filter="events"]');
+    if(!evBtn) return;
+
+    // Helper: get tags from a card by reading badge-like elements or data attributes
+    function getTags(card){
+      const tags = new Set();
+      // Read data-tags attr if present
+      const dt = card.getAttribute('data-tags');
+      if (dt) dt.split(/[\s,]+/).forEach(t => t && tags.add(t.toLowerCase()));
+      // Read visible badges
+      card.querySelectorAll('.badge, .tag, [data-tag]').forEach(el => {
+        const t = (el.getAttribute('data-tag') || el.textContent || '').trim().toLowerCase();
+        if (t) tags.add(t);
+      });
+      return tags;
+    }
+
+    // Show/hide cards based on predicate
+    function filterCards(predicate){
+      const cards = list.querySelectorAll('.card, article');
+      cards.forEach(card => {
+        card.style.display = predicate(card) ? '' : 'none';
+      });
+    }
+
+    // When clicking "Events", filter for workshop OR convention (including 'event' if present)
+    evBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+
+      // Set pressed states to mimic other chips
+      chips.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b === evBtn)));
+      // Apply custom filter
+      filterCards(card => {
+        const t = getTags(card);
+        return t.has('workshop') || t.has('convention') || t.has('event') || t.has('events');
+      });
+    }, true);
   })();
 </script>
 
