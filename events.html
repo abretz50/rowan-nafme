@@ -382,7 +382,7 @@
     function getBtnLabel(ev){
       const tags = new Set((ev.tagSlugs || []).map(String));
       if (tags.has('volunteer')) return 'Sign up';
-      if (tags.has('performance') || tags.has('performances')) return 'Tickets';
+       if (tags.has('performance') || tags.has('performances')) return 'Tickets';
       if (tags.has('event') || tags.has('events') || tags.has('professional-development')) return 'Check in';
       return 'Attendance';
     }
@@ -490,17 +490,31 @@ document.addEventListener('click', (e) => {
     }
 
     function matchesFilters(card){
-      if(activeFilters.size === 0) return true;
-      const tags = (card.getAttribute('data-tags')||'').split(/\s+/);
-      function tagMatches(filter){
-        if(filter === 'events') return tags.includes('workshop') || tags.includes('convention') || tags.includes('event') || tags.includes('events');
-        return tags.includes(filter);
-	if (filter === 'performance') {
-      return tags.includes('performance') || tags.includes('performances');
-      }
-      for(const f of activeFilters) if(tagMatches(f)) return true;
-      return false;
+  if (activeFilters.size === 0) return true;
+
+  const tags = (card.getAttribute('data-tags') || '').split(/\s+/);
+
+  function tagMatches(filter){
+    if (filter === 'events') {
+      return (
+        tags.includes('workshop') ||
+        tags.includes('convention') ||
+        tags.includes('event') ||
+        tags.includes('events')
+      );
     }
+    if (filter === 'performance') {
+      return tags.includes('performance') || tags.includes('performances');
+    }
+    return tags.includes(filter);
+  }
+
+  for (const f of activeFilters) {
+    if (tagMatches(f)) return true;
+  }
+  return false;
+}
+
 
     function applyFilters(){
       const cards = Array.from(listEl.querySelectorAll('.card'));
