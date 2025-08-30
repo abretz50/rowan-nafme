@@ -20,55 +20,23 @@
       display:block; width:100%; aspect-ratio:16/9; object-fit:cover;
       border-radius:12px;
     }
-    .card.people-card p:last-child{ margin-top:auto; }
+    .card.people-card p:last-child{ margin-top:auto; } /* pin “Click to read bio.” */
     .people-card .subtle a{ color:inherit; text-decoration:underline; }
     .section{ overflow:visible; }
+    
+/* E-Board ONLY: Title row with small round photo (reuse .contact-photo from Resources) */
+.modal .title-row{
+  display:flex; align-items:center; gap:12px;
+}
 
-    /* E-Board ONLY: Title row with small round photo (reuse .contact-photo from Resources) */
-    .modal .title-row{
-      display:flex; align-items:center; gap:12px;
-    }
-    .modal .meta-line{ color: var(--muted); margin: 0 0 .5rem; }
-    .modal .meta-line a{ color: inherit; text-decoration: underline; }
-    .grid.people-grid .card.people-card h3.kicker{ margin: 0 0 4px 0; font-size: .95rem; font-weight: 600; }
-    .grid.people-grid .card.people-card h4.person-name{ margin: 0 0 4px 0; font-size: 1.1rem; }
+/* E-Board ONLY: meta line under title */
+.modal .meta-line{ color: var(--muted); margin: 0 0 .5rem; }
+.modal .meta-line a{ color: inherit; text-decoration: underline; }
 
-    /* ===== Centered modals ONLY for this E-Board page ===== */
-    body:has(.section #officers-heading) .modal .modal-content {
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    body:has(.section #officers-heading) .modal .modal-header {
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-
-    body:has(.section #officers-heading) .modal .title-row {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    body:has(.section #officers-heading) .modal .title-row img.contact-photo {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    body:has(.section #officers-heading) .modal .modal-title {
-      margin-top: 0.5rem;
-      font-size: 1.3rem;
-    }
-
-    body:has(.section #officers-heading) .modal .meta-line {
-      text-align: center;
-    }
-  </style>
+/* E-Board ONLY: maintain card spacing after heading-type swap */
+.grid.people-grid .card.people-card h3.kicker{ margin: 0 0 4px 0; font-size: .95rem; font-weight: 600; }
+.grid.people-grid .card.people-card h4.person-name{ margin: 0 0 4px 0; font-size: 1.1rem; }
+</style>
 </head>
 <body>
   <nav class="site-nav"></nav>
@@ -158,29 +126,101 @@
     </section>
   </main>
 
-  <!-- ======= Officer Modals ======= -->
-  <!-- (all modals stay the same structure, only CSS centers them) -->
+  <!-- ======= Officer Modals (same style as Resources page) ======= -->
 
   <!-- Min Hwang -->
   <div class="modal" id="modal-min-hwang" role="dialog" aria-modal="true" aria-labelledby="modal-min-hwang-title" hidden>
     <div class="modal-overlay" data-close="True"></div>
     <div class="modal-content">
       <div class="modal-header">
-        <div class="title-row"><img class="contact-photo" src="/images/eboard/min-hwang.jpg" alt="Headshot of Min Hwang" loading="lazy" /><h3 class="modal-title" id="modal-min-hwang-title">Min Hwang</h3></div>
-        <button class="close-btn" data-close="True" aria-label="Close">✕</button>
-      </div>
+<div class="title-row"><img class="contact-photo" src="/images/eboard/min-hwang.jpg" alt="Headshot of Min Hwang" loading="lazy" /><h3 class="modal-title" id="modal-min-hwang-title">Min Hwang</h3></div>
+<button class="close-btn" data-close="True" aria-label="Close">✕</button>
+</div>
       <section>
         <p class="meta-line"><span class="role">President</span> <span aria-hidden="true">|</span> <a href="mailto:hwangm14@students.rowan.edu">hwangm14@students.rowan.edu</a></p>
-        <p>Hi! My name is Min Hwang and I am your Rowan NAfME President...</p>
+<p>Hi! My name is Min Hwang and I am your Rowan NAfME President. I am currently in my third year at Rowan and I double major in Music Education and Psychology. My primary instrument is the violin but I've marched 4 years of mellophone and am now one of the Rowan University Marching Band drum majors. In my free time I like to play volleyball or go running. This year, I'm excited to empower other music majors into becoming excellent educators.</p>
       </section>
     </div>
   </div>
 
-  <!-- (Cameron, Jessenia, Makayli, Emilee, Adam modals unchanged except CSS will handle centering) -->
+  <!-- Cameron Hyson -->
+  <div class="modal" id="modal-cameron-hyson" role="dialog" aria-modal="true" aria-labelledby="modal-cameron-hyson-title" hidden>
+    <div class="modal-overlay" data-close="True"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+<div class="title-row"><img class="contact-photo" src="/images/eboard/cameron-hyson.jpg" alt="Headshot of Cameron Hyson" loading="lazy" /><h3 class="modal-title" id="modal-cameron-hyson-title">Cameron Hyson</h3></div>
+<button class="close-btn" data-close="True" aria-label="Close">✕</button>
+</div>
+      <section>
+        <p class="meta-line"><span class="role">Vice President</span> <span aria-hidden="true">|</span> <a href="mailto:hysonc84@rowan.edu">hysonc84@rowan.edu</a></p>
+<p>Cameron Hyson is a tenor II from Millville, New Jersey. He is a Music Education major working to become a great educator. He has been teaching within church ministries his entire life, and is currently involved in the Rowan Concert Choir, the American Choral Directors Association, and much more. As NAfME vice president, Cameron is always free to talk about questions or concerns regarding events, PD’s, or general meetings.</p>
+      </section>
+    </div>
+  </div>
+
+  <!-- Jessenia Zavala -->
+  <div class="modal" id="modal-jessenia-zavala" role="dialog" aria-modal="true" aria-labelledby="modal-jessenia-zavala-title" hidden>
+    <div class="modal-overlay" data-close="True"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+<div class="title-row"><img class="contact-photo" src="/images/eboard/jessenia-zavala.jpg" alt="Headshot of Jessenia Zavala" loading="lazy" /><h3 class="modal-title" id="modal-jessenia-zavala-title">Jessenia Zavala</h3></div>
+<button class="close-btn" data-close="True" aria-label="Close">✕</button>
+</div>
+      <section>
+        <p class="meta-line"><span class="role">Treasurer</span> <span aria-hidden="true">|</span> <a href="mailto:zavala34@students.rowan.edu">zavala34@students.rowan.edu</a></p>
+<p>Jessenia Zavala is a junior Vocal Music Education major at Rowan University and is excited to be serving as Treasurer for NAfME this year! In this role, she will oversee the club’s finances, help plan fundraisers and bake sales, and work with the e-board to lead engaging, interactive meetings for members. Jessenia also serves as Treasurer for ACDA, is a proud member of Tri Alpha, sings with Concert Choir, and studies voice with Professor Marian Stieber. She has previously performed with Rowan’s Opera Company, appearing as the Sandman in <em>Hansel and Gretel</em> and performing in the Fall Opera Scenes. Jessenia has also performed in several productions at Ocean County College, including <em>All Shook Up</em>, <em>Kiss Me, Kate</em>, and <em>Broadway for the Holidays 2 &amp; 3</em>.</p>
+      </section>
+    </div>
+  </div>
+
+  <!-- Makayli Matias -->
+  <div class="modal" id="modal-makayli-matias" role="dialog" aria-modal="true" aria-labelledby="modal-makayli-matias-title" hidden>
+    <div class="modal-overlay" data-close="True"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+<div class="title-row"><img class="contact-photo" src="/images/eboard/makayli-matias.jpg" alt="Headshot of Makayli Matias" loading="lazy" /><h3 class="modal-title" id="modal-makayli-matias-title">Makayli Matias</h3></div>
+<button class="close-btn" data-close="True" aria-label="Close">✕</button>
+</div>
+      <section>
+        <p class="meta-line"><span class="role">Secretary</span> <span aria-hidden="true">|</span> <a href="mailto:matias85@rowan.edu">matias85@rowan.edu</a></p>
+<p>Makayli Matias is a sophomore studying Vocal Music Education. She is thrilled to serve as Secretary for both Rowan’s NAfME and ACDA chapters this year, managing communication and tracking point totals for each organization. Makayli sings with both the Concert Choir and Voces ensemble and is also a member of Rowan’s Opera Company. Most recently, she was seen as the Dew Fairy in <em>Hansel and Gretel</em>. She looks forward to continuing to grow as a musician and leader through her involvement at Rowan.</p>
+      </section>
+    </div>
+  </div>
+
+  <!-- Emilee Townsley -->
+  <div class="modal" id="modal-emilee-townsley" role="dialog" aria-modal="true" aria-labelledby="modal-emilee-townsley-title" hidden>
+    <div class="modal-overlay" data-close="True"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+<div class="title-row"><img class="contact-photo" src="/images/eboard/emilee-townsley.jpg" alt="Headshot of Emilee Townsley" loading="lazy" /><h3 class="modal-title" id="modal-emilee-townsley-title">Emilee Townsley</h3></div>
+<button class="close-btn" data-close="True" aria-label="Close">✕</button>
+</div>
+      <section>
+        <p class="meta-line"><span class="role">Social Media Coordinator</span> <span aria-hidden="true">|</span> <a href="mailto:townsl72@students.rowan.edu">townsl72@students.rowan.edu</a></p>
+<p>Emilee Townsley is a music education major with a concentration in voice. Going into her senior year, she is thrilled to fulfill her role as social media coordinator for NAfME. In this position, she will keep NAfME social platforms updated with the latest news on meetings and events, both inside the chapter and beyond. In addition, she will co-manage the chapter’s website and stay in communication with neighboring collegiate chapters. Emilee is also involved in Rowan’s Concert Choir, Voces ensemble, and ACDA chapter.</p>
+      </section>
+    </div>
+  </div>
+
+  <!-- Adam Bretz -->
+  <div class="modal" id="modal-adam-bretz" role="dialog" aria-modal="true" aria-labelledby="modal-adam-bretz-title" hidden>
+    <div class="modal-overlay" data-close="True"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+<div class="title-row"><img class="contact-photo" src="/images/eboard/adam-bretz.jpg" alt="Headshot of Adam Bretz" loading="lazy" /><h3 class="modal-title" id="modal-adam-bretz-title">Adam Bretz</h3></div>
+<button class="close-btn" data-close="True" aria-label="Close">✕</button>
+</div>
+      <section>
+        <p class="meta-line"><span class="role">Senator</span> <span aria-hidden="true">|</span> <a href="mailto:bretza67@students.rowan.edu">bretza67@students.rowan.edu</a></p>
+<p>Adam is an Electrical &amp; Computer Engineering major with a minor in music (Organ Performance). In his role he attends Student Government meetings and represents the club's interests to the school. Aside from Adam's primary role, he also maintains the chapter's website.</p>
+      </section>
+    </div>
+  </div>
 
   <footer class="site-footer"></footer>
 
-  <!-- Modal controller -->
+  <!-- Modal controller (same as Resources page) -->
   <script>
   (() => {
     const body = document.body;
@@ -201,14 +241,16 @@
       body.style.overflow = '';
     };
 
+    // Open on card click (and let mailto links work)
     document.querySelectorAll('.card[data-modal]').forEach(card => {
       card.addEventListener('click', (e) => {
-        if (e.target.closest('a')) return;
+        if (e.target.closest('a')) return; // allow mailto without opening
         openById(card.getAttribute('data-modal'));
       });
       card.querySelectorAll('a').forEach(a => a.addEventListener('click', e => e.stopPropagation()));
     });
 
+    // Close on overlay or ✕
     document.querySelectorAll('.modal').forEach(m => {
       m.addEventListener('click', (e) => {
         if (e.target.classList.contains('modal-overlay')) closeModal(m);
@@ -216,6 +258,7 @@
       m.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', () => closeModal(m)));
     });
 
+    // ESC to close
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') document.querySelectorAll('.modal.open').forEach(closeModal);
     });
