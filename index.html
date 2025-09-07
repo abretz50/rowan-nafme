@@ -161,7 +161,11 @@
 #points .card li{ margin: .04rem 0 !important; line-height: 1.24; }
 
 
-  </style>
+  
+    /* Service buttons: side-by-side and responsive */
+    .btn-row{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:12px; }
+    .btn-row .btn{ white-space:nowrap; }
+</style>
 </head>
 <body>
   <nav class="site-nav"></nav>
@@ -264,32 +268,25 @@
     </section>
 
 
+
 <!-- Service: how we serve the community -->
 <section class="section" id="service">
   <div class="container">
     <h2>Service</h2>
     <p class="subtle">How NAfME serves our schools and campus community.</p>
 
-    <div class="card" style="grid-column: span 12; margin-top:12px;">
-      <p>Rowan NAfME supports regional music education by volunteering at <strong>band</strong>, <strong>string</strong>, and <strong>vocal</strong> festivals, assisting local K–12 programs, and providing hands-on help for <strong>campus events</strong></p>
-      <div style="margin-top:12px; text-align:center;">
-        <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdJhwNhmab0xuyOb0yrCuMUcwu0ytK5PNLOm7lRkkyMcMTBkA/viewform?usp=header" target="_blank" target="_blank" rel="noopener">
-          Request NAfME Volunteers for Your Event
-        </a>
-      <p>We also provide opportunities for members to <strong>test lesson plans</strong> in a supportive environment, gaining real experience in how to teach effectively. This helps our future music educators practice classroom strategies before stepping into the field. If you are interested in presenting a lesson plan, please complete this form:</p>
-<div style="margin-top:12px; text-align:center;">
-  <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLScuxi0f-retZpMKqLOUGWLHlJvdThdUS5k0i0Lf-B2eXzeb9w/viewform?usp=header" target="_blank" rel="noopener">
-    Submit a Lesson Plan for Testing
-  </a>
-  <p>We run <strong>peer tutoring</strong> and <strong>study groups</strong> for music majors who want extra support in theory, aural skills, conducting, music education coursework, and more. email us or contact an officer if you're interested!</p>
+    <article class="card" style="grid-column: span 12; margin-top:12px;">
+      <p>Rowan NAfME supports regional music education by volunteering at <strong>band</strong>, <strong>string</strong>, and <strong>vocal</strong> festivals, assisting local K–12 programs, and providing hands-on help for <strong>campus events</strong>.</p>
+      <p>We also provide opportunities for members to <strong>test lesson plans</strong> in a supportive environment and run <strong>peer tutoring</strong> and <strong>study groups</strong> for music majors who want extra support in theory, aural skills, conducting, music education coursework, and more.</p>
+
+      <div class="btn-row">
+        <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdJhwNhmab0xuyOb0yrCuMUcwu0ytK5PNLOm7lRkkyMcMTBkA/viewform?usp=header" target="_blank" rel="noopener">Request NAfME Volunteers for Your Event</a>
+        <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLScuxi0f-retZpMKqLOUGWLHlJvdThdUS5k0i0Lf-B2eXzeb9w/viewform?usp=header" target="_blank" rel="noopener">Submit a Lesson Plan for Testing</a>
       </div>
-    </div>
-
-    
-
-
+    </article>
   </div>
 </section>
+
 
 
     <section class="section" id="points">
