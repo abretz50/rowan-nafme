@@ -468,3 +468,17 @@ footer-col li { margin: .2rem 0; }
   .card { padding: 12px; gap: 8px; }
 }
 
+
+
+/* Generic embedded page frame (responsive height) */
+.embed-wrap{ margin-top: 14px; }
+.page-embed{
+  width: 100%;
+  height: clamp(720px, 90vh, 1200px);
+  border: 0;
+  border-radius: 12px;
+  background: #fff;
+}
+@media (max-width: 768px){
+  .page-embed{ height: max(900px, 95vh); }
+}
